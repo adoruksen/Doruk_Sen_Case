@@ -1,0 +1,103 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bab4c3eca7f034a3da8091da170b492c, type: 3}
+  m_Name: ConveyorPath_Level_001
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.LevelSystem.ConveyorPathData
+  gridWidth: 6
+  gridHeight: 6
+  roadStartNodeIndex: 0
+  roadEndNodeIndex: 10
+  nodes:
+  - nodeIndex: 0
+    extendedPosition: {x: 4, y: -2}
+    scanAxis: 1
+    isCorner: 0
+    isRoadStart: 1
+    isRoadEnd: 0
+    alignedGridIndices: 0400000005000000
+  - nodeIndex: 1
+    extendedPosition: {x: 0, y: -2}
+    scanAxis: 1
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 00000000010000000200000003000000
+  - nodeIndex: 2
+    extendedPosition: {x: -2, y: -2}
+    scanAxis: 0
+    isCorner: 1
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 
+  - nodeIndex: 3
+    extendedPosition: {x: -2, y: 0}
+    scanAxis: 2
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 00000000010000000200000003000000
+  - nodeIndex: 4
+    extendedPosition: {x: -2, y: 4}
+    scanAxis: 2
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 0400000005000000
+  - nodeIndex: 5
+    extendedPosition: {x: -2, y: 7}
+    scanAxis: 0
+    isCorner: 1
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 
+  - nodeIndex: 6
+    extendedPosition: {x: 0, y: 7}
+    scanAxis: 1
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 00000000010000000200000003000000
+  - nodeIndex: 7
+    extendedPosition: {x: 4, y: 7}
+    scanAxis: 1
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 0400000005000000
+  - nodeIndex: 8
+    extendedPosition: {x: 7, y: 7}
+    scanAxis: 0
+    isCorner: 1
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 
+  - nodeIndex: 9
+    extendedPosition: {x: 7, y: 4}
+    scanAxis: 2
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 0400000005000000
+  - nodeIndex: 10
+    extendedPosition: {x: 7, y: 0}
+    scanAxis: 2
+    isCorner: 0
+    isRoadStart: 0
+    isRoadEnd: 1
+    alignedGridIndices: 00000000010000000200000003000000
+  - nodeIndex: 11
+    extendedPosition: {x: 7, y: -2}
+    scanAxis: 0
+    isCorner: 1
+    isRoadStart: 0
+    isRoadEnd: 0
+    alignedGridIndices: 
