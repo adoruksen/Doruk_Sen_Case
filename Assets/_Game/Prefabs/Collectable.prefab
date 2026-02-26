@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 7740422224016128189}
   - component: {fileID: 7695864492040892153}
   - component: {fileID: 1222525592865102591}
-  - component: {fileID: 2944780892288274714}
+  - component: {fileID: 4452326964410657898}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 31321ba15b8f8eb4c954353edc038b1d, type: 2}
+  - {fileID: 2100000, guid: 86fb8e82787a24b6a92048e1bd4ed491, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -91,27 +91,22 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &2944780892288274714
-SphereCollider:
+--- !u!114 &4452326964410657898
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3655041837757690856}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00430fdf92f4246d7874fedb27a65c20, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.AdvancedMaterialSetter
+  targetRenderer: {fileID: 1222525592865102591}
+  bindings:
+  - propertyName: _BaseColor
+    type: 1
 --- !u!1 &5163723143303426473
 GameObject:
   m_ObjectHideFlags: 0
@@ -121,6 +116,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 78814980912757747}
+  - component: {fileID: 709726574473530941}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -144,6 +140,18 @@ Transform:
   - {fileID: 7740422224016128189}
   m_Father: {fileID: 5771716295289937737}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &709726574473530941
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5163723143303426473}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c43dda4cd6e64a288b0eb8aba905f57, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.ModelTeamColorUpdater
 --- !u!1 &8788617877961891517
 GameObject:
   m_ObjectHideFlags: 0
@@ -153,6 +161,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5771716295289937737}
+  - component: {fileID: 3321683222712547721}
   m_Layer: 0
   m_Name: Collectable
   m_TagString: Untagged
@@ -176,3 +185,15 @@ Transform:
   - {fileID: 78814980912757747}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3321683222712547721
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8788617877961891517}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 14b68ee5e02144e1b5f839cc07163082, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.BoxSystem.CollectableItemController

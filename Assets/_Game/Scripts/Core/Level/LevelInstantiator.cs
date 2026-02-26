@@ -193,8 +193,8 @@ namespace RubyCase.Core
 
         private static void ApplyTeam(GameObject go, Team team)
         {
-            var box = go.GetComponent<BoxController>();
-            box?.AssignTeam(team);
+            var item = go.GetComponent<IHaveTeam>();
+            item?.AssignTeam(team);
         }
     }
 }
