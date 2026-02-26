@@ -12,92 +12,65 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bab4c3eca7f034a3da8091da170b492c, type: 3}
   m_Name: ConveyorPath_Level_001
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.LevelSystem.ConveyorPathData
-  gridWidth: 6
-  gridHeight: 6
-  roadStartNodeIndex: 0
-  roadEndNodeIndex: 10
+  gridWidth: 3
+  gridHeight: 3
+  cellSize: 1
+  roadStartIndex: 0
+  roadEndIndex: 6
   nodes:
-  - nodeIndex: 0
-    extendedPosition: {x: 4, y: -2}
+  - index: 0
+    localPosition: {x: 1, y: -2}
     scanAxis: 1
+    alignedGridIndices: 000000000100000002000000
     isCorner: 0
     isRoadStart: 1
     isRoadEnd: 0
-    alignedGridIndices: 0400000005000000
-  - nodeIndex: 1
-    extendedPosition: {x: 0, y: -2}
-    scanAxis: 1
-    isCorner: 0
-    isRoadStart: 0
-    isRoadEnd: 0
-    alignedGridIndices: 00000000010000000200000003000000
-  - nodeIndex: 2
-    extendedPosition: {x: -2, y: -2}
+  - index: 1
+    localPosition: {x: -2, y: -2}
     scanAxis: 0
+    alignedGridIndices: 
     isCorner: 1
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 
-  - nodeIndex: 3
-    extendedPosition: {x: -2, y: 0}
+  - index: 2
+    localPosition: {x: -2, y: 1}
     scanAxis: 2
+    alignedGridIndices: 000000000100000002000000
     isCorner: 0
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 00000000010000000200000003000000
-  - nodeIndex: 4
-    extendedPosition: {x: -2, y: 4}
-    scanAxis: 2
-    isCorner: 0
-    isRoadStart: 0
-    isRoadEnd: 0
-    alignedGridIndices: 0400000005000000
-  - nodeIndex: 5
-    extendedPosition: {x: -2, y: 7}
+  - index: 3
+    localPosition: {x: -2, y: 4}
     scanAxis: 0
+    alignedGridIndices: 
     isCorner: 1
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 
-  - nodeIndex: 6
-    extendedPosition: {x: 0, y: 7}
+  - index: 4
+    localPosition: {x: 1, y: 4}
     scanAxis: 1
+    alignedGridIndices: 000000000100000002000000
     isCorner: 0
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 00000000010000000200000003000000
-  - nodeIndex: 7
-    extendedPosition: {x: 4, y: 7}
-    scanAxis: 1
-    isCorner: 0
-    isRoadStart: 0
-    isRoadEnd: 0
-    alignedGridIndices: 0400000005000000
-  - nodeIndex: 8
-    extendedPosition: {x: 7, y: 7}
+  - index: 5
+    localPosition: {x: 4, y: 4}
     scanAxis: 0
+    alignedGridIndices: 
     isCorner: 1
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 
-  - nodeIndex: 9
-    extendedPosition: {x: 7, y: 4}
+  - index: 6
+    localPosition: {x: 4, y: 1}
     scanAxis: 2
-    isCorner: 0
-    isRoadStart: 0
-    isRoadEnd: 0
-    alignedGridIndices: 0400000005000000
-  - nodeIndex: 10
-    extendedPosition: {x: 7, y: 0}
-    scanAxis: 2
+    alignedGridIndices: 000000000100000002000000
     isCorner: 0
     isRoadStart: 0
     isRoadEnd: 1
-    alignedGridIndices: 00000000010000000200000003000000
-  - nodeIndex: 11
-    extendedPosition: {x: 7, y: -2}
+  - index: 7
+    localPosition: {x: 4, y: -2}
     scanAxis: 0
+    alignedGridIndices: 
     isCorner: 1
     isRoadStart: 0
     isRoadEnd: 0
-    alignedGridIndices: 

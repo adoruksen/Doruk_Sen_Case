@@ -5,111 +5,174 @@ namespace RubyCase.LevelSystem
 {
     public static class ConveyorScanMapper
     {
-        private const int CellsPerNode = 4;
+        // Each conveyor node spans this many grid cells.
+        public const int CellsPerNode = 4;
+
+        // Offset in grid units between the grid edge and the conveyor node center.
+        // The conveyor sits 2 units outside the grid.
+        public const float ConveyorOffset = 2f;
+
+        // ---- Path Generation ------------------------------------------------
+        //
+        // Direction (matching spec):
+        //   Bottom edge : right  → left   (boxes enter here, Road Start = rightmost)
+        //   Left edge   : bottom → top
+        //   Top edge    : left   → right
+        //   Right edge  : top    → bottom (boxes exit here, Road End = bottommost)
+        //
+        // Node local positions are the center of each node's 4-cell span, expressed
+        // in grid units relative to grid origin (0,0) bottom-left.
+        //
+        // Conveyor center positions:
+        //   Bottom : y = -ConveyorOffset                     (below grid)
+        //   Left   : x = -ConveyorOffset                     (left of grid)
+        //   Top    : y =  gridHeight - 1 + ConveyorOffset    (above grid)
+        //   Right  : x =  gridWidth  - 1 + ConveyorOffset    (right of grid)
 
         public static ConveyorPathData GeneratePath(int gridW, int gridH)
         {
-            var data = ScriptableObject.CreateInstance<ConveyorPathData>();
+            var data   = ScriptableObject.CreateInstance<ConveyorPathData>();
             data.gridWidth  = gridW;
             data.gridHeight = gridH;
 
-            var nodes = new List<ConveyorNodeData>();
-            int idx = 0;
+            var nodes = new List<ConveyorNode>();
+            int idx   = 0;
 
             int hNodeCount = Mathf.CeilToInt(gridW / (float)CellsPerNode);
             int vNodeCount = Mathf.CeilToInt(gridH / (float)CellsPerNode);
-            
+
+            float bottomY = -ConveyorOffset;
+            float topY    = (gridH - 1) + ConveyorOffset;
+            float leftX   = -ConveyorOffset;
+            float rightX  = (gridW - 1) + ConveyorOffset;
+
+            // ---- Bottom edge: right → left ---------------------------------
             int roadStartIdx = idx;
             for (int n = hNodeCount - 1; n >= 0; n--)
             {
                 int startCol = n * CellsPerNode;
-                nodes.Add(BuildColumnNode(idx++, startCol, -2, gridW, isRoadStart: n == hNodeCount - 1));
+                int endCol   = Mathf.Min(startCol + CellsPerNode - 1, gridW - 1);
+                float centerX = (startCol + endCol) * 0.5f;
+
+                nodes.Add(new ConveyorNode
+                {
+                    index               = idx,
+                    localPosition       = new Vector2(centerX, bottomY),
+                    scanAxis            = ScanAxis.Column,
+                    alignedGridIndices  = BuildRange(startCol, endCol),
+                    isRoadStart         = n == hNodeCount - 1,
+                });
+                idx++;
             }
 
-            nodes.Add(BuildCorner(idx++, new Vector2Int(-2, -2)));
+            // ---- Bottom-left corner ----------------------------------------
+            nodes.Add(new ConveyorNode
+            {
+                index         = idx++,
+                localPosition = new Vector2(leftX, bottomY),
+                scanAxis      = ScanAxis.None,
+                isCorner      = true,
+            });
 
+            // ---- Left edge: bottom → top ------------------------------------
             for (int n = 0; n < vNodeCount; n++)
             {
                 int startRow = n * CellsPerNode;
-                nodes.Add(BuildRowNode(idx++, -2, startRow, gridH));
+                int endRow   = Mathf.Min(startRow + CellsPerNode - 1, gridH - 1);
+                float centerY = (startRow + endRow) * 0.5f;
+
+                nodes.Add(new ConveyorNode
+                {
+                    index              = idx++,
+                    localPosition      = new Vector2(leftX, centerY),
+                    scanAxis           = ScanAxis.Row,
+                    alignedGridIndices = BuildRange(startRow, endRow),
+                });
             }
 
-            nodes.Add(BuildCorner(idx++, new Vector2Int(-2, gridH + 1)));
+            // ---- Top-left corner -------------------------------------------
+            nodes.Add(new ConveyorNode
+            {
+                index         = idx++,
+                localPosition = new Vector2(leftX, topY),
+                scanAxis      = ScanAxis.None,
+                isCorner      = true,
+            });
 
+            // ---- Top edge: left → right -------------------------------------
             for (int n = 0; n < hNodeCount; n++)
             {
                 int startCol = n * CellsPerNode;
-                nodes.Add(BuildColumnNode(idx++, startCol, gridH + 1, gridW));
+                int endCol   = Mathf.Min(startCol + CellsPerNode - 1, gridW - 1);
+                float centerX = (startCol + endCol) * 0.5f;
+
+                nodes.Add(new ConveyorNode
+                {
+                    index              = idx++,
+                    localPosition      = new Vector2(centerX, topY),
+                    scanAxis           = ScanAxis.Column,
+                    alignedGridIndices = BuildRange(startCol, endCol),
+                });
             }
 
-            nodes.Add(BuildCorner(idx++, new Vector2Int(gridW + 1, gridH + 1)));
+            // ---- Top-right corner ------------------------------------------
+            nodes.Add(new ConveyorNode
+            {
+                index         = idx++,
+                localPosition = new Vector2(rightX, topY),
+                scanAxis      = ScanAxis.None,
+                isCorner      = true,
+            });
 
-            int roadEndIdx = idx;
+            // ---- Right edge: top → bottom -----------------------------------
+            int roadEndIdx = idx + vNodeCount - 1;
             for (int n = vNodeCount - 1; n >= 0; n--)
             {
                 int startRow = n * CellsPerNode;
-                nodes.Add(BuildRowNode(idx++, gridW + 1, startRow, gridH, isRoadEnd: n == 0));
-                if (n == 0) roadEndIdx = idx - 1;
+                int endRow   = Mathf.Min(startRow + CellsPerNode - 1, gridH - 1);
+                float centerY = (startRow + endRow) * 0.5f;
+                bool isEnd   = n == 0;
+
+                nodes.Add(new ConveyorNode
+                {
+                    index              = idx++,
+                    localPosition      = new Vector2(rightX, centerY),
+                    scanAxis           = ScanAxis.Row,
+                    alignedGridIndices = BuildRange(startRow, endRow),
+                    isRoadEnd          = isEnd,
+                });
             }
 
-            nodes.Add(BuildCorner(idx, new Vector2Int(gridW + 1, -2)));
+            // ---- Bottom-right corner (closes the loop) ---------------------
+            nodes.Add(new ConveyorNode
+            {
+                index         = idx,
+                localPosition = new Vector2(rightX, bottomY),
+                scanAxis      = ScanAxis.None,
+                isCorner      = true,
+            });
 
-            data.nodes = nodes;
-            data.roadStartNodeIndex = roadStartIdx;
-            data.roadEndNodeIndex = roadEndIdx;
+            data.nodes          = nodes;
+            data.roadStartIndex = roadStartIdx;
+            data.roadEndIndex   = roadEndIdx;
 
             return data;
         }
 
-        private static ConveyorNodeData BuildColumnNode(int idx, int startCol, int extY, int gridW, bool isRoadStart = false, bool isRoadEnd = false)
-        {
-            int endCol  = Mathf.Min(startCol + CellsPerNode - 1, gridW - 1);
-            var indices = new List<int>();
-            for (int c = startCol; c <= endCol; c++) indices.Add(c);
+        // ---- Runtime: get aligned collectable cells -------------------------
+        //
+        // Call this each time a box arrives at a new node.
+        // Returns filled collectable cells in the aligned columns/rows,
+        // ordered nearest-to-conveyor first so the box grabs the closest item.
 
-            return new ConveyorNodeData
-            {
-                nodeIndex = idx,
-                extendedPosition = new Vector2Int(startCol, extY),
-                scanAxis = ScanAxis.Column,
-                alignedGridIndices = indices,
-                isRoadStart = isRoadStart,
-                isRoadEnd = isRoadEnd,
-            };
-        }
-
-        private static ConveyorNodeData BuildRowNode(int idx, int extX, int startRow, int gridH, bool isRoadStart = false, bool isRoadEnd = false)
-        {
-            int endRow  = Mathf.Min(startRow + CellsPerNode - 1, gridH - 1);
-            var indices = new List<int>();
-            for (int r = startRow; r <= endRow; r++) indices.Add(r);
-
-            return new ConveyorNodeData
-            {
-                nodeIndex = idx,
-                extendedPosition = new Vector2Int(extX, startRow),
-                scanAxis = ScanAxis.Row,
-                alignedGridIndices = indices,
-                isRoadStart = isRoadStart,
-                isRoadEnd = isRoadEnd,
-            };
-        }
-
-        private static ConveyorNodeData BuildCorner(int idx, Vector2Int extPos)
-        {
-            return new ConveyorNodeData
-            {
-                nodeIndex = idx,
-                extendedPosition = extPos,
-                scanAxis = ScanAxis.None,
-                isCorner = true,
-            };
-        }
-
-        public static List<CollectableGridCellData> GetAlignedCells(ConveyorNodeData node, LevelData level)
+        public static List<CollectableGridCellData> GetAlignedCells(
+            ConveyorNode node,
+            LevelData    level)
         {
             var result = new List<CollectableGridCellData>();
-            if (node == null || node.isCorner) return result;
+
+            if (node == null || node.isCorner || node.scanAxis == ScanAxis.None)
+                return result;
 
             int w = level.collectableGridWidth;
             int h = level.collectableGridHeight;
@@ -119,46 +182,49 @@ namespace RubyCase.LevelSystem
                 if (node.scanAxis == ScanAxis.Column)
                 {
                     if (lineIdx < 0 || lineIdx >= w) continue;
-
-                    bool fromBottom = node.extendedPosition.y < 0;
-                    if (fromBottom)
-                        for (int y = 0; y < h; y++)
-                            AddIfFilled(result, level, lineIdx, y);
-                    else
-                        for (int y = h - 1; y >= 0; y--)
-                            AddIfFilled(result, level, lineIdx, y);
+                    bool fromBelow = node.localPosition.y < 0;
+                    if (fromBelow) for (int y = 0;     y < h;  y++) TryAdd(result, level, lineIdx, y);
+                    else           for (int y = h - 1; y >= 0; y--) TryAdd(result, level, lineIdx, y);
                 }
                 else
                 {
                     if (lineIdx < 0 || lineIdx >= h) continue;
-
-                    bool fromLeft = node.extendedPosition.x < 0;
-                    if (fromLeft)
-                        for (int x = 0; x < w; x++)
-                            AddIfFilled(result, level, x, lineIdx);
-                    else
-                        for (int x = w - 1; x >= 0; x--)
-                            AddIfFilled(result, level, x, lineIdx);
+                    bool fromLeft = node.localPosition.x < 0;
+                    if (fromLeft) for (int x = 0;     x < w;  x++) TryAdd(result, level, x, lineIdx);
+                    else          for (int x = w - 1; x >= 0; x--) TryAdd(result, level, x, lineIdx);
                 }
             }
 
             return result;
         }
 
-        private static void AddIfFilled(List<CollectableGridCellData> list, LevelData level, int x, int y)
+        // ---- Editor helpers -------------------------------------------------
+
+        // Convert canvas pixel cell (cx, cy) to localPosition for matching nodes in the path.
+        // Canvas has 2 border cells on each side (gap + conveyor).
+        // Returns the center local position of that canvas cell.
+        public static Vector2 CanvasCellToLocal(int cx, int cy, int gridH)
+        {
+            float lx = cx - 2f + 0.5f;
+            float ly = (gridH - 1) - (cy - 2f) + 0.5f;
+            return new Vector2(lx, ly);
+        }
+
+        // ---- Helpers --------------------------------------------------------
+
+        private static List<int> BuildRange(int from, int to)
+        {
+            var list = new List<int>();
+            for (int i = from; i <= to; i++) list.Add(i);
+            return list;
+        }
+
+        private static void TryAdd(
+            List<CollectableGridCellData> list,
+            LevelData level, int x, int y)
         {
             var cell = level.GetCollectableCell(x, y);
             if (cell != null && cell.isFilled) list.Add(cell);
-        }
-
-        public static Vector2Int CanvasToExtended(int canvasX, int canvasY, int gridH)
-        {
-            return new Vector2Int(canvasX - 2, (gridH + 1) - canvasY);
-        }
-
-        public static Vector2Int ExtendedToCanvas(Vector2Int ext, int gridH)
-        {
-            return new Vector2Int(ext.x + 2, (gridH + 1) - ext.y);
         }
     }
 }

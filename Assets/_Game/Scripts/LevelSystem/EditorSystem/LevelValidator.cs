@@ -54,7 +54,7 @@ namespace RubyCase.LevelSystem.Editor
         {
             if (level.conveyorPath == null)
             {
-                r.AddError("ConveyorPathData not assigned. Re-init the collectable grid.");
+                r.AddError("ConveyorPathData not generated. Re-init the collectable grid.");
                 return;
             }
 
@@ -86,16 +86,16 @@ namespace RubyCase.LevelSystem.Editor
             {
                 boxCapacity.TryGetValue(kv.Key, out int cap);
                 if (cap == 0)
-                    r.AddError($"Team '{kv.Key.name}': {kv.Value} collectables but no box assigned.");
+                    r.AddError($"Team '{kv.Key.name}': {kv.Value} collectables but no box.");
                 else if (cap < kv.Value)
-                    r.AddError($"Team '{kv.Key.name}': boxes hold {cap} but {kv.Value} collectables exist. Unsolvable.");
+                    r.AddError($"Team '{kv.Key.name}': boxes hold {cap}, need {kv.Value}. Unsolvable.");
                 else if (cap > kv.Value)
                     r.AddWarning($"Team '{kv.Key.name}': excess capacity {cap - kv.Value}.");
             }
 
             foreach (var kv in boxCapacity)
                 if (!collectableCount.ContainsKey(kv.Key))
-                    r.AddWarning($"Team '{kv.Key.name}': boxes placed but no matching collectables on grid.");
+                    r.AddWarning($"Team '{kv.Key.name}': box placed but no matching collectables.");
         }
 
         private static void CheckBench(LevelData level, Result r)

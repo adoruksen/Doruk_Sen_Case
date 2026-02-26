@@ -4,7 +4,6 @@ namespace RubyCase.LevelSystem.Editor
     {
         public const string LevelsFolder     = "Assets/_Game/Scriptables/Levels/";
         public const string TeamDatabasePath = "Assets/_Game/Scriptables/TeamDatabase.asset";
-
-        public const float CellSize = 24f;
+        public const float  CellSize         = 24f;
     }
 }

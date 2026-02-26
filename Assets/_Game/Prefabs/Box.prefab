@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5049013172753207693}
-  - component: {fileID: 4490274836393828700}
+  - component: {fileID: 8911409418804882395}
   m_Layer: 0
   m_Name: Box
   m_TagString: Untagged
@@ -33,7 +33,7 @@ Transform:
   - {fileID: 8464476196025798170}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4490274836393828700
+--- !u!114 &8911409418804882395
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -42,7 +42,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 90300945691606998}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8d4711e36c6524e9ab12dfd3c06ff47f, type: 3}
+  m_Script: {fileID: 11500000, guid: a7156eaa9dba641a39bc265c7d4844d1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.BoxSystem.BoxController
 --- !u!1 &6016741180458937679
@@ -54,7 +54,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8464476196025798170}
-  - component: {fileID: 4908210089098279051}
+  - component: {fileID: 3449453011909334834}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -78,7 +78,7 @@ Transform:
   - {fileID: 5103571676945927063}
   m_Father: {fileID: 5049013172753207693}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4908210089098279051
+--- !u!114 &3449453011909334834
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,7 +87,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 6016741180458937679}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: eb619e624011a4a2198030e751386290, type: 3}
+  m_Script: {fileID: 11500000, guid: 4c43dda4cd6e64a288b0eb8aba905f57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.ModelTeamColorUpdater
 --- !u!1 &8101613309190064296
@@ -101,7 +101,7 @@ GameObject:
   - component: {fileID: 5103571676945927063}
   - component: {fileID: 9206244995113696467}
   - component: {fileID: 165076402883648560}
-  - component: {fileID: 4913528423109357280}
+  - component: {fileID: 2463924756864075949}
   m_Layer: 0
   m_Name: Cube
   m_TagString: Untagged
@@ -119,7 +119,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 3, y: 1, z: 3}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 8464476196025798170}
@@ -181,7 +181,7 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &4913528423109357280
+--- !u!114 &2463924756864075949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -190,7 +190,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8101613309190064296}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 838accedc3ac046dca1ac0465328a7c4, type: 3}
+  m_Script: {fileID: 11500000, guid: 00430fdf92f4246d7874fedb27a65c20, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.AdvancedMaterialSetter
   targetRenderer: {fileID: 165076402883648560}

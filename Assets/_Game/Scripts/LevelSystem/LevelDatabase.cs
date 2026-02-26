@@ -7,8 +7,6 @@ namespace RubyCase.LevelSystem
     [CreateAssetMenu(fileName = "LevelDatabase", menuName = "RubyCase/Level Database", order = -100)]
     public class LevelDatabase : ScriptableObject
     {
-        [Title("Levels")]
-        [InfoBox("Drag level assets here in play order.")]
         [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, ShowPaging = true, NumberOfItemsPerPage = 20)]
         [AssetsOnly]
         public List<LevelData> levels = new();

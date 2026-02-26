@@ -35,6 +35,8 @@ namespace RubyCase.LevelSystem
         [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
         public ConveyorPathData conveyorPath;
 
+        // ---- Grid init ------------------------------------------------------
+
         public void InitCollectableGrid()
         {
             collectableCells.Clear();
@@ -51,21 +53,22 @@ namespace RubyCase.LevelSystem
                     boxCells.Add(new BoxGridCellData(new Vector2Int(x, y)));
         }
 
+        // ---- Accessors ------------------------------------------------------
+
         public CollectableGridCellData GetCollectableCell(int x, int y) =>
             collectableCells.Find(c => c.position.x == x && c.position.y == y);
 
         public BoxGridCellData GetBoxCell(int x, int y) =>
             boxCells.Find(c => c.position.x == x && c.position.y == y);
 
+        // ---- Stats ----------------------------------------------------------
+
         [Title("Stats")]
-        [ShowInInspector, ReadOnly]
-        public int TotalCollectables => collectableCells.Count(c => c.isFilled);
+        [ShowInInspector, ReadOnly] public int TotalCollectables => collectableCells.Count(c => c.isFilled);
+        [ShowInInspector, ReadOnly] public int TotalBoxes        => boxCells.Count(c => c.isFilled);
+        [ShowInInspector, ReadOnly] public int ConveyorNodes     => conveyorPath?.NodeCount ?? 0;
 
-        [ShowInInspector, ReadOnly]
-        public int TotalBoxes => boxCells.Count(c => c.isFilled);
-
-        [ShowInInspector, ReadOnly]
-        public int ConveyorNodes => conveyorPath != null ? conveyorPath.NodeCount : 0;
+        // ---- Validate -------------------------------------------------------
 
         [Button("Validate Level"), PropertyOrder(100)]
         private void ValidateLevel()
