@@ -1,0 +1,38 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ba8fb25ba1c04729aad29ab52c763f8, type: 3}
+  m_Name: AddressableGroupConfig
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.Core.AddressableGroupConfig
+  CollectablePrefab:
+    m_AssetGUID: 7677804eeee64401c90be3eb96a73d3c
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
+  BoxPrefab:
+    m_AssetGUID: 90294c59a83274d47952a6eca52a24c8
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
+  ConveyorNodePrefab:
+    m_AssetGUID: c8a1f5a5296434e87a30662c256622e3
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1
+  GridCellPrefab:
+    m_AssetGUID: e51b2125185f74199af23f482e45b5eb
+    m_SubObjectName: 
+    m_SubObjectType: 
+    m_SubObjectGUID: 
+    m_EditorAssetChanged: 1

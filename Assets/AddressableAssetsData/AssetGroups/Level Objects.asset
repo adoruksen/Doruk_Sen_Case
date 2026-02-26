@@ -1,0 +1,47 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bbb281ee3bf0b054c82ac2347e9e782c, type: 3}
+  m_Name: Level Objects
+  m_EditorClassIdentifier: Unity.Addressables.Editor::UnityEditor.AddressableAssets.Settings.AddressableAssetGroup
+  m_GroupName: Level Objects
+  m_GUID: b3005023f8d274fc18d34c40ef8434cb
+  m_SerializeEntries:
+  - m_GUID: 7677804eeee64401c90be3eb96a73d3c
+    m_Address: Assets/_Game/Prefabs/Collectable.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 90294c59a83274d47952a6eca52a24c8
+    m_Address: Assets/_Game/Prefabs/Box.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: c8a1f5a5296434e87a30662c256622e3
+    m_Address: Assets/_Game/Prefabs/ConveyorPart.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: e51b2125185f74199af23f482e45b5eb
+    m_Address: Assets/_Game/Prefabs/Grid.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels:
+    - Prefab
+    FlaggedDuringContentUpdateRestriction: 0
+  m_ReadOnly: 0
+  m_Settings: {fileID: 11400000, guid: 2011bd55369124ef7af839213ca5a347, type: 2}
+  m_SchemaSet:
+    m_Schemas:
+    - {fileID: 11400000, guid: 065e116b9547646f9a96d86d81414c43, type: 2}
+    - {fileID: 11400000, guid: 4a3469a842246457abea1ec75e847fee, type: 2}
