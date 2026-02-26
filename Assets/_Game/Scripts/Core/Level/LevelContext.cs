@@ -30,29 +30,21 @@ namespace RubyCase.Core
         private readonly List<GameObject> _conveyorNodes = new();
         private readonly List<GameObject> _benches = new();
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
-        public List<GameObject> Collectables => _collectables;
+        [ShowInInspector, ReadOnly] public List<GameObject> Collectables => _collectables;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
-        public List<GameObject> Boxes => _boxes;
+        [ShowInInspector, ReadOnly] public List<GameObject> Boxes => _boxes;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
-        public List<GameObject> ConveyorNodes => _conveyorNodes;
+        [ShowInInspector, ReadOnly] public List<GameObject> ConveyorNodes => _conveyorNodes;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
-        public List<GameObject> Benches => _benches;
+        [ShowInInspector, ReadOnly] public List<GameObject> Benches => _benches;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
-        public int CollectablesCount => _collectables.Count;
+        [ShowInInspector, ReadOnly] public int CollectablesCount => _collectables.Count;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
-        public int BoxesCount => _boxes.Count;
+        [ShowInInspector, ReadOnly] public int BoxesCount => _boxes.Count;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
-        public int ConveyorNodesCount => _conveyorNodes.Count;
+        [ShowInInspector, ReadOnly] public int ConveyorNodesCount => _conveyorNodes.Count;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
-        public int BenchesCount => _benches.Count;
+        [ShowInInspector, ReadOnly] public int BenchesCount => _benches.Count;
 
         public void Initialize(LevelData data)
         {

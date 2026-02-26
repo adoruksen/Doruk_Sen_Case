@@ -197,9 +197,4 @@ namespace RubyCase.Core
             box?.AssignTeam(team);
         }
     }
-
-    public interface ILevelInstantiator
-    {
-        void ReleaseAll();
-    }
 }
