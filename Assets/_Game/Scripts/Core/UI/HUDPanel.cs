@@ -11,13 +11,7 @@ namespace RubyCase.UI
         public void SetLevelDisplay(int levelIndex)
         {
             if (levelLabel != null)
-                levelLabel.text = $"Level {(levelIndex % 100) + 1}";
-        }
-
-        public void UpdateCollectableCount(int remaining)
-        {
-            if (collectableCountLabel != null)
-                collectableCountLabel.text = remaining.ToString();
+                levelLabel.text = $"Level {levelIndex + 1}";
         }
     }
 }

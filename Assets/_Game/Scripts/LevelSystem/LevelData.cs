@@ -13,62 +13,49 @@ namespace RubyCase.LevelSystem
     [CreateAssetMenu(fileName = "Level_001", menuName = "RubyCase/Level Data")]
     public class LevelData : ScriptableObject
     {
-        [Title("Level Settings")]
-        public int levelID;
+        [Title("Level Settings")] public int levelID;
         public int benchCapacity = 4;
 
-        [Title("Collectable Grid")]
-        public int collectableGridWidth  = 6;
+        [Title("Collectable Grid")] public int collectableGridWidth = 6;
         public int collectableGridHeight = 6;
 
-        [HideInInspector]
-        public List<CollectableGridCellData> collectableCells = new();
+        [HideInInspector] public List<CollectableGridCellData> collectableCells = new();
 
-        [Title("Box Grid")]
-        public int boxGridWidth  = 6;
-        public int boxGridHeight = 2;
+        [Title("Box Grid")] public int boxGridWidth = 3;
+        public int boxGridHeight = 4;
 
-        [HideInInspector]
-        public List<BoxGridCellData> boxCells = new();
+        [HideInInspector] public List<BoxGridCellData> boxCells = new();
 
-        [Title("Conveyor")]
-        [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
+        [Title("Conveyor")] [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
         public ConveyorPathData conveyorPath;
-
-        // ---- Grid init ------------------------------------------------------
 
         public void InitCollectableGrid()
         {
             collectableCells.Clear();
             for (int y = 0; y < collectableGridHeight; y++)
-                for (int x = 0; x < collectableGridWidth; x++)
-                    collectableCells.Add(new CollectableGridCellData(new Vector2Int(x, y)));
+            for (int x = 0; x < collectableGridWidth; x++)
+                collectableCells.Add(new CollectableGridCellData(new Vector2Int(x, y)));
         }
 
         public void InitBoxGrid()
         {
             boxCells.Clear();
             for (int y = 0; y < boxGridHeight; y++)
-                for (int x = 0; x < boxGridWidth; x++)
-                    boxCells.Add(new BoxGridCellData(new Vector2Int(x, y)));
+            for (int x = 0; x < boxGridWidth; x++)
+                boxCells.Add(new BoxGridCellData(new Vector2Int(x, y)));
         }
-
-        // ---- Accessors ------------------------------------------------------
 
         public CollectableGridCellData GetCollectableCell(int x, int y) =>
             collectableCells.Find(c => c.position.x == x && c.position.y == y);
 
-        public BoxGridCellData GetBoxCell(int x, int y) =>
-            boxCells.Find(c => c.position.x == x && c.position.y == y);
-
-        // ---- Stats ----------------------------------------------------------
+        public BoxGridCellData GetBoxCell(int x, int y) => boxCells.Find(c => c.position.x == x && c.position.y == y);
 
         [Title("Stats")]
-        [ShowInInspector, ReadOnly] public int TotalCollectables => collectableCells.Count(c => c.isFilled);
-        [ShowInInspector, ReadOnly] public int TotalBoxes        => boxCells.Count(c => c.isFilled);
-        [ShowInInspector, ReadOnly] public int ConveyorNodes     => conveyorPath?.NodeCount ?? 0;
+        [ShowInInspector, ReadOnly]
+        public int TotalCollectables => collectableCells.Count(c => c.isFilled);
 
-        // ---- Validate -------------------------------------------------------
+        [ShowInInspector, ReadOnly] public int TotalBoxes => boxCells.Count(c => c.isFilled);
+        [ShowInInspector, ReadOnly] public int ConveyorNodes => conveyorPath?.NodeCount ?? 0;
 
         [Button("Validate Level"), PropertyOrder(100)]
         private void ValidateLevel()

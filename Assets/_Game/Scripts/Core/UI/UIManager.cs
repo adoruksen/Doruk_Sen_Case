@@ -7,12 +7,12 @@ namespace RubyCase.UI
 {
     public class UIManager : MonoBehaviour, IUIManager
     {
-        [SerializeField] private UIPanel            _loadingPanel;
-        [SerializeField] private HUDPanel           _hudPanel;
-        [SerializeField] private LevelCompletePanel _levelCompletePanel;
-        [SerializeField] private LevelFailPanel     _levelFailPanel;
+        [SerializeField] private UIPanel loadingPanel;
+        [SerializeField] private HUDPanel hudPanel;
+        [SerializeField] private LevelCompletePanel levelCompletePanel;
+        [SerializeField] private LevelFailPanel levelFailPanel;
 
-        [Inject] private GameSettings  _settings;
+        [Inject] private GameSettings _settings;
         [Inject] private ILevelManager _levelManager;
 
         private UIPanel _active;
@@ -23,7 +23,7 @@ namespace RubyCase.UI
             if (target == null) return;
 
             if (state == GameState.Playing)
-                _hudPanel.SetLevelDisplay(_levelManager.CurrentIndex);
+                hudPanel.SetLevelDisplay(_levelManager.CurrentIndex);
 
             _active = target;
             await target.ShowAsync(_settings.PanelFadeDuration);
@@ -38,11 +38,11 @@ namespace RubyCase.UI
 
         private UIPanel PanelFor(GameState state) => state switch
         {
-            GameState.Loading       => _loadingPanel,
-            GameState.Playing       => _hudPanel,
-            GameState.LevelComplete => _levelCompletePanel,
-            GameState.LevelFail     => _levelFailPanel,
-            _                       => null,
+            GameState.Loading => loadingPanel,
+            GameState.Playing => hudPanel,
+            GameState.LevelComplete => levelCompletePanel,
+            GameState.LevelFail => levelFailPanel,
+            _ => null,
         };
     }
 }

@@ -7,12 +7,12 @@ namespace RubyCase.LevelSystem
     [CreateAssetMenu(fileName = "LevelDatabase", menuName = "RubyCase/Level Database", order = -100)]
     public class LevelDatabase : ScriptableObject
     {
-        [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, ShowPaging = true, NumberOfItemsPerPage = 20)]
+        [ListDrawerSettings(ShowIndexLabels = true, DraggableItems = true, ShowPaging = true,
+            NumberOfItemsPerPage = 20)]
         [AssetsOnly]
         public List<LevelData> levels = new();
 
-        [ShowInInspector, ReadOnly]
-        public int TotalLevels => levels?.Count ?? 0;
+        [ShowInInspector, ReadOnly] public int TotalLevels => levels?.Count ?? 0;
 
         public LevelData GetLevel(int index)
         {

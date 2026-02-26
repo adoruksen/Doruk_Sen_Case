@@ -9,10 +9,6 @@ namespace RubyCase.LevelSystem
     {
         [BoxGroup("Grid Info"), ReadOnly] public int gridWidth;
         [BoxGroup("Grid Info"), ReadOnly] public int gridHeight;
-
-        // Physical size of one grid cell in world units.
-        // Set this to match your scene's grid cell size.
-        // Used at runtime to convert localPosition → worldPosition.
         [BoxGroup("Grid Info")] public float cellSize = 1f;
 
         [BoxGroup("Path Info"), ReadOnly] public int roadStartIndex;
@@ -20,9 +16,6 @@ namespace RubyCase.LevelSystem
 
         [ListDrawerSettings(IsReadOnly = true, ShowIndexLabels = true)]
         public List<ConveyorNode> nodes = new();
-
-        // ---- Accessors -------------------------------------------------------
-
         public int NodeCount => nodes.Count;
 
         public ConveyorNode GetNode(int index)

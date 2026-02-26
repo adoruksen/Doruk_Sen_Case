@@ -3,7 +3,8 @@ using System.Linq;
 using UnityEngine;
 
 namespace RubyCase.Core
-{    public sealed class LevelSession : ILevelSession
+{
+    public sealed class LevelSession : ILevelSession
     {
         public int LevelIndex { get; }
         public bool IsCompleted { get; private set; }

@@ -2,7 +2,7 @@ using System;
 using UnityEngine;
 
 namespace RubyCase.Core
-{
+{ 
     public interface ICollectableManager
     {
         int Total { get; }

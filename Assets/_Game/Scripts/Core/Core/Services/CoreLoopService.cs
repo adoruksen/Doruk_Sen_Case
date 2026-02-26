@@ -60,6 +60,6 @@ namespace RubyCase.Core
         }
 
         private void OnSessionCompleted() => _game.NotifyLevelComplete();
-        private void OnSessionFailed()    => _game.NotifyLevelFail();
+        private void OnSessionFailed() => _game.NotifyLevelFail();
     }
 }

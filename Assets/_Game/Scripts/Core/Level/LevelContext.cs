@@ -7,7 +7,7 @@ namespace RubyCase.Core
 {
     public sealed class LevelContext : MonoBehaviour
     {
-        [ShowInInspector, ReadOnly] 
+        [ShowInInspector, ReadOnly]
         public LevelData Data { get; private set; }
 
         [ShowInInspector, ReadOnly]
@@ -22,9 +22,13 @@ namespace RubyCase.Core
         [ShowInInspector, ReadOnly, FoldoutGroup("Hierarchy")]
         public Transform ConveyorNodesRoot { get; private set; }
 
+        [ShowInInspector, ReadOnly, FoldoutGroup("Hierarchy")]
+        public Transform BenchesRoot { get; private set; }
+
         private readonly List<GameObject> _collectables = new();
         private readonly List<GameObject> _boxes = new();
         private readonly List<GameObject> _conveyorNodes = new();
+        private readonly List<GameObject> _benches = new();
 
         [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
         public List<GameObject> Collectables => _collectables;
@@ -35,6 +39,9 @@ namespace RubyCase.Core
         [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
         public List<GameObject> ConveyorNodes => _conveyorNodes;
 
+        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime"), ListDrawerSettings(Expanded = true, DraggableItems = false, HideAddButton = true, HideRemoveButton = true)]
+        public List<GameObject> Benches => _benches;
+
         [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
         public int CollectablesCount => _collectables.Count;
 
@@ -44,6 +51,9 @@ namespace RubyCase.Core
         [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
         public int ConveyorNodesCount => _conveyorNodes.Count;
 
+        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
+        public int BenchesCount => _benches.Count;
+
         public void Initialize(LevelData data)
         {
             Data = data;
@@ -52,11 +62,13 @@ namespace RubyCase.Core
             CollectablesRoot = EnsureChild("Collectables");
             BoxesRoot = EnsureChild("Boxes");
             ConveyorNodesRoot = EnsureChild("ConveyorNodes");
+            BenchesRoot = EnsureChild("Benches");
         }
 
         public void RegisterCollectable(GameObject go) => _collectables.Add(go);
         public void RegisterBox(GameObject go) => _boxes.Add(go);
         public void RegisterConveyorNode(GameObject go) => _conveyorNodes.Add(go);
+        public void RegisterBench(GameObject go) => _benches.Add(go);
         public void MarkReady() => IsReady = true;
 
         public void Clear()
@@ -67,10 +79,12 @@ namespace RubyCase.Core
             _collectables.Clear();
             _boxes.Clear();
             _conveyorNodes.Clear();
+            _benches.Clear();
 
             CollectablesRoot = null;
             BoxesRoot = null;
             ConveyorNodesRoot = null;
+            BenchesRoot = null;
         }
 
         private Transform EnsureChild(string name)

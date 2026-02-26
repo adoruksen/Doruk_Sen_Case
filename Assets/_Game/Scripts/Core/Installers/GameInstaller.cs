@@ -12,6 +12,7 @@ namespace RubyCase.Installers
         [SerializeField] private GameSettings gameSettings;
         [SerializeField] private LevelDatabase levelDatabase;
         [SerializeField] private AddressableGroupConfig addressableConfig;
+        [SerializeField] private LevelCreationSettings levelCreationSettings;
 
         [Header("Scene References")]
         [SerializeField] private UIManager uiManager;
@@ -22,30 +23,19 @@ namespace RubyCase.Installers
             Container.BindInstance(gameSettings).AsSingle();
             Container.BindInstance(levelDatabase).AsSingle();
             Container.BindInstance(addressableConfig).AsSingle();
+            Container.BindInstance(levelCreationSettings).AsSingle();
 
             Container.BindInterfacesTo<LevelManager>().AsSingle();
 
-            Container.BindInterfacesTo<LevelInstantiator>()
-                .AsSingle()
-                .NonLazy();
+            Container.BindInterfacesTo<LevelInstantiator>().AsSingle().NonLazy();
 
             Container.BindInterfacesTo<LevelSessionFactory>().AsSingle();
 
-            Container.BindInterfacesTo<CoreLoopService>()
-                .AsSingle()
-                .NonLazy();
+            Container.BindInterfacesTo<CoreLoopService>().AsSingle().NonLazy();
 
-            Container.BindInterfacesAndSelfTo<UIManager>()
-                .FromInstance(uiManager)
-                .AsSingle();
-
-            if (testManager != null)
-            {
-                Container.Bind<LevelTestManager>()
-                    .FromInstance(testManager)
-                    .AsSingle();
-            }
-
+            Container.BindInterfacesAndSelfTo<UIManager>().FromInstance(uiManager).AsSingle();
+            Container.Bind<LevelTestManager>().FromInstance(testManager).AsSingle();
+            
             Container.BindInterfacesTo<GameManager>().AsSingle();
         }
     }

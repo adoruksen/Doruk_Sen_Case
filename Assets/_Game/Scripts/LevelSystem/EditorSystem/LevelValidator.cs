@@ -8,17 +8,29 @@ namespace RubyCase.LevelSystem.Editor
         public sealed class Result
         {
             public bool IsValid = true;
-            public readonly List<string> Errors   = new();
+            public readonly List<string> Errors = new();
             public readonly List<string> Warnings = new();
 
-            internal void AddError(string msg)   { IsValid = false; Errors.Add(msg); }
-            internal void AddWarning(string msg) { Warnings.Add(msg); }
+            internal void AddError(string msg)
+            {
+                IsValid = false;
+                Errors.Add(msg);
+            }
+
+            internal void AddWarning(string msg)
+            {
+                Warnings.Add(msg);
+            }
         }
 
         public static Result Validate(LevelData level)
         {
             var r = new Result();
-            if (level == null) { r.AddError("LevelData is null."); return r; }
+            if (level == null)
+            {
+                r.AddError("LevelData is null.");
+                return r;
+            }
 
             CheckCollectableGrid(level, r);
             CheckBoxGrid(level, r);
@@ -45,7 +57,11 @@ namespace RubyCase.LevelSystem.Editor
 
             bool any = false;
             foreach (var c in level.boxCells)
-                if (c.isFilled) { any = true; break; }
+                if (c.isFilled)
+                {
+                    any = true;
+                    break;
+                }
 
             if (!any) r.AddError("Box grid has no boxes placed.");
         }

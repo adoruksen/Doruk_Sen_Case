@@ -7,16 +7,16 @@ namespace RubyCase.UI
 {
     public class LevelFailPanel : UIPanel
     {
-        [SerializeField] private Button _retryButton;
+        [SerializeField] private Button retryButton;
 
         [Inject] private LazyInject<IGameManager> _gameManager;
 
         protected override void Awake()
         {
             base.Awake();
-            _retryButton?.onClick.AddListener(() => _gameManager.Value.RestartLevel());
+            retryButton.onClick.AddListener(() => _gameManager.Value.RestartLevel());
         }
 
-        private void OnDestroy() => _retryButton?.onClick.RemoveAllListeners();
+        private void OnDestroy() => retryButton.onClick.RemoveAllListeners();
     }
 }

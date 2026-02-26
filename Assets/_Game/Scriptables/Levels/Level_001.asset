@@ -14,75 +14,156 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.LevelSystem.LevelData
   levelID: 1
   benchCapacity: 4
-  collectableGridWidth: 3
-  collectableGridHeight: 3
+  collectableGridWidth: 6
+  collectableGridHeight: 6
   collectableCells:
   - position: {x: 0, y: 0}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 1, y: 0}
     isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 0}
     isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 3, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 4, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 5, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
   - position: {x: 0, y: 1}
     isFilled: 1
     team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
   - position: {x: 1, y: 1}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 2, y: 1}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 3, y: 1}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 4, y: 1}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 5, y: 1}
     isFilled: 1
     team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-  - position: {x: 2, y: 1}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 0, y: 2}
     isFilled: 1
     team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
   - position: {x: 1, y: 2}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    isFilled: 0
+    team: {fileID: 0}
   - position: {x: 2, y: 2}
     isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 3, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 4, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 5, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 0, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 1, y: 3}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 2, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 3, y: 3}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 4, y: 3}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 5, y: 3}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 0, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 1, y: 4}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 2, y: 4}
+    isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 3, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 4, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 5, y: 4}
+    isFilled: 0
+    team: {fileID: 0}
+  - position: {x: 0, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+  - position: {x: 1, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 2, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 3, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 4, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - position: {x: 5, y: 5}
+    isFilled: 0
+    team: {fileID: 0}
   boxGridWidth: 4
   boxGridHeight: 4
   boxCells:
   - position: {x: 0, y: 0}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 0}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 0}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 0}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 0, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 0, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 2}
     isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
@@ -92,23 +173,23 @@ MonoBehaviour:
     team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
     capacityOverride: 4
   - position: {x: 3, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 0, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
-    capacityOverride: 0
+    isFilled: 1
+    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    capacityOverride: 4
   conveyorPath: {fileID: 11400000, guid: 2d0f7045e8245426b8946baf59c5e91a, type: 2}

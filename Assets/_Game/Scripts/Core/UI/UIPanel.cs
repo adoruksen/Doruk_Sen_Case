@@ -8,7 +8,7 @@ namespace RubyCase.UI
     public class UIPanel : MonoBehaviour
     {
         private CanvasGroup _group;
-        private Tween       _tween;
+        private Tween _tween;
 
         protected virtual void Awake()
         {
@@ -19,20 +19,20 @@ namespace RubyCase.UI
         public async UniTask ShowAsync(float duration)
         {
             _tween?.Kill();
-            _group.alpha          = 0f;
-            _group.interactable   = false;
+            _group.alpha = 0f;
+            _group.interactable = false;
             _group.blocksRaycasts = false;
 
             _group.DOFade(1f, duration).SetEase(Ease.OutQuad);
 
-            _group.interactable   = true;
+            _group.interactable = true;
             _group.blocksRaycasts = true;
         }
 
         public async UniTask HideAsync(float duration)
         {
             _tween?.Kill();
-            _group.interactable   = false;
+            _group.interactable = false;
             _group.blocksRaycasts = false;
 
             _group.DOFade(0f, duration).SetEase(Ease.InQuad);
@@ -41,8 +41,8 @@ namespace RubyCase.UI
         public void ForceHide()
         {
             _tween?.Kill();
-            _group.alpha          = 0f;
-            _group.interactable   = false;
+            _group.alpha = 0f;
+            _group.interactable = false;
             _group.blocksRaycasts = false;
         }
 

@@ -18,55 +18,55 @@ namespace RubyCase.LevelSystem.Editor
             win.Show();
         }
 
-        // ---- State machine --------------------------------------------------
+        private enum WindowState
+        {
+            NoLevel,
+            LevelLoaded
+        }
 
-        private enum WindowState { NoLevel, LevelLoaded }
         private WindowState _state = WindowState.NoLevel;
 
-        private LevelData       _level;
-        private TeamDatabase    _teamDb;
-        private int             _teamIndex;
+        private LevelData _level;
+        private TeamDatabase _teamDb;
+        private int _teamIndex;
         private EditorBrushType _brush = EditorBrushType.Collectable;
-        private int             _boxCap;
-        private Vector2         _scroll;
+        private int _boxCap;
+        private Vector2 _scroll;
 
-        // ---- Palette --------------------------------------------------------
-
-        private static readonly Color BgWindow        = new(0.13f, 0.13f, 0.15f);
-        private static readonly Color BgCanvasUpper   = new(0.09f, 0.09f, 0.11f);
-        private static readonly Color BgCanvasLower   = new(0.11f, 0.08f, 0.05f);
-        private static readonly Color CellEmpty       = new(0.20f, 0.20f, 0.23f);
-        private static readonly Color CellBoxEmpty    = new(0.22f, 0.17f, 0.12f);
-        private static readonly Color CellConveyor    = new(0.17f, 0.33f, 0.68f);
+        private static readonly Color BgWindow = new(0.13f, 0.13f, 0.15f);
+        private static readonly Color BgCanvasUpper = new(0.09f, 0.09f, 0.11f);
+        private static readonly Color BgCanvasLower = new(0.11f, 0.08f, 0.05f);
+        private static readonly Color CellEmpty = new(0.20f, 0.20f, 0.23f);
+        private static readonly Color CellBoxEmpty = new(0.22f, 0.17f, 0.12f);
+        private static readonly Color CellConveyor = new(0.17f, 0.33f, 0.68f);
         private static readonly Color CellConvAligned = new(0.20f, 0.44f, 0.88f);
-        private static readonly Color CellConvStart   = new(0.18f, 0.65f, 0.28f);
-        private static readonly Color CellConvEnd     = new(0.72f, 0.28f, 0.22f);
-        private static readonly Color CellGap         = new(0.11f, 0.11f, 0.13f);
-        private static readonly Color Outline         = new(0f,    0f,    0f,    0.55f);
-        private static readonly Color SepColor        = new(1f,    1f,    1f,    0.07f);
-        private static readonly Color BrushOn_C       = new(0.20f, 0.60f, 0.30f);
-        private static readonly Color BrushOn_B       = new(0.78f, 0.50f, 0.13f);
-        private static readonly Color BrushOn_X       = new(0.42f, 0.42f, 0.44f);
-        private static readonly Color BrushOff        = new(0.27f, 0.27f, 0.29f);
-
-        // ---- Lazy styles ----------------------------------------------------
-
+        private static readonly Color CellConvStart = new(0.18f, 0.65f, 0.28f);
+        private static readonly Color CellConvEnd = new(0.72f, 0.28f, 0.22f);
+        private static readonly Color CellGap = new(0.11f, 0.11f, 0.13f);
+        private static readonly Color Outline = new(0f, 0f, 0f, 0.55f);
+        private static readonly Color SepColor = new(1f, 1f, 1f, 0.07f);
+        private static readonly Color BrushOn_C = new(0.20f, 0.60f, 0.30f);
+        private static readonly Color BrushOn_B = new(0.78f, 0.50f, 0.13f);
+        private static readonly Color BrushOn_X = new(0.42f, 0.42f, 0.44f);
+        private static readonly Color BrushOff = new(0.27f, 0.27f, 0.29f);
         private GUIStyle _styleCenter;
         private GUIStyle _styleSmall;
         private GUIStyle _styleSection;
 
-        private GUIStyle StyleCenter  => _styleCenter  ??= new GUIStyle(EditorStyles.boldLabel)
-            { alignment = TextAnchor.MiddleCenter, fontSize = 9,
-              normal = { textColor = Color.white } };
+        private GUIStyle StyleCenter => _styleCenter ??= new GUIStyle(EditorStyles.boldLabel)
+        {
+            alignment = TextAnchor.MiddleCenter, fontSize = 9,
+            normal = { textColor = Color.white }
+        };
 
-        private GUIStyle StyleSmall   => _styleSmall   ??= new GUIStyle(EditorStyles.miniLabel)
-            { alignment = TextAnchor.MiddleCenter, fontSize = 7,
-              normal = { textColor = new Color(1f, 1f, 1f, 0.65f) } };
+        private GUIStyle StyleSmall => _styleSmall ??= new GUIStyle(EditorStyles.miniLabel)
+        {
+            alignment = TextAnchor.MiddleCenter, fontSize = 7,
+            normal = { textColor = new Color(1f, 1f, 1f, 0.65f) }
+        };
 
         private GUIStyle StyleSection => _styleSection ??= new GUIStyle(EditorStyles.boldLabel)
             { fontSize = 10, normal = { textColor = new Color(0.72f, 0.72f, 0.75f) } };
-
-        // ---- OnGUI ----------------------------------------------------------
 
         private void OnGUI()
         {
@@ -74,14 +74,10 @@ namespace RubyCase.LevelSystem.Editor
             _scroll = EditorGUILayout.BeginScrollView(_scroll);
 
             if (_state == WindowState.NoLevel) DrawNoLevel();
-            else                               DrawLevelLoaded();
+            else DrawLevelLoaded();
 
             EditorGUILayout.EndScrollView();
         }
-
-        // ====================================================================
-        // NO LEVEL
-        // ====================================================================
 
         private void DrawNoLevel()
         {
@@ -93,9 +89,9 @@ namespace RubyCase.LevelSystem.Editor
                 {
                     GUILayout.Label("Level Editor", new GUIStyle(EditorStyles.boldLabel)
                     {
-                        fontSize  = 15,
+                        fontSize = 15,
                         alignment = TextAnchor.MiddleCenter,
-                        normal    = { textColor = Color.white }
+                        normal = { textColor = Color.white }
                     }, GUILayout.Height(28));
 
                     GUILayout.Space(10);
@@ -103,14 +99,12 @@ namespace RubyCase.LevelSystem.Editor
                     GUILayout.Space(5);
                     if (ColorButton("Load Level", new Color(0.20f, 0.36f, 0.60f), 36)) LoadMenu();
                 }
+
                 GUILayout.FlexibleSpace();
             }
+
             GUILayout.FlexibleSpace();
         }
-
-        // ====================================================================
-        // LEVEL LOADED
-        // ====================================================================
 
         private void DrawLevelLoaded()
         {
@@ -129,8 +123,6 @@ namespace RubyCase.LevelSystem.Editor
             SP(8);
         }
 
-        // ---- Save bar -------------------------------------------------------
-
         private void DrawSaveBar()
         {
             using (new GUILayout.HorizontalScope())
@@ -142,8 +134,6 @@ namespace RubyCase.LevelSystem.Editor
             }
         }
 
-        // ---- Settings -------------------------------------------------------
-
         private void DrawSettings()
         {
             GUILayout.Label("Grid Settings", StyleSection);
@@ -152,12 +142,12 @@ namespace RubyCase.LevelSystem.Editor
             EditorGUI.BeginChangeCheck();
 
             RowField("Upper  W", ref _level.collectableGridWidth,
-                     "H", ref _level.collectableGridHeight,
-                     "Init", new Color(0.22f, 0.46f, 0.78f), InitCollectable);
+                "H", ref _level.collectableGridHeight,
+                "Init", new Color(0.22f, 0.46f, 0.78f), InitCollectable);
 
             RowField("Lower  W", ref _level.boxGridWidth,
-                     "H", ref _level.boxGridHeight,
-                     "Init", new Color(0.68f, 0.42f, 0.13f), InitBox);
+                "H", ref _level.boxGridHeight,
+                "Init", new Color(0.68f, 0.42f, 0.13f), InitBox);
 
             using (new GUILayout.HorizontalScope())
             {
@@ -169,7 +159,7 @@ namespace RubyCase.LevelSystem.Editor
         }
 
         private void RowField(string wLabel, ref int wVal, string hLabel, ref int hVal,
-                              string btnLabel, Color btnColor, System.Action onInit)
+            string btnLabel, Color btnColor, System.Action onInit)
         {
             using (new GUILayout.HorizontalScope())
             {
@@ -182,8 +172,6 @@ namespace RubyCase.LevelSystem.Editor
             }
         }
 
-        // ---- Brush bar ------------------------------------------------------
-
         private void DrawBrushBar()
         {
             GUILayout.Label("Brush", StyleSection);
@@ -193,9 +181,9 @@ namespace RubyCase.LevelSystem.Editor
             {
                 BrushButton("Collectable", EditorBrushType.Collectable, BrushOn_C);
                 GUILayout.Space(2);
-                BrushButton("Box",         EditorBrushType.Box,         BrushOn_B);
+                BrushButton("Box", EditorBrushType.Box, BrushOn_B);
                 GUILayout.Space(2);
-                BrushButton("Clear",       EditorBrushType.Clear,       BrushOn_X);
+                BrushButton("Clear", EditorBrushType.Clear, BrushOn_X);
             }
 
             if (_brush != EditorBrushType.Clear)
@@ -236,26 +224,13 @@ namespace RubyCase.LevelSystem.Editor
                 GUILayout.Label("No TeamDatabase found.", EditorStyles.miniLabel);
                 return;
             }
-            var names  = _teamDb.teams.Select(t => $"{t?.EditorSymbol} {t?.name}").ToArray();
+
+            var names = _teamDb.teams.Select(t => $"{t?.EditorSymbol} {t?.name}").ToArray();
             _teamIndex = Mathf.Clamp(_teamIndex, 0, _teamDb.Count - 1);
             _teamIndex = EditorGUILayout.Popup(_teamIndex, names, GUILayout.Width(140));
         }
 
         private Team ActiveTeam => _teamDb?.Get(_teamIndex);
-
-        // ====================================================================
-        // UPPER CANVAS  (collectable grid + conveyor border)
-        //
-        // Canvas is (W+4) x (H+4) cells:
-        //   Row/col 0   = outer conveyor ring
-        //   Row/col 1   = 1-cell gap (dark, not interactive)
-        //   Row/col 2..W+1 = collectable grid
-        //   Row/col W+2 = gap
-        //   Row/col W+3 = outer conveyor ring
-        //
-        // Conveyor cells are matched to ConveyorPathData nodes by localPosition.
-        // Road Start = green, Road End = red, aligned nodes = bright blue, corners = dark blue.
-        // ====================================================================
 
         private void DrawUpperCanvas()
         {
@@ -268,11 +243,11 @@ namespace RubyCase.LevelSystem.Editor
                 return;
             }
 
-            int   W        = _level.collectableGridWidth;
-            int   H        = _level.collectableGridHeight;
-            int   totalCols = W + 4;
-            int   totalRows = H + 4;
-            float cs        = EditorConstants.CellSize;
+            int W = _level.collectableGridWidth;
+            int H = _level.collectableGridHeight;
+            int totalCols = W + 2;
+            int totalRows = H + 2;
+            float cs = EditorConstants.CellSize;
 
             Rect canvas = GUILayoutUtility.GetRect(totalCols * cs, totalRows * cs);
             EditorGUI.DrawRect(canvas, BgCanvasUpper);
@@ -286,15 +261,14 @@ namespace RubyCase.LevelSystem.Editor
                     Rect cr = new(canvas.x + cx * cs, canvas.y + cy * cs, cs - 1, cs - 1);
 
                     bool outerRing = cx == 0 || cx == totalCols - 1 || cy == 0 || cy == totalRows - 1;
-                    bool gapRing   = !outerRing &&
-                                     (cx == 1 || cx == totalCols - 2 || cy == 1 || cy == totalRows - 2);
+                    if (outerRing)
+                    {
+                        DrawConveyorCell(cr, cx, cy, W, H);
+                        continue;
+                    }
 
-                    if (gapRing)   { EditorGUI.DrawRect(cr, CellGap); continue; }
-                    if (outerRing) { DrawConveyorCell(cr, cx, cy, W, H); continue; }
-
-                    // Inner grid cell
-                    int gx   = cx - 2;
-                    int gy   = (H - 1) - (cy - 2);
+                    int gx = cx - 1;
+                    int gy = (H - 1) - (cy - 1);
                     var cell = _level.GetCollectableCell(gx, gy);
                     if (cell == null) continue;
 
@@ -306,17 +280,23 @@ namespace RubyCase.LevelSystem.Editor
                         GUI.Label(cr, cell.team?.EditorSymbol ?? "?", StyleCenter);
 
                     if (!cr.Contains(e.mousePosition) || e.type != EventType.MouseDown) continue;
-                    if      (e.button == 0) HandleUpperClick(cell);
+                    if (e.button == 0) HandleUpperClick(cell);
                     else if (e.button == 1) UpperContextMenu(cell);
-                    else if (e.button == 2) { cell.Clear(); MarkDirty(); }
-                    e.Use(); Repaint();
+                    else if (e.button == 2)
+                    {
+                        cell.Clear();
+                        MarkDirty();
+                    }
+
+                    e.Use();
+                    Repaint();
                 }
             }
         }
 
         private void DrawConveyorCell(Rect cr, int cx, int cy, int W, int H)
         {
-            Color  bg    = CellConveyor;
+            Color bg = CellConveyor;
             string label = GetConveyorLabel(cx, cy, W, H, out bg);
 
             EditorGUI.DrawRect(cr, bg);
@@ -331,26 +311,18 @@ namespace RubyCase.LevelSystem.Editor
             var path = _level.conveyorPath;
             if (path == null) return "·";
 
-            // Convert canvas cell to local position to match against nodes.
-            // Outer ring: cx in {0, W+3}, cy in {0, H+3}
-            // Local position of a conveyor canvas cell center:
-            //   lx = (cx - 2) + 0.5  → but outer ring is at cx=0 or cx=W+3
-            //   For bottom outer row (cy == H+3): lx = cx - 2 + 0.5, ly = -2
-            //   For top outer row    (cy == 0):   lx = cx - 2 + 0.5, ly = H-1+2
-
-            // For matching, find the node whose localPosition best matches this cell's center.
-            float lx = (cx - 2f) + 0.5f;
+            float lx = (cx - 1f) + 0.5f;
             float ly;
 
-            int totalRows = H + 4;
-            int totalCols = W + 4;
+            int totalRows = H + 2;
+            int totalCols = W + 2;
 
-            if (cy == totalRows - 1)       ly = -ConveyorScanMapper.ConveyorOffset;
-            else if (cy == 0)              ly = (H - 1) + ConveyorScanMapper.ConveyorOffset;
-            else                           ly = (H - 1) - (cy - 2f) + 0.5f;
+            if (cy == 0) ly = H + 0.5f;
+            else if (cy == totalRows - 1) ly = -0.5f;
+            else ly = (H - 1) - (cy - 1f) + 0.5f;
 
-            if (cx == 0)                   lx = -ConveyorScanMapper.ConveyorOffset;
-            else if (cx == totalCols - 1)  lx = (W - 1) + ConveyorScanMapper.ConveyorOffset;
+            if (cx == 0) lx = -0.5f;
+            else if (cx == totalCols - 1) lx = W + 0.5f;
 
             float bestDist = float.MaxValue;
             ConveyorNode bestNode = null;
@@ -360,24 +332,44 @@ namespace RubyCase.LevelSystem.Editor
                 var node = path.GetNode(i);
                 float dx = node.localPosition.x - lx;
                 float dy = node.localPosition.y - ly;
-                float d  = dx * dx + dy * dy;
-                if (d < bestDist) { bestDist = d; bestNode = node; }
+                float d = dx * dx + dy * dy;
+                if (d < bestDist)
+                {
+                    bestDist = d;
+                    bestNode = node;
+                }
             }
 
-            if (bestNode == null || bestDist > 4f) return "·";
+            if (bestNode == null || bestDist > 0.001f) return "·";
 
-            if      (bestNode.isRoadStart) { bg = CellConvStart; return "S"; }
-            else if (bestNode.isRoadEnd)   { bg = CellConvEnd;   return "E"; }
-            else if (bestNode.isCorner)    { bg = CellConveyor;  return GetCornerArrow(cx, cy, W, H); }
-            else                           { bg = CellConvAligned; return (bestNode.index + 1).ToString(); }
+            if (bestNode.isRoadStart)
+            {
+                bg = CellConvStart;
+                return "S";
+            }
+            else if (bestNode.isRoadEnd)
+            {
+                bg = CellConvEnd;
+                return "E";
+            }
+            else if (bestNode.isCorner)
+            {
+                bg = CellConveyor;
+                return GetCornerArrow(cx, cy, W, H);
+            }
+            else
+            {
+                bg = CellConvAligned;
+                return (bestNode.index + 1).ToString();
+            }
         }
 
         private static string GetCornerArrow(int cx, int cy, int W, int H)
         {
-            if (cx == 0        && cy == H + 3) return "NE";
-            if (cx == W + 3    && cy == H + 3) return "NW";
-            if (cx == W + 3    && cy == 0)     return "SW";
-            if (cx == 0        && cy == 0)     return "SE";
+            if (cx == 0 && cy == H + 1) return "NE";
+            if (cx == W + 1 && cy == H + 1) return "NW";
+            if (cx == W + 1 && cy == 0) return "SW";
+            if (cx == 0 && cy == 0) return "SE";
             return "·";
         }
 
@@ -400,17 +392,24 @@ namespace RubyCase.LevelSystem.Editor
                 {
                     var cap = t;
                     menu.AddItem(new GUIContent($"Team/{t.name}"), cell.team == t,
-                        () => { cell.SetCollectable(cap); MarkDirty(); Repaint(); });
+                        () =>
+                        {
+                            cell.SetCollectable(cap);
+                            MarkDirty();
+                            Repaint();
+                        });
                 }
+
             menu.AddSeparator("");
             menu.AddItem(new GUIContent("Clear"), false,
-                () => { cell.Clear(); MarkDirty(); Repaint(); });
+                () =>
+                {
+                    cell.Clear();
+                    MarkDirty();
+                    Repaint();
+                });
             menu.ShowAsContext();
         }
-
-        // ====================================================================
-        // LOWER CANVAS  (box grid)
-        // ====================================================================
 
         private void DrawLowerCanvas()
         {
@@ -423,8 +422,8 @@ namespace RubyCase.LevelSystem.Editor
                 return;
             }
 
-            int   W  = _level.boxGridWidth;
-            int   H  = _level.boxGridHeight;
+            int W = _level.boxGridWidth;
+            int H = _level.boxGridHeight;
             float cs = EditorConstants.CellSize;
 
             Rect canvas = GUILayoutUtility.GetRect(W * cs, H * cs);
@@ -436,9 +435,9 @@ namespace RubyCase.LevelSystem.Editor
             {
                 for (int cx = 0; cx < W; cx++)
                 {
-                    int  gy = (H - 1) - cy;
+                    int gy = (H - 1) - cy;
                     Rect cr = new(canvas.x + cx * cs, canvas.y + cy * cs, cs - 1, cs - 1);
-                    var  cell = _level.GetBoxCell(cx, gy);
+                    var cell = _level.GetBoxCell(cx, gy);
                     if (cell == null) continue;
 
                     Color bg = cell.isFilled && cell.team != null ? cell.team.EditorColor : CellBoxEmpty;
@@ -448,15 +447,21 @@ namespace RubyCase.LevelSystem.Editor
                     if (cell.isFilled)
                     {
                         string lbl = (cell.team?.EditorSymbol ?? "?")
-                                   + (cell.capacityOverride > 0 ? $"\n{cell.capacityOverride}" : "");
+                                     + (cell.capacityOverride > 0 ? $"\n{cell.capacityOverride}" : "");
                         GUI.Label(cr, lbl, StyleCenter);
                     }
 
                     if (!cr.Contains(e.mousePosition) || e.type != EventType.MouseDown) continue;
-                    if      (e.button == 0) HandleBoxClick(cell);
+                    if (e.button == 0) HandleBoxClick(cell);
                     else if (e.button == 1) BoxContextMenu(cell);
-                    else if (e.button == 2) { cell.Clear(); MarkDirty(); }
-                    e.Use(); Repaint();
+                    else if (e.button == 2)
+                    {
+                        cell.Clear();
+                        MarkDirty();
+                    }
+
+                    e.Use();
+                    Repaint();
                 }
             }
         }
@@ -480,15 +485,24 @@ namespace RubyCase.LevelSystem.Editor
                 {
                     var cap = t;
                     menu.AddItem(new GUIContent($"Team/{t.name}"), cell.team == t,
-                        () => { cell.SetBox(cap, cell.capacityOverride); MarkDirty(); Repaint(); });
+                        () =>
+                        {
+                            cell.SetBox(cap, cell.capacityOverride);
+                            MarkDirty();
+                            Repaint();
+                        });
                 }
+
             menu.AddSeparator("");
             menu.AddItem(new GUIContent("Clear"), false,
-                () => { cell.Clear(); MarkDirty(); Repaint(); });
+                () =>
+                {
+                    cell.Clear();
+                    MarkDirty();
+                    Repaint();
+                });
             menu.ShowAsContext();
         }
-
-        // ---- Footer ---------------------------------------------------------
 
         private void DrawFooter()
         {
@@ -504,7 +518,7 @@ namespace RubyCase.LevelSystem.Editor
                     if (EditorUtility.DisplayDialog("Clear All", "Clear all cells in both grids?", "Yes", "Cancel"))
                     {
                         foreach (var c in _level.collectableCells) c.Clear();
-                        foreach (var c in _level.boxCells)         c.Clear();
+                        foreach (var c in _level.boxCells) c.Clear();
                         MarkDirty();
                         Repaint();
                     }
@@ -515,10 +529,6 @@ namespace RubyCase.LevelSystem.Editor
                 GUILayout.Label($"Conveyor nodes: {nodes}", EditorStyles.miniLabel);
             }
         }
-
-        // ====================================================================
-        // FILE / INIT OPERATIONS
-        // ====================================================================
 
         private void CreateNew()
         {
@@ -563,6 +573,7 @@ namespace RubyCase.LevelSystem.Editor
                     Repaint();
                 });
             }
+
             menu.ShowAsContext();
         }
 
@@ -591,18 +602,18 @@ namespace RubyCase.LevelSystem.Editor
                 _level.collectableGridHeight);
 
             string levelAssetPath = AssetDatabase.GetAssetPath(_level);
-            string dir            = Path.GetDirectoryName(levelAssetPath) ?? EditorConstants.LevelsFolder;
-            string assetName      = $"ConveyorPath_{Path.GetFileNameWithoutExtension(levelAssetPath)}.asset";
-            string assetPath      = Path.Combine(dir, assetName).Replace("\\", "/");
+            string dir = Path.GetDirectoryName(levelAssetPath) ?? EditorConstants.LevelsFolder;
+            string assetName = $"ConveyorPath_{Path.GetFileNameWithoutExtension(levelAssetPath)}.asset";
+            string assetPath = Path.Combine(dir, assetName).Replace("\\", "/");
 
             var existing = AssetDatabase.LoadAssetAtPath<ConveyorPathData>(assetPath);
             if (existing != null)
             {
-                existing.gridWidth          = generated.gridWidth;
-                existing.gridHeight         = generated.gridHeight;
-                existing.roadStartIndex     = generated.roadStartIndex;
-                existing.roadEndIndex       = generated.roadEndIndex;
-                existing.nodes              = generated.nodes;
+                existing.gridWidth = generated.gridWidth;
+                existing.gridHeight = generated.gridHeight;
+                existing.roadStartIndex = generated.roadStartIndex;
+                existing.roadEndIndex = generated.roadEndIndex;
+                existing.nodes = generated.nodes;
                 EditorUtility.SetDirty(existing);
                 _level.conveyorPath = existing;
             }
@@ -627,13 +638,12 @@ namespace RubyCase.LevelSystem.Editor
             string body = result.IsValid
                 ? $"Level is valid.{(result.Warnings.Count > 0 ? $"\n\n{result.Warnings.Count} warning(s):\n" + string.Join("\n", result.Warnings) : "")}"
                 : $"{result.Errors.Count} error(s):\n\n" + string.Join("\n", result.Errors)
-                  + (result.Warnings.Count > 0 ? $"\n\n{result.Warnings.Count} warning(s):\n" + string.Join("\n", result.Warnings) : "");
+                                                         + (result.Warnings.Count > 0
+                                                             ? $"\n\n{result.Warnings.Count} warning(s):\n" +
+                                                               string.Join("\n", result.Warnings)
+                                                             : "");
             EditorUtility.DisplayDialog(result.IsValid ? "Valid" : "Invalid", body, "OK");
         }
-
-        // ====================================================================
-        // HELPERS
-        // ====================================================================
 
         private void EnsureTeamDb()
         {
@@ -648,7 +658,10 @@ namespace RubyCase.LevelSystem.Editor
             }
         }
 
-        private void MarkDirty() { if (_level) EditorUtility.SetDirty(_level); }
+        private void MarkDirty()
+        {
+            if (_level) EditorUtility.SetDirty(_level);
+        }
 
         private static void DrawOutline(Rect r)
         {

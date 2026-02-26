@@ -20,15 +20,15 @@ namespace RubyCase.LevelSystem
 
         public void SetBox(Team boxTeam, int capacity = 0)
         {
-            isFilled         = true;
-            team             = boxTeam;
+            isFilled = true;
+            team = boxTeam;
             capacityOverride = capacity;
         }
 
         public void Clear()
         {
-            isFilled         = false;
-            team             = null;
+            isFilled = false;
+            team = null;
             capacityOverride = 0;
         }
     }

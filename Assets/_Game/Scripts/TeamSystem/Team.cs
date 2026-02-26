@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace RubyCase.TeamSystem
 {
-    [CreateAssetMenu(menuName = "Game/TeamSystem/Team", order = -399)]
+    [CreateAssetMenu(menuName = "RubyCase/TeamSystem/Team", order = -399)]
     public class Team : ScriptableObject
     {
         [Header("Runtime Colors")]

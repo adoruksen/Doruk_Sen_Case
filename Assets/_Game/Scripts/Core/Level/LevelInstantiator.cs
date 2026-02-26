@@ -15,13 +15,15 @@ namespace RubyCase.Core
     {
         private readonly ILevelManager _levelManager;
         private readonly AddressableGroupConfig _config;
+        private readonly LevelCreationSettings _settings;
 
         private readonly List<AsyncOperationHandle> _handles = new();
 
-        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config)
+        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings)
         {
             _levelManager = levelManager;
             _config = config;
+            _settings = settings;
         }
 
         public void Initialize()
@@ -48,22 +50,35 @@ namespace RubyCase.Core
                 return;
             }
 
-            await SpawnCollectablesAsync(data, ctx.CollectablesRoot);
-            await SpawnBoxesAsync(data, ctx.BoxesRoot);
-            await SpawnConveyorAsync(data, ctx.ConveyorNodesRoot);
+            var layout = LevelLayout.Calculate(data, _settings);
 
+            ctx.CollectablesRoot.position = layout.CollectablesCenter;
+            ctx.BoxesRoot.position = layout.BoxesCenter;
+            ctx.ConveyorNodesRoot.position = layout.CollectablesCenter;
+            ctx.BenchesRoot.position = new Vector3(0f, 0f, layout.BenchRowZ);
+
+            await SpawnCollectablesAsync(data, ctx.CollectablesRoot, layout);
+            await SpawnConveyorAsync(data, ctx.ConveyorNodesRoot, layout);
+            await SpawnBenchesAsync(data, ctx.BenchesRoot, layout);
+            await SpawnBoxesAsync(data, ctx.BoxesRoot, layout);
             _levelManager.NotifySpawnComplete();
         }
 
-        private async UniTask SpawnCollectablesAsync(LevelData data, Transform root)
+        private async UniTask SpawnCollectablesAsync(LevelData data, Transform root, LevelLayout.Result layout)
         {
+            int w = Mathf.Max(1, data.collectableGridWidth);
+            int h = Mathf.Max(1, data.collectableGridHeight);
+
             foreach (var cell in data.collectableCells)
             {
                 if (!cell.isFilled || cell.team == null) continue;
 
+                Vector3 worldPos = root.position +
+                                   LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
+
                 GameObject go = await SpawnAsync(
                     _config.CollectablePrefab,
-                    GridToWorld(cell.position, _config.CellSize),
+                    worldPos,
                     root);
 
                 if (go == null) continue;
@@ -72,15 +87,21 @@ namespace RubyCase.Core
             }
         }
 
-        private async UniTask SpawnBoxesAsync(LevelData data, Transform root)
+        private async UniTask SpawnBoxesAsync(LevelData data, Transform root, LevelLayout.Result layout)
         {
+            int w = Mathf.Max(1, data.boxGridWidth);
+            int h = Mathf.Max(1, data.boxGridHeight);
+
             foreach (var cell in data.boxCells)
             {
                 if (!cell.isFilled || cell.team == null) continue;
 
+                Vector3 worldPos = root.position +
+                                   LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
+
                 GameObject go = await SpawnAsync(
                     _config.BoxPrefab,
-                    BoxGridToWorld(cell.position, _config),
+                    worldPos,
                     root);
 
                 if (go == null) continue;
@@ -89,29 +110,58 @@ namespace RubyCase.Core
             }
         }
 
-        private async UniTask SpawnConveyorAsync(LevelData data, Transform root)
+        private async UniTask SpawnConveyorAsync(LevelData data, Transform root, LevelLayout.Result layout)
         {
-            if (data.conveyorPath == null) return;
-
-            for (int i = 0; i < data.conveyorPath.NodeCount; i++)
+            var path = data.conveyorPath;
+            if (path == null || path.gridWidth != data.collectableGridWidth ||
+                path.gridHeight != data.collectableGridHeight)
             {
-                var node = data.conveyorPath.GetNode(i);
+                path = RubyCase.LevelSystem.ConveyorScanMapper.GeneratePath(data.collectableGridWidth,
+                    data.collectableGridHeight);
+            }
+
+            path.cellSize = _settings.CellSize;
+
+            for (int i = 0; i < path.NodeCount; i++)
+            {
+                var node = path.GetNode(i);
                 if (node == null) continue;
+
+                Vector3 worldPos = path.GetWorldPosition(i, layout.CollectablesBottomLeft);
+                Vector3 localPos = worldPos - root.position;
 
                 GameObject go = await SpawnAsync(
                     _config.ConveyorNodePrefab,
-                    ConveyorToWorld(node.localPosition, _config.CellSize),
+                    worldPos,
                     root);
 
                 if (go == null) continue;
+                go.transform.localPosition = localPos;
                 _levelManager.CurrentContext.RegisterConveyorNode(go);
             }
         }
 
-        private async UniTask<GameObject> SpawnAsync(
-            AssetReferenceGameObject assetRef,
-            Vector3 position,
-            Transform parent)
+        private async UniTask SpawnBenchesAsync(LevelData data, Transform root, LevelLayout.Result layout)
+        {
+            if (_config.BenchPrefab == null || !_config.BenchPrefab.RuntimeKeyIsValid())
+                return;
+
+            float spacing = Mathf.Max(0.01f, _settings.BenchSpacingX);
+            int count = Mathf.Max(1, data.benchCapacity);
+            if (count != 4) count = 4;
+
+            for (int i = 0; i < count; i++)
+            {
+                float x = (i - (count - 1) * 0.5f) * spacing;
+                var localPos = new Vector3(x, 0f, 0f);
+                GameObject go = await SpawnAsync(_config.BenchPrefab, root.position + localPos, root);
+                if (go == null) continue;
+                go.transform.localPosition = localPos;
+                _levelManager.CurrentContext.RegisterBench(go);
+            }
+        }
+
+        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position, Transform parent)
         {
             if (assetRef == null || !assetRef.RuntimeKeyIsValid())
             {
@@ -136,18 +186,10 @@ namespace RubyCase.Core
         public void ReleaseAll()
         {
             foreach (var h in _handles)
-                if (h.IsValid()) Addressables.ReleaseInstance(h);
+                if (h.IsValid())
+                    Addressables.ReleaseInstance(h);
             _handles.Clear();
         }
-
-        private static Vector3 GridToWorld(Vector2Int pos, float cellSize)
-            => new(pos.x * cellSize, 0f, pos.y * cellSize);
-
-        private static Vector3 BoxGridToWorld(Vector2Int pos, AddressableGroupConfig cfg)
-            => new(pos.x * cfg.CellSize, 0f, cfg.BoxGridYOffset + pos.y * cfg.CellSize);
-
-        private static Vector3 ConveyorToWorld(Vector2 local, float cellSize)
-            => new(local.x * cellSize, 0f, local.y * cellSize);
 
         private static void ApplyTeam(GameObject go, Team team)
         {

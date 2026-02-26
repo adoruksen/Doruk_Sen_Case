@@ -11,9 +11,6 @@ namespace RubyCase.Core
         public AssetReferenceGameObject CollectablePrefab;
         public AssetReferenceGameObject BoxPrefab;
         public AssetReferenceGameObject ConveyorNodePrefab;
-
-        [Title("Grid")] 
-        public float CellSize = 1f;
-        public float BoxGridYOffset = -4f;
+        public AssetReferenceGameObject BenchPrefab;
     }
 }

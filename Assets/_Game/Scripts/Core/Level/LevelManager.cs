@@ -38,9 +38,9 @@ namespace RubyCase.Core
             }
 
             CurrentIndex = index;
-            CurrentData  = data;
+            CurrentData = data;
 
-            _levelRoot = new GameObject($"Level_{data.levelID:D3}");
+            _levelRoot = new GameObject($"Level_{data.levelID}");
             CurrentContext = _levelRoot.AddComponent<LevelContext>();
             CurrentContext.Initialize(data);
 

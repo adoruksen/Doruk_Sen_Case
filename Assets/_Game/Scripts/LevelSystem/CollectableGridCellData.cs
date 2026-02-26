@@ -20,13 +20,13 @@ namespace RubyCase.LevelSystem
         public void SetCollectable(Team assignedTeam)
         {
             isFilled = true;
-            team     = assignedTeam;
+            team = assignedTeam;
         }
 
         public void Clear()
         {
             isFilled = false;
-            team     = null;
+            team = null;
         }
     }
 }
