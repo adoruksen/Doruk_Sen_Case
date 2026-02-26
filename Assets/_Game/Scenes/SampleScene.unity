@@ -1092,8 +1092,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 432adefa1372842d3bef7a21f3709230, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.Core.HUDPanel
-  _levelLabel: {fileID: 617035606}
-  _collectableCountLabel: {fileID: 1514086397}
+  levelLabel: {fileID: 0}
+  collectableCountLabel: {fileID: 0}
 --- !u!225 &998089668
 CanvasGroup:
   m_ObjectHideFlags: 0
@@ -1183,11 +1183,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d7db1336f91d40b28f2cebbb4dcfb02, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.Core.GameInstaller
-  _gameSettings: {fileID: 11400000, guid: 398f1e3187a7b49b1a0b6dddd5e0d1f3, type: 2}
-  _levelDatabase: {fileID: 11400000, guid: 850f07bc2491f49cdac7fdea161106f0, type: 2}
-  _addressableConfig: {fileID: 11400000, guid: e60d4f6ca9b47414b89428023d4a08a5, type: 2}
-  _uiManager: {fileID: 670424909}
-  _testManager: {fileID: 0}
+  gameSettings: {fileID: 11400000, guid: 398f1e3187a7b49b1a0b6dddd5e0d1f3, type: 2}
+  levelDatabase: {fileID: 11400000, guid: 850f07bc2491f49cdac7fdea161106f0, type: 2}
+  addressableConfig: {fileID: 11400000, guid: e60d4f6ca9b47414b89428023d4a08a5, type: 2}
+  uiManager: {fileID: 670424909}
+  testManager: {fileID: 560459659}
 --- !u!1 &1202666341
 GameObject:
   m_ObjectHideFlags: 0
