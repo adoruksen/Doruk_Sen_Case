@@ -1,6 +1,5 @@
 using System;
 using System.Linq;
-using UnityEngine;
 
 namespace RubyCase.Core
 {
@@ -19,20 +18,16 @@ namespace RubyCase.Core
         public LevelSession(int levelIndex, IBoxManager boxes, ICollectableManager collectables)
         {
             LevelIndex = levelIndex;
-
             Boxes = boxes ?? throw new ArgumentNullException(nameof(boxes));
             Collectables = collectables ?? throw new ArgumentNullException(nameof(collectables));
-
-            Boxes.Cleared += EvaluateCompletion;
-            Collectables.Cleared += EvaluateCompletion;
+            Collectables.Cleared += TryComplete;
         }
 
         public void Initialize(LevelContext context)
         {
             Boxes.InitializeFromLevel(context?.Boxes?.ToArray());
             Collectables.InitializeFromLevel(context?.Collectables?.ToArray());
-
-            EvaluateCompletion();
+            TryComplete();
         }
 
         public void Fail()
@@ -42,21 +37,16 @@ namespace RubyCase.Core
             Failed?.Invoke();
         }
 
-        private void EvaluateCompletion()
+        private void TryComplete()
         {
-            if (IsCompleted || IsFailed) return;
-            if (!Boxes.IsCleared) return;
-            if (!Collectables.IsCleared) return;
-
+            if (IsCompleted || IsFailed || !Collectables.IsCleared) return;
             IsCompleted = true;
             Completed?.Invoke();
         }
 
         public void Dispose()
         {
-            Boxes.Cleared -= EvaluateCompletion;
-            Collectables.Cleared -= EvaluateCompletion;
-
+            Collectables.Cleared -= TryComplete;
             Boxes.Reset();
             Collectables.Reset();
         }

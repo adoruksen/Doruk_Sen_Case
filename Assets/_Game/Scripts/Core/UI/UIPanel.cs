@@ -23,7 +23,8 @@ namespace RubyCase.UI
             _group.interactable = false;
             _group.blocksRaycasts = false;
 
-            _group.DOFade(1f, duration).SetEase(Ease.OutQuad);
+            _tween = _group.DOFade(1f, duration).SetEase(Ease.OutQuad);
+            await _tween.AsyncWaitForCompletion();
 
             _group.interactable = true;
             _group.blocksRaycasts = true;
@@ -35,7 +36,8 @@ namespace RubyCase.UI
             _group.interactable = false;
             _group.blocksRaycasts = false;
 
-            _group.DOFade(0f, duration).SetEase(Ease.InQuad);
+            _tween = _group.DOFade(0f, duration).SetEase(Ease.InQuad);
+            await _tween.AsyncWaitForCompletion();
         }
 
         public void ForceHide()
