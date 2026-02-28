@@ -1,4 +1,5 @@
 using System;
+using RubyCase.BoxSystem;
 using UnityEngine;
 
 namespace RubyCase.Core
@@ -14,5 +15,8 @@ namespace RubyCase.Core
         void InitializeFromLevel(GameObject[] boxes);
         void MarkResolved(GameObject box);
         void Reset();
+        void SetupGrid(int cols, int rows, float pitch);
+        void RegisterBox(BoxController box, int col, int row);
+        void OnBoxDeparted(BoxController box);
     }
 }

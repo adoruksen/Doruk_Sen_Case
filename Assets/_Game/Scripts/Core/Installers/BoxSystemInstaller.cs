@@ -10,6 +10,7 @@ namespace RubyCase.BoxSystem
         {
             Container.BindInterfacesTo<ConveyorManager>().AsSingle();
             Container.BindInterfacesTo<BenchManager>().AsSingle();
+            Container.BindInterfacesTo<BoxManager>().AsSingle();
             Container.Bind<IBoxJourneyService>().To<BoxJourneyService>().AsSingle();
         }
     }

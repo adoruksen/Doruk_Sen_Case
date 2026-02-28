@@ -17,15 +17,17 @@ namespace RubyCase.Core
         private readonly AddressableGroupConfig _config;
         private readonly LevelCreationSettings _settings;
         private readonly DiContainer _container;
+        private readonly IBoxManager _boxManager;
 
         private readonly List<AsyncOperationHandle> _handles = new();
 
-        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings, DiContainer container)
+        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings, DiContainer container, IBoxManager boxManager)
         {
             _levelManager = levelManager;
             _config = config;
             _settings = settings;
             _container = container;
+            _boxManager = boxManager;
         }
 
         public void Initialize()
@@ -84,11 +86,9 @@ namespace RubyCase.Core
             foreach (var cell in data.collectableCells)
             {
                 if (!cell.isFilled || cell.team == null) continue;
-
                 var pos = root.position + LevelLayout.GridLocalOffsetCentered(cell.position, w, h, layout.CellPitch);
                 var go = await SpawnAsync(_config.CollectablePrefab, pos, root);
                 if (go == null) continue;
-
                 go.transform.localScale = itemScale;
                 go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
                 cell.SpawnedObject = go;
@@ -98,22 +98,28 @@ namespace RubyCase.Core
 
         private async UniTask SpawnBoxesAsync(LevelData data, Transform root, LevelLayout.Result layout)
         {
-            int w = Mathf.Max(1, data.boxGridWidth);
-            int h = Mathf.Max(1, data.boxGridHeight);
+            int bw = Mathf.Max(1, data.boxGridWidth);
+            int bh = Mathf.Max(1, data.boxGridHeight);
+
+            _boxManager.SetupGrid(bw, bh, _settings.BoxPitch);
 
             foreach (var cell in data.boxCells)
             {
                 if (!cell.isFilled || cell.team == null) continue;
-
-                var pos = root.position + LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.BoxPitch);
+                var pos = root.position +
+                          LevelLayout.GridLocalOffsetCentered(cell.position, bw, bh, _settings.BoxPitch);
                 var go = await SpawnAsync(_config.BoxPrefab, pos, root);
                 if (go == null) continue;
 
                 go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
                 _container.InjectGameObject(go);
 
-                if (go.TryGetComponent<BoxController>(out var box) && box.Capacity == 0)
-                    Debug.LogWarning($"LevelInstantiator: '{go.name}' has no BoxSlot components.");
+                if (go.TryGetComponent<BoxController>(out var box))
+                {
+                    if (box.Capacity == 0)
+                        Debug.LogWarning($"LevelInstantiator: '{go.name}' has no BoxSlot components.");
+                    _boxManager.RegisterBox(box, cell.position.x, cell.position.y);
+                }
 
                 _levelManager.CurrentContext.RegisterBox(go);
             }
@@ -122,19 +128,15 @@ namespace RubyCase.Core
         private async UniTask SpawnBenchesAsync(LevelData data, Transform root)
         {
             if (_config.BenchPrefab == null || !_config.BenchPrefab.RuntimeKeyIsValid()) return;
-
             int count = Mathf.Clamp(data.benchCapacity, 1, 8);
             float spacing = Mathf.Max(0.01f, _settings.BenchSpacingX);
-
             for (int i = 0; i < count; i++)
             {
                 var localPos = new Vector3((i - (count - 1) * 0.5f) * spacing, 0f, 0f);
                 var go = await SpawnAsync(_config.BenchPrefab, root.position + localPos, root);
                 if (go == null) continue;
-
                 if (!go.TryGetComponent<BenchController>(out _))
                     Debug.LogWarning($"LevelInstantiator: BenchPrefab '{go.name}' has no BenchController.");
-
                 go.transform.localPosition = localPos;
                 _levelManager.CurrentContext.RegisterBench(go);
             }
@@ -152,7 +154,6 @@ namespace RubyCase.Core
             var handle = Addressables.InstantiateAsync(assetRef, position, Quaternion.identity, parent);
             _handles.Add(handle);
             await handle.ToUniTask();
-
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
                 Debug.LogError($"LevelInstantiator: failed to spawn {assetRef.RuntimeKey}");

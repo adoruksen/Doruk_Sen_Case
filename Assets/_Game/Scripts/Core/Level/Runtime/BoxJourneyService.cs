@@ -13,6 +13,7 @@ namespace RubyCase.BoxSystem
         private readonly IBenchManager _bench;
         private readonly ILevelManager _levelManager;
         private readonly LevelCreationSettings _settings;
+        private readonly IBoxManager _boxManager;
 
         private readonly Dictionary<BoxController, Handlers> _active = new();
 
@@ -24,12 +25,13 @@ namespace RubyCase.BoxSystem
             public Action OnDestroy;
         }
 
-        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager, LevelCreationSettings settings)
+        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager, LevelCreationSettings settings, IBoxManager boxManager)
         {
             _conveyor = conveyor;
             _bench = bench;
             _levelManager = levelManager;
             _settings = settings;
+            _boxManager = boxManager;
         }
 
         public bool CanStartJourney(BoxController box) =>
@@ -64,6 +66,8 @@ namespace RubyCase.BoxSystem
             if (box.StateMachine.CurrentState == box.OnBenchState)
                 _bench.Release(box);
 
+            _boxManager.OnBoxDeparted(box);
+
             box.MoveToConveyorState.SetWaypoints(_conveyor.Waypoints, _conveyor.RoadStartIndex);
             box.OnConveyorState.SetWaypoints(_conveyor.Waypoints, _settings.ConveyorSpeed);
             box.StateMachine.TransitionTo(box.MoveToConveyorState);
@@ -92,6 +96,7 @@ namespace RubyCase.BoxSystem
 
             box.Collect(slot, go);
             session.Collectables.MarkResolved(go);
+
             go.transform.SetParent(slot.transform, true);
             go.transform.DOLocalMove(Vector3.zero, 0.35f)
                 .SetEase(Ease.OutQuad)
