@@ -384,4 +384,4 @@ MonoBehaviour:
     isFilled: 1
     team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
     capacityOverride: 0
-  conveyorPath: {fileID: 11400000, guid: dfa25c16e59614a9eab16702253a20f2, type: 2}
+  conveyorSegments: 16

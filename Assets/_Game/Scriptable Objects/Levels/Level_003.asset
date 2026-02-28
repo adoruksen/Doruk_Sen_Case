@@ -7584,9 +7584,4 @@ MonoBehaviour:
     isFilled: 0
     team: {fileID: 0}
     capacityOverride: 0
-  conveyorPrefab:
-    m_AssetGUID: 
-    m_SubObjectName: 
-    m_SubObjectType: 
-    m_SubObjectGUID: 
-    m_EditorAssetChanged: 0
+  conveyorSegments: 16
