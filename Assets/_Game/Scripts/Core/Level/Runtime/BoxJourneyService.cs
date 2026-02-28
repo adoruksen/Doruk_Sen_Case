@@ -12,8 +12,14 @@ namespace RubyCase.BoxSystem
         private readonly IBenchManager _bench;
         private readonly ILevelManager _levelManager;
 
-        private readonly Dictionary<BoxController, (Action<int> onNode, Action onComplete, Action onDestroy)> _active =
-            new();
+        private readonly Dictionary<BoxController, Handlers> _active = new();
+
+        private class Handlers
+        {
+            public Action<int> OnNode;
+            public Action OnComplete;
+            public Action OnDestroy;
+        }
 
         public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager)
         {
@@ -24,7 +30,8 @@ namespace RubyCase.BoxSystem
 
         public bool CanStartJourney(BoxController box)
         {
-            return box.StateMachine.CurrentState == box.IdleState || box.StateMachine.CurrentState == box.OnBenchState;
+            return box.StateMachine.CurrentState == box.IdleState
+                   || box.StateMachine.CurrentState == box.OnBenchState;
         }
 
         public void StartJourney(BoxController box)
@@ -38,16 +45,20 @@ namespace RubyCase.BoxSystem
 
             Detach(box);
 
-            Action<int> onNode = i => OnNodeReached(box, i);
-            Action onComplete = () => OnPathCompleted(box);
-            Action onDestroy = () => Detach(box);
+            var h = new Handlers
+            {
+                OnNode = i => OnNodeReached(box, i),
+                OnComplete = () => OnPathCompleted(box),
+                OnDestroy = () => Detach(box),
+            };
 
-            _active[box] = (onNode, onComplete, onDestroy);
-            box.OnNodeReached += onNode;
-            box.OnPathCompleted += onComplete;
-            box.OnDestroyed += onDestroy;
+            _active[box] = h;
+            box.OnNodeReached += h.OnNode;
+            box.OnPathCompleted += h.OnComplete;
+            box.OnDestroyed += h.OnDestroy;
 
-            if (box.StateMachine.CurrentState == box.OnBenchState) _bench.Release(box);
+            if (box.StateMachine.CurrentState == box.OnBenchState)
+                _bench.Release(box);
 
             box.MoveToConveyorState.SetPath(_conveyor.Path, _conveyor.GridWorldOrigin);
             box.OnConveyorState.SetPath(_conveyor.Path, _conveyor.GridWorldOrigin);
@@ -60,7 +71,7 @@ namespace RubyCase.BoxSystem
             if (session == null) return;
 
             var node = _conveyor.Path?.GetNode(nodeIndex);
-            if (node == null || node.isCorner) return;
+            if (node == null || node.scanAxis == ScanAxis.None) return;
 
             foreach (var cell in ConveyorScanMapper.GetAlignedCells(node, _levelManager.CurrentData))
             {
@@ -75,7 +86,7 @@ namespace RubyCase.BoxSystem
                 if (cell.SpawnedObject != null)
                 {
                     session.Collectables.MarkResolved(cell.SpawnedObject);
-                    UnityEngine.Object.Destroy(cell.SpawnedObject);
+                    cell.SpawnedObject.SetActive(false);
                 }
 
                 cell.Clear();
@@ -91,7 +102,7 @@ namespace RubyCase.BoxSystem
             if (box.IsFull)
             {
                 session?.Boxes.MarkResolved(box.gameObject);
-                UnityEngine.Object.Destroy(box.gameObject);
+                box.gameObject.SetActive(false);
                 return;
             }
 
@@ -101,10 +112,10 @@ namespace RubyCase.BoxSystem
 
         private void Detach(BoxController box)
         {
-            if (!_active.TryGetValue(box, out var handles)) return;
-            box.OnNodeReached -= handles.onNode;
-            box.OnPathCompleted -= handles.onComplete;
-            box.OnDestroyed -= handles.onDestroy;
+            if (!_active.TryGetValue(box, out var h)) return;
+            box.OnNodeReached -= h.OnNode;
+            box.OnPathCompleted -= h.OnComplete;
+            box.OnDestroyed -= h.OnDestroy;
             _active.Remove(box);
         }
     }

@@ -16,6 +16,7 @@ namespace RubyCase.LevelSystem
 
         [ListDrawerSettings(IsReadOnly = true, ShowIndexLabels = true)]
         public List<ConveyorNode> nodes = new();
+
         public int NodeCount => nodes.Count;
 
         public ConveyorNode GetNode(int index)
@@ -25,21 +26,13 @@ namespace RubyCase.LevelSystem
         }
 
         public ConveyorNode RoadStart => GetNode(roadStartIndex);
-        public ConveyorNode RoadEnd   => GetNode(roadEndIndex);
+        public ConveyorNode RoadEnd => GetNode(roadEndIndex);
 
         public Vector3 GetWorldPosition(int nodeIndex, Vector3 gridOrigin)
         {
             var node = GetNode(nodeIndex);
             if (node == null) return gridOrigin;
             return gridOrigin + new Vector3(node.localPosition.x, 0f, node.localPosition.y) * cellSize;
-        }
-
-        public Vector3[] GetWorldPath(Vector3 gridOrigin)
-        {
-            var path = new Vector3[nodes.Count];
-            for (int i = 0; i < nodes.Count; i++)
-                path[i] = GetWorldPosition(i, gridOrigin);
-            return path;
         }
     }
 }

@@ -61,15 +61,15 @@ namespace RubyCase.Core
             ctx.ConveyorNodesRoot.position = layout.CollectablesCenter;
             ctx.BenchesRoot.position = new Vector3(0f, 0f, layout.BenchRowZ);
 
-            await SpawnCollectablesAsync(data, ctx.CollectablesRoot, layout);
+            await SpawnCollectablesAsync(data, ctx.CollectablesRoot);
             await SpawnConveyorAsync(data, ctx.ConveyorNodesRoot, layout);
             await SpawnBenchesAsync(data, ctx.BenchesRoot);
-            await SpawnBoxesAsync(data, ctx.BoxesRoot, layout);
+            await SpawnBoxesAsync(data, ctx.BoxesRoot);
 
             _levelManager.NotifySpawnComplete();
         }
 
-        private async UniTask SpawnCollectablesAsync(LevelData data, Transform root, LevelLayout.Result layout)
+        private async UniTask SpawnCollectablesAsync(LevelData data, Transform root)
         {
             int w = Mathf.Max(1, data.collectableGridWidth);
             int h = Mathf.Max(1, data.collectableGridHeight);
@@ -88,7 +88,7 @@ namespace RubyCase.Core
             }
         }
 
-        private async UniTask SpawnBoxesAsync(LevelData data, Transform root, LevelLayout.Result layout)
+        private async UniTask SpawnBoxesAsync(LevelData data, Transform root)
         {
             int w = Mathf.Max(1, data.boxGridWidth);
             int h = Mathf.Max(1, data.boxGridHeight);
@@ -156,8 +156,7 @@ namespace RubyCase.Core
             }
         }
 
-        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position,
-            Transform parent)
+        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position, Transform parent)
         {
             if (assetRef == null || !assetRef.RuntimeKeyIsValid())
             {

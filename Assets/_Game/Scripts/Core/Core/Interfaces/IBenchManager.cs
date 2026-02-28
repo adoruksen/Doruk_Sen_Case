@@ -4,7 +4,6 @@ namespace RubyCase.BoxSystem
     {
         bool IsFull { get; }
         bool TryPlace(BoxController box);
-        void NotifyArrived(BoxController box);
         void Release(BoxController box);
     }
 }

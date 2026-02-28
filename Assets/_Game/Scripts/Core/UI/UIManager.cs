@@ -19,7 +19,7 @@ namespace RubyCase.UI
 
         public async UniTask OnStateEnterAsync(GameState state)
         {
-            UIPanel target = PanelFor(state);
+            var target = PanelFor(state);
             if (target == null) return;
 
             if (state == GameState.Playing)
@@ -36,13 +36,21 @@ namespace RubyCase.UI
             _active = null;
         }
 
-        private UIPanel PanelFor(GameState state) => state switch
+        private UIPanel PanelFor(GameState state)
         {
-            GameState.Loading => loadingPanel,
-            GameState.Playing => hudPanel,
-            GameState.LevelComplete => levelCompletePanel,
-            GameState.LevelFail => levelFailPanel,
-            _ => null,
-        };
+            var panel = state switch
+            {
+                GameState.Loading => loadingPanel,
+                GameState.Playing => hudPanel,
+                GameState.LevelComplete => levelCompletePanel,
+                GameState.LevelFail => levelFailPanel,
+                _ => null,
+            };
+
+            if (panel == null && state != GameState.Idle)
+                Debug.LogWarning($"UIManager: no panel assigned for state {state}.");
+
+            return panel;
+        }
     }
 }

@@ -4,7 +4,7 @@ using Zenject;
 
 namespace RubyCase.Core
 {
-    public class GameManager : IGameManager, IInitializable
+    public class GameManager : IGameManager, IInitializable, IDisposable
     {
         public GameState CurrentState { get; private set; } = GameState.Idle;
         public event Action<GameState, GameState> OnStateChanged;
@@ -20,13 +20,17 @@ namespace RubyCase.Core
             _levelManager = levelManager;
             _uiManager = uiManager;
             _settings = settings;
-
-            _levelManager.OnLevelReady += HandleLevelReady;
         }
 
         public void Initialize()
         {
+            _levelManager.OnLevelReady += HandleLevelReady;
             StartLevel(_settings.StartLevelIndex);
+        }
+
+        public void Dispose()
+        {
+            _levelManager.OnLevelReady -= HandleLevelReady;
         }
 
         public void StartLevel(int index)
@@ -64,7 +68,7 @@ namespace RubyCase.Core
             if (_transitioning) return;
             _transitioning = true;
 
-            GameState prev = CurrentState;
+            var prev = CurrentState;
 
             await _uiManager.OnStateExitAsync(prev);
 

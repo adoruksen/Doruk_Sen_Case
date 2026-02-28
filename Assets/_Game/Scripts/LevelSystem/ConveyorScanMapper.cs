@@ -5,7 +5,9 @@ namespace RubyCase.LevelSystem
 {
     public static class ConveyorScanMapper
     {
-        public const int CellsPerNode = 1;
+        // Grid space: node localPositions are in grid units (before cellSize multiply).
+        // 0.5f offset = half a cell, placing nodes at cell centers or just outside the grid edge.
+        private const float HalfCell = 0.5f;
 
         public static ConveyorPathData GeneratePath(int gridW, int gridH)
         {
@@ -14,95 +16,58 @@ namespace RubyCase.LevelSystem
             data.gridHeight = gridH;
 
             var nodes = new List<ConveyorNode>();
-
             int idx = 0;
-            float leftX = -0.5f;
-            float rightX = gridW + 0.5f;
-            float bottomY = -0.5f;
-            float topY = gridH + 0.5f;
+
+            float left = -HalfCell;
+            float right = gridW + HalfCell;
+            float bottom = -HalfCell;
+            float top = gridH + HalfCell;
 
             int roadStartIdx = idx;
+
+            // Bottom edge — right to left
             for (int col = gridW - 1; col >= 0; col--)
-            {
                 nodes.Add(new ConveyorNode
                 {
-                    index = idx++,
-                    localPosition = new Vector2(col + 0.5f, bottomY),
-                    scanAxis = ScanAxis.Column,
-                    alignedGridIndices = BuildRange(col, col),
-                    isRoadStart = col == gridW - 1,
+                    index = idx++, localPosition = new Vector2(col + HalfCell, bottom), scanAxis = ScanAxis.Column,
+                    alignedGridIndices = BuildRange(col)
                 });
-            }
 
-            nodes.Add(new ConveyorNode
-            {
-                index = idx++,
-                localPosition = new Vector2(leftX, bottomY),
-                scanAxis = ScanAxis.None,
-                isCorner = true,
-            });
+            nodes.Add(Corner(idx++, left, bottom));
 
+            // Left edge — bottom to top
             for (int row = 0; row < gridH; row++)
-            {
                 nodes.Add(new ConveyorNode
                 {
-                    index = idx++,
-                    localPosition = new Vector2(leftX, row + 0.5f),
-                    scanAxis = ScanAxis.Row,
-                    alignedGridIndices = BuildRange(row, row),
+                    index = idx++, localPosition = new Vector2(left, row + HalfCell), scanAxis = ScanAxis.Row,
+                    alignedGridIndices = BuildRange(row)
                 });
-            }
 
-            nodes.Add(new ConveyorNode
-            {
-                index = idx++,
-                localPosition = new Vector2(leftX, topY),
-                scanAxis = ScanAxis.None,
-                isCorner = true,
-            });
+            nodes.Add(Corner(idx++, left, top));
 
+            // Top edge — left to right
             for (int col = 0; col < gridW; col++)
-            {
                 nodes.Add(new ConveyorNode
                 {
-                    index = idx++,
-                    localPosition = new Vector2(col + 0.5f, topY),
-                    scanAxis = ScanAxis.Column,
-                    alignedGridIndices = BuildRange(col, col),
+                    index = idx++, localPosition = new Vector2(col + HalfCell, top), scanAxis = ScanAxis.Column,
+                    alignedGridIndices = BuildRange(col)
                 });
-            }
 
-            nodes.Add(new ConveyorNode
-            {
-                index = idx++,
-                localPosition = new Vector2(rightX, topY),
-                scanAxis = ScanAxis.None,
-                isCorner = true,
-            });
+            nodes.Add(Corner(idx++, right, top));
 
+            // Right edge — top to bottom
             int roadEndIdx = -1;
             for (int row = gridH - 1; row >= 0; row--)
             {
-                bool isEnd = row == 0;
-                if (isEnd) roadEndIdx = idx;
-
+                if (row == 0) roadEndIdx = idx;
                 nodes.Add(new ConveyorNode
                 {
-                    index = idx++,
-                    localPosition = new Vector2(rightX, row + 0.5f),
-                    scanAxis = ScanAxis.Row,
-                    alignedGridIndices = BuildRange(row, row),
-                    isRoadEnd = isEnd,
+                    index = idx++, localPosition = new Vector2(right, row + HalfCell), scanAxis = ScanAxis.Row,
+                    alignedGridIndices = BuildRange(row)
                 });
             }
 
-            nodes.Add(new ConveyorNode
-            {
-                index = idx,
-                localPosition = new Vector2(rightX, bottomY),
-                scanAxis = ScanAxis.None,
-                isCorner = true,
-            });
+            nodes.Add(Corner(idx, right, bottom));
 
             data.nodes = nodes;
             data.roadStartIndex = roadStartIdx;
@@ -111,12 +76,11 @@ namespace RubyCase.LevelSystem
             return data;
         }
 
-
         public static List<CollectableGridCellData> GetAlignedCells(ConveyorNode node, LevelData level)
         {
             var result = new List<CollectableGridCellData>();
 
-            if (node == null || node.isCorner || node.scanAxis == ScanAxis.None)
+            if (node == null || node.scanAxis == ScanAxis.None)
                 return result;
 
             int w = level.collectableGridWidth;
@@ -153,18 +117,15 @@ namespace RubyCase.LevelSystem
 
         public static Vector2 CanvasCellToLocal(int cx, int cy, int gridH)
         {
-            float lx = cx - 1f + 0.5f;
-            float ly = (gridH - 1) - (cy - 1f) + 0.5f;
+            float lx = cx - 1f + HalfCell;
+            float ly = (gridH - 1) - (cy - 1f) + HalfCell;
             return new Vector2(lx, ly);
         }
 
+        private static ConveyorNode Corner(int idx, float x, float y) =>
+            new ConveyorNode { index = idx, localPosition = new Vector2(x, y), scanAxis = ScanAxis.None };
 
-        private static List<int> BuildRange(int from, int to)
-        {
-            var list = new List<int>();
-            for (int i = from; i <= to; i++) list.Add(i);
-            return list;
-        }
+        private static List<int> BuildRange(int value) => new List<int> { value };
 
         private static void TryAdd(List<CollectableGridCellData> list, LevelData level, int x, int y)
         {

@@ -29,9 +29,13 @@ namespace RubyCase.LevelSystem
         [Title("Conveyor")] [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
         public ConveyorPathData conveyorPath;
 
+        private Dictionary<Vector2Int, CollectableGridCellData> _collectableMap;
+
         public void InitCollectableGrid()
         {
             collectableCells.Clear();
+            _collectableMap = null;
+
             for (int y = 0; y < collectableGridHeight; y++)
             for (int x = 0; x < collectableGridWidth; x++)
                 collectableCells.Add(new CollectableGridCellData(new Vector2Int(x, y)));
@@ -45,10 +49,24 @@ namespace RubyCase.LevelSystem
                 boxCells.Add(new BoxGridCellData(new Vector2Int(x, y)));
         }
 
-        public CollectableGridCellData GetCollectableCell(int x, int y) =>
-            collectableCells.Find(c => c.position.x == x && c.position.y == y);
+        public CollectableGridCellData GetCollectableCell(int x, int y)
+        {
+            if (_collectableMap == null)
+                RebuildCollectableMap();
 
-        public BoxGridCellData GetBoxCell(int x, int y) => boxCells.Find(c => c.position.x == x && c.position.y == y);
+            _collectableMap.TryGetValue(new Vector2Int(x, y), out var cell);
+            return cell;
+        }
+
+        public BoxGridCellData GetBoxCell(int x, int y) =>
+            boxCells.Find(c => c.position.x == x && c.position.y == y);
+
+        private void RebuildCollectableMap()
+        {
+            _collectableMap = new Dictionary<Vector2Int, CollectableGridCellData>(collectableCells.Count);
+            foreach (var cell in collectableCells)
+                _collectableMap[cell.position] = cell;
+        }
 
         [Title("Stats")]
         [ShowInInspector, ReadOnly]
