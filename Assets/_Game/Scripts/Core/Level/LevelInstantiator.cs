@@ -19,7 +19,8 @@ namespace RubyCase.Core
 
         private readonly List<AsyncOperationHandle> _handles = new();
 
-        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings)
+        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config,
+            LevelCreationSettings settings)
         {
             _levelManager = levelManager;
             _config = config;
@@ -43,14 +44,17 @@ namespace RubyCase.Core
 
         private async UniTaskVoid SpawnAsync(LevelData data)
         {
-            LevelContext ctx = _levelManager.CurrentContext;
+            var ctx = _levelManager.CurrentContext;
             if (ctx == null)
             {
-                Debug.LogError("[LevelInstantiator] Missing LevelContext.");
+                Debug.LogError("LevelInstantiator: context is null.");
                 return;
             }
 
             var layout = LevelLayout.Calculate(data, _settings);
+
+            // Tüm sistemlerin paylaştığı grid origin burada set ediliyor.
+            ctx.CollectablesBottomLeft = layout.CollectablesBottomLeft;
 
             ctx.CollectablesRoot.position = layout.CollectablesCenter;
             ctx.BoxesRoot.position = layout.BoxesCenter;
@@ -59,8 +63,9 @@ namespace RubyCase.Core
 
             await SpawnCollectablesAsync(data, ctx.CollectablesRoot, layout);
             await SpawnConveyorAsync(data, ctx.ConveyorNodesRoot, layout);
-            await SpawnBenchesAsync(data, ctx.BenchesRoot, layout);
+            await SpawnBenchesAsync(data, ctx.BenchesRoot);
             await SpawnBoxesAsync(data, ctx.BoxesRoot, layout);
+
             _levelManager.NotifySpawnComplete();
         }
 
@@ -73,16 +78,12 @@ namespace RubyCase.Core
             {
                 if (!cell.isFilled || cell.team == null) continue;
 
-                Vector3 worldPos = root.position +
-                                   LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
-
-                GameObject go = await SpawnAsync(
-                    _config.CollectablePrefab,
-                    worldPos,
-                    root);
-
+                var pos = root.position + LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
+                var go = await SpawnAsync(_config.CollectablePrefab, pos, root);
                 if (go == null) continue;
-                ApplyTeam(go, cell.team);
+
+                go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
+                cell.SpawnedObject = go;
                 _levelManager.CurrentContext.RegisterCollectable(go);
             }
         }
@@ -96,16 +97,16 @@ namespace RubyCase.Core
             {
                 if (!cell.isFilled || cell.team == null) continue;
 
-                Vector3 worldPos = root.position +
-                                   LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
-
-                GameObject go = await SpawnAsync(
-                    _config.BoxPrefab,
-                    worldPos,
-                    root);
-
+                var pos = root.position + LevelLayout.GridLocalOffsetCentered(cell.position, w, h, _settings.CellSize);
+                var go = await SpawnAsync(_config.BoxPrefab, pos, root);
                 if (go == null) continue;
-                ApplyTeam(go, cell.team);
+
+                go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
+
+                if (go.TryGetComponent<BoxController>(out var box) && box.Capacity == 0)
+                    Debug.LogWarning(
+                        $"LevelInstantiator: '{go.name}' has no BoxSlot components. Add 4 BoxSlot children to the prefab.");
+
                 _levelManager.CurrentContext.RegisterBox(go);
             }
         }
@@ -115,10 +116,7 @@ namespace RubyCase.Core
             var path = data.conveyorPath;
             if (path == null || path.gridWidth != data.collectableGridWidth ||
                 path.gridHeight != data.collectableGridHeight)
-            {
-                path = RubyCase.LevelSystem.ConveyorScanMapper.GeneratePath(data.collectableGridWidth,
-                    data.collectableGridHeight);
-            }
+                path = ConveyorScanMapper.GeneratePath(data.collectableGridWidth, data.collectableGridHeight);
 
             path.cellSize = _settings.CellSize;
 
@@ -127,56 +125,52 @@ namespace RubyCase.Core
                 var node = path.GetNode(i);
                 if (node == null) continue;
 
-                Vector3 worldPos = path.GetWorldPosition(i, layout.CollectablesBottomLeft);
-                Vector3 localPos = worldPos - root.position;
-
-                GameObject go = await SpawnAsync(
-                    _config.ConveyorNodePrefab,
-                    worldPos,
-                    root);
-
+                var worldPos = path.GetWorldPosition(i, layout.CollectablesBottomLeft);
+                var go = await SpawnAsync(_config.ConveyorNodePrefab, worldPos, root);
                 if (go == null) continue;
-                go.transform.localPosition = localPos;
+
+                go.transform.localPosition = worldPos - root.position;
                 _levelManager.CurrentContext.RegisterConveyorNode(go);
             }
         }
 
-        private async UniTask SpawnBenchesAsync(LevelData data, Transform root, LevelLayout.Result layout)
+        private async UniTask SpawnBenchesAsync(LevelData data, Transform root)
         {
-            if (_config.BenchPrefab == null || !_config.BenchPrefab.RuntimeKeyIsValid())
-                return;
+            if (_config.BenchPrefab == null || !_config.BenchPrefab.RuntimeKeyIsValid()) return;
 
+            int count = Mathf.Clamp(data.benchCapacity, 1, 8);
             float spacing = Mathf.Max(0.01f, _settings.BenchSpacingX);
-            int count = Mathf.Max(1, data.benchCapacity);
-            if (count != 4) count = 4;
 
             for (int i = 0; i < count; i++)
             {
-                float x = (i - (count - 1) * 0.5f) * spacing;
-                var localPos = new Vector3(x, 0f, 0f);
-                GameObject go = await SpawnAsync(_config.BenchPrefab, root.position + localPos, root);
+                var localPos = new Vector3((i - (count - 1) * 0.5f) * spacing, 0f, 0f);
+                var go = await SpawnAsync(_config.BenchPrefab, root.position + localPos, root);
                 if (go == null) continue;
+
+                if (!go.TryGetComponent<BenchController>(out _))
+                    Debug.LogWarning($"LevelInstantiator: BenchPrefab '{go.name}' has no BenchController component.");
+
                 go.transform.localPosition = localPos;
                 _levelManager.CurrentContext.RegisterBench(go);
             }
         }
 
-        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position, Transform parent)
+        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position,
+            Transform parent)
         {
             if (assetRef == null || !assetRef.RuntimeKeyIsValid())
             {
-                Debug.LogWarning("[LevelInstantiator] Invalid AssetReference.");
+                Debug.LogWarning("LevelInstantiator: skipping null/invalid asset reference.");
                 return null;
             }
 
             var handle = Addressables.InstantiateAsync(assetRef, position, Quaternion.identity, parent);
             _handles.Add(handle);
-
             await handle.ToUniTask();
 
             if (handle.Status != AsyncOperationStatus.Succeeded)
             {
-                Debug.LogError($"[LevelInstantiator] Spawn failed: {assetRef.RuntimeKey}");
+                Debug.LogError($"LevelInstantiator: failed to spawn {assetRef.RuntimeKey}");
                 return null;
             }
 
@@ -189,12 +183,6 @@ namespace RubyCase.Core
                 if (h.IsValid())
                     Addressables.ReleaseInstance(h);
             _handles.Clear();
-        }
-
-        private static void ApplyTeam(GameObject go, Team team)
-        {
-            var item = go.GetComponent<IHaveTeam>();
-            item?.AssignTeam(team);
         }
     }
 }

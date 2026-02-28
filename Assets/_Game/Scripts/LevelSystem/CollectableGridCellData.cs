@@ -10,11 +10,11 @@ namespace RubyCase.LevelSystem
         public Vector2Int position;
         public bool isFilled;
         public Team team;
+        [NonSerialized] public GameObject SpawnedObject;
 
         public CollectableGridCellData(Vector2Int pos)
         {
             position = pos;
-            isFilled = false;
         }
 
         public void SetCollectable(Team assignedTeam)
@@ -27,6 +27,7 @@ namespace RubyCase.LevelSystem
         {
             isFilled = false;
             team = null;
+            SpawnedObject = null;
         }
     }
 }

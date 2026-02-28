@@ -41,6 +41,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4013399904106524250}
+  - component: {fileID: 7024058499316051172}
   m_Layer: 0
   m_Name: Bench
   m_TagString: Untagged
@@ -64,6 +65,18 @@ Transform:
   - {fileID: 3333100870838050809}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7024058499316051172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6977145844461541495}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f09247d340de64f8690551eeab5c0b69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.BoxSystem.BenchController
 --- !u!1 &8128505498784341095
 GameObject:
   m_ObjectHideFlags: 0

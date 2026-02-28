@@ -7,11 +7,9 @@ namespace RubyCase.Core
 {
     public sealed class LevelContext : MonoBehaviour
     {
-        [ShowInInspector, ReadOnly]
-        public LevelData Data { get; private set; }
-
-        [ShowInInspector, ReadOnly]
-        public bool IsReady { get; private set; }
+        [ShowInInspector, ReadOnly] public LevelData Data { get; private set; }
+        [ShowInInspector, ReadOnly] public bool IsReady { get; private set; }
+        public Vector3 CollectablesBottomLeft { get; set; }
 
         [ShowInInspector, ReadOnly, FoldoutGroup("Hierarchy")]
         public Transform CollectablesRoot { get; private set; }
@@ -31,19 +29,13 @@ namespace RubyCase.Core
         private readonly List<GameObject> _benches = new();
 
         [ShowInInspector, ReadOnly] public List<GameObject> Collectables => _collectables;
-
         [ShowInInspector, ReadOnly] public List<GameObject> Boxes => _boxes;
-
         [ShowInInspector, ReadOnly] public List<GameObject> ConveyorNodes => _conveyorNodes;
-
         [ShowInInspector, ReadOnly] public List<GameObject> Benches => _benches;
 
         [ShowInInspector, ReadOnly] public int CollectablesCount => _collectables.Count;
-
         [ShowInInspector, ReadOnly] public int BoxesCount => _boxes.Count;
-
         [ShowInInspector, ReadOnly] public int ConveyorNodesCount => _conveyorNodes.Count;
-
         [ShowInInspector, ReadOnly] public int BenchesCount => _benches.Count;
 
         public void Initialize(LevelData data)
@@ -67,6 +59,7 @@ namespace RubyCase.Core
         {
             Data = null;
             IsReady = false;
+            CollectablesBottomLeft = default;
 
             _collectables.Clear();
             _boxes.Clear();
@@ -79,12 +72,11 @@ namespace RubyCase.Core
             BenchesRoot = null;
         }
 
-        private Transform EnsureChild(string name)
+        private Transform EnsureChild(string childName)
         {
-            var t = transform.Find(name);
-            if (t != null) return t;
-
-            var go = new GameObject(name);
+            var existing = transform.Find(childName);
+            if (existing != null) return existing;
+            var go = new GameObject(childName);
             go.transform.SetParent(transform, false);
             return go.transform;
         }
