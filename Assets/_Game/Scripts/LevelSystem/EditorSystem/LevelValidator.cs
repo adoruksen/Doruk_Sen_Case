@@ -5,6 +5,8 @@ namespace RubyCase.LevelSystem.Editor
 {
     public static class LevelValidator
     {
+        private const int BoxSlotCapacity = 4;
+
         public sealed class Result
         {
             public bool IsValid = true;
@@ -68,7 +70,7 @@ namespace RubyCase.LevelSystem.Editor
 
             if (!any) r.AddError("Box grid has no boxes placed.");
         }
-
+        
         private static void CheckColorBalance(LevelData level, Result r)
         {
             if (level.collectableCells == null || level.boxCells == null) return;
@@ -81,28 +83,40 @@ namespace RubyCase.LevelSystem.Editor
                 collectableCount[c.team]++;
             }
 
-            var boxCapacity = new Dictionary<Team, int>();
+            var boxCount = new Dictionary<Team, int>();
             foreach (var c in level.boxCells)
             {
                 if (!c.isFilled || c.team == null) continue;
-                boxCapacity.TryAdd(c.team, 0);
-                boxCapacity[c.team] += c.capacityOverride > 0 ? c.capacityOverride : 3;
+                boxCount.TryAdd(c.team, 0);
+                boxCount[c.team]++;
             }
 
             foreach (var kv in collectableCount)
             {
-                boxCapacity.TryGetValue(kv.Key, out int cap);
-                if (cap == 0)
-                    r.AddError($"Team '{kv.Key.name}': {kv.Value} collectables but no box.");
-                else if (cap < kv.Value)
-                    r.AddError($"Team '{kv.Key.name}': boxes hold {cap}, need {kv.Value}. Unsolvable.");
-                else if (cap > kv.Value)
-                    r.AddWarning($"Team '{kv.Key.name}': excess capacity {cap - kv.Value}.");
+                var team = kv.Key;
+                int collectables = kv.Value;
+
+                boxCount.TryGetValue(team, out int boxes);
+
+                if (boxes == 0)
+                {
+                    r.AddError($"Team '{team.name}': {collectables} collectables but no box.");
+                    continue;
+                }
+
+                int needed = boxes * BoxSlotCapacity;
+
+                if (collectables < needed)
+                    r.AddWarning(
+                        $"Team '{team.name}': {boxes} box(es) hold {needed} slots but only {collectables} collectables. {needed - collectables} slot(s) will be empty.");
+                else if (collectables > needed)
+                    r.AddError(
+                        $"Team '{team.name}': {collectables} collectables but {boxes} box(es) only hold {needed}. Level unsolvable — add {(collectables - needed + BoxSlotCapacity - 1) / BoxSlotCapacity} more box(es) or remove {collectables - needed} collectable(s).");
             }
 
-            foreach (var kv in boxCapacity)
+            foreach (var kv in boxCount)
                 if (!collectableCount.ContainsKey(kv.Key))
-                    r.AddWarning($"Team '{kv.Key.name}': box placed but no matching collectables.");
+                    r.AddWarning($"Team '{kv.Key.name}': {kv.Value} box(es) placed but no collectables.");
         }
 
         private static void CheckBench(LevelData level, Result r)

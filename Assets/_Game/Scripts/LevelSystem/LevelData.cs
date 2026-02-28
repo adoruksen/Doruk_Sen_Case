@@ -13,10 +13,11 @@ namespace RubyCase.LevelSystem
     [CreateAssetMenu(fileName = "Level_001", menuName = "RubyCase/Level Data")]
     public class LevelData : ScriptableObject
     {
-        public int levelID;
+        [Title("Level Settings")] public int levelID;
         public int benchCapacity = 4;
 
         [Title("Collectable Grid")]
+        [Tooltip("Grid is always square. Cell size = ConveyorInnerSize / collectableGridWidth.")]
         public int collectableGridWidth = 16;
 
         public int collectableGridHeight = 16;
@@ -28,7 +29,7 @@ namespace RubyCase.LevelSystem
 
         [HideInInspector] public List<BoxGridCellData> boxCells = new();
 
-        [Title("Conveyor")]
+        [Title("Conveyor")] [Tooltip("Conveyor prefab is set globally in AddressableGroupConfig.")] [Min(4)]
         public int conveyorSegments = 16;
 
         private Dictionary<Vector2Int, CollectableGridCellData> _collectableMap;
@@ -73,7 +74,15 @@ namespace RubyCase.LevelSystem
 
         [ShowInInspector, ReadOnly] public int TotalBoxes => boxCells.Count(c => c.isFilled);
 
-        [Button("Validate Level"), PropertyOrder(100)]
+        [HorizontalGroup("Buttons"), Button("Preview Level"), PropertyOrder(99)]
+        private void PreviewLevel()
+        {
+#if UNITY_EDITOR
+            LevelPreviewWindow.Show(this);
+#endif
+        }
+
+        [HorizontalGroup("Buttons"), Button("Validate Level"), PropertyOrder(100)]
         private void ValidateLevel()
         {
 #if UNITY_EDITOR
@@ -81,7 +90,7 @@ namespace RubyCase.LevelSystem
             EditorUtility.DisplayDialog(
                 result.IsValid ? "Valid" : "Invalid",
                 result.IsValid
-                    ? $"Level is valid. ({result.Warnings.Count} warnings)"
+                    ? $"Level is valid.{(result.Warnings.Count > 0 ? $"\n\n{result.Warnings.Count} warning(s):\n" + string.Join("\n", result.Warnings) : "")}"
                     : $"{result.Errors.Count} error(s):\n\n" + string.Join("\n", result.Errors),
                 "OK");
 #endif
