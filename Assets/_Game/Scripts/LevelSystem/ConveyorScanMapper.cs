@@ -70,12 +70,11 @@ namespace RubyCase.LevelSystem
             return data;
         }
 
-        public static List<CollectableGridCellData> GetAlignedCells(ConveyorNode node, LevelData level)
+        // Returns the nearest filled cell to the conveyor side, within half the grid depth.
+        // Returns null if nothing is in range or all cells are empty/already collected.
+        public static CollectableGridCellData GetNearestCell(ConveyorNode node, LevelData level)
         {
-            var result = new List<CollectableGridCellData>();
-
-            if (node == null || node.scanAxis == ScanAxis.None)
-                return result;
+            if (node == null || node.scanAxis == ScanAxis.None) return null;
 
             int w = level.collectableGridWidth;
             int h = level.collectableGridHeight;
@@ -85,28 +84,54 @@ namespace RubyCase.LevelSystem
                 if (node.scanAxis == ScanAxis.Column)
                 {
                     if (lineIdx < 0 || lineIdx >= w) continue;
+
                     bool fromBelow = node.localPosition.y < 0;
+                    int maxDepth = Mathf.Max(1, h / 2);
+
                     if (fromBelow)
-                        for (int y = 0; y < h; y++)
-                            TryAdd(result, level, lineIdx, y);
+                    {
+                        for (int y = 0; y < maxDepth; y++)
+                        {
+                            var cell = level.GetCollectableCell(lineIdx, y);
+                            if (IsCollectable(cell)) return cell;
+                        }
+                    }
                     else
-                        for (int y = h - 1; y >= 0; y--)
-                            TryAdd(result, level, lineIdx, y);
+                    {
+                        for (int y = h - 1; y >= h - maxDepth; y--)
+                        {
+                            var cell = level.GetCollectableCell(lineIdx, y);
+                            if (IsCollectable(cell)) return cell;
+                        }
+                    }
                 }
                 else
                 {
                     if (lineIdx < 0 || lineIdx >= h) continue;
+
                     bool fromLeft = node.localPosition.x < 0;
+                    int maxDepth = Mathf.Max(1, w / 2);
+
                     if (fromLeft)
-                        for (int x = 0; x < w; x++)
-                            TryAdd(result, level, x, lineIdx);
+                    {
+                        for (int x = 0; x < maxDepth; x++)
+                        {
+                            var cell = level.GetCollectableCell(x, lineIdx);
+                            if (IsCollectable(cell)) return cell;
+                        }
+                    }
                     else
-                        for (int x = w - 1; x >= 0; x--)
-                            TryAdd(result, level, x, lineIdx);
+                    {
+                        for (int x = w - 1; x >= w - maxDepth; x--)
+                        {
+                            var cell = level.GetCollectableCell(x, lineIdx);
+                            if (IsCollectable(cell)) return cell;
+                        }
+                    }
                 }
             }
 
-            return result;
+            return null;
         }
 
         public static Vector2 CanvasCellToLocal(int cx, int cy, int gridH)
@@ -116,15 +141,12 @@ namespace RubyCase.LevelSystem
             return new Vector2(lx, ly);
         }
 
+        private static bool IsCollectable(CollectableGridCellData cell) =>
+            cell != null && cell.isFilled && cell.SpawnedObject != null;
+
         private static ConveyorNode Corner(int idx, float x, float y) =>
             new ConveyorNode { index = idx, localPosition = new Vector2(x, y), scanAxis = ScanAxis.None };
 
         private static List<int> BuildRange(int value) => new List<int> { value };
-
-        private static void TryAdd(List<CollectableGridCellData> list, LevelData level, int x, int y)
-        {
-            var cell = level.GetCollectableCell(x, y);
-            if (cell != null && cell.isFilled && cell.SpawnedObject != null) list.Add(cell);
-        }
     }
 }

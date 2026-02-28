@@ -67,30 +67,24 @@ namespace RubyCase.BoxSystem
 
         private void OnNodeReached(BoxController box, int nodeIndex)
         {
+            if (box.IsFull) return;
+
             var session = _levelManager.CurrentSession;
             if (session == null) return;
 
             var node = _conveyor.Path?.GetNode(nodeIndex);
             if (node == null || node.scanAxis == ScanAxis.None) return;
 
-            foreach (var cell in ConveyorScanMapper.GetAlignedCells(node, _levelManager.CurrentData))
-            {
-                if (box.IsFull) break;
-                if (cell.team != box.Team) continue;
+            var cell = ConveyorScanMapper.GetNearestCell(node, _levelManager.CurrentData);
+            if (cell == null || cell.team != box.Team) return;
 
-                var slot = box.GetAvailableSlot();
-                if (slot == null) break;
+            var slot = box.GetAvailableSlot();
+            if (slot == null) return;
 
-                box.Collect(slot, cell.SpawnedObject);
-
-                if (cell.SpawnedObject != null)
-                {
-                    session.Collectables.MarkResolved(cell.SpawnedObject);
-                    cell.SpawnedObject.SetActive(false);
-                }
-
-                cell.SpawnedObject = null;
-            }
+            box.Collect(slot, cell.SpawnedObject);
+            session.Collectables.MarkResolved(cell.SpawnedObject);
+            cell.SpawnedObject.SetActive(false);
+            cell.SpawnedObject = null;
         }
 
         private void OnPathCompleted(BoxController box)
