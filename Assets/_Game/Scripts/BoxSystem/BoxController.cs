@@ -15,6 +15,7 @@ namespace RubyCase.BoxSystem
         public event Action<int> OnNodeReached;
         public event Action OnPathCompleted;
         public event Action OnBenchArrived;
+        public event Action OnFullyLoaded;
         public event Action OnDestroyed;
 
         [ShowInInspector, ReadOnly] public Team Team { get; private set; }
@@ -22,6 +23,8 @@ namespace RubyCase.BoxSystem
 
         public int Capacity => _slots.Count;
         public bool IsFull => Current >= Capacity;
+        private int _occupiedCount;
+
 
         [SerializeField] private List<BoxSlot> _slots = new();
         public bool IsClickable { get; private set; }
@@ -79,6 +82,13 @@ namespace RubyCase.BoxSystem
             if (IsFull) return;
             slot.Reserve(collectable);
             Current++;
+        }
+
+        public void NotifySlotOccupied()
+        {
+            _occupiedCount++;
+            if (_occupiedCount >= Capacity)
+                OnFullyLoaded?.Invoke();
         }
 
         public void NotifyNodeReached(int index) => OnNodeReached?.Invoke(index);

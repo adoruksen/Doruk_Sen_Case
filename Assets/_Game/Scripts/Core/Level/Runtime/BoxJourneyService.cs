@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using RubyCase.Core;
 using RubyCase.LevelSystem;
 using UnityEngine;
@@ -18,6 +19,7 @@ namespace RubyCase.BoxSystem
         {
             public Action<int> OnNode;
             public Action OnComplete;
+            public Action OnFullyLoaded;
             public Action OnDestroy;
         }
 
@@ -49,12 +51,14 @@ namespace RubyCase.BoxSystem
             {
                 OnNode = i => OnNodeReached(box, i),
                 OnComplete = () => OnPathCompleted(box),
+                OnFullyLoaded = () => OnBoxFullyLoaded(box),
                 OnDestroy = () => Detach(box),
             };
 
             _active[box] = h;
             box.OnNodeReached += h.OnNode;
             box.OnPathCompleted += h.OnComplete;
+            box.OnFullyLoaded += h.OnFullyLoaded;
             box.OnDestroyed += h.OnDestroy;
 
             if (box.StateMachine.CurrentState == box.OnBenchState)
@@ -81,25 +85,41 @@ namespace RubyCase.BoxSystem
             var slot = box.GetAvailableSlot();
             if (slot == null) return;
 
-            box.Collect(slot, cell.SpawnedObject);
-            session.Collectables.MarkResolved(cell.SpawnedObject);
-            cell.SpawnedObject.SetActive(false);
+            var go = cell.SpawnedObject;
             cell.SpawnedObject = null;
+
+            box.Collect(slot, go);
+            session.Collectables.MarkResolved(go);
+
+            go.transform.SetParent(slot.transform, true);
+            go.transform
+                .DOLocalJump(Vector3.zero, 1f, 1, 0.3f)
+                .SetEase(Ease.OutQuad)
+                .OnComplete(() =>
+                {
+                    slot.Occupy();
+                    box.NotifySlotOccupied();
+                });
+        }
+
+        private void OnBoxFullyLoaded(BoxController box)
+        {
+            Detach(box);
+
+            var session = _levelManager.CurrentSession;
+            session?.Boxes.MarkResolved(box.gameObject);
+
+            box.StateMachine.TransitionTo(box.IdleState);
+            box.gameObject.SetActive(false);
         }
 
         private void OnPathCompleted(BoxController box)
         {
             Detach(box);
 
+            if (!box.gameObject.activeSelf) return;
+
             var session = _levelManager.CurrentSession;
-
-            if (box.IsFull)
-            {
-                session?.Boxes.MarkResolved(box.gameObject);
-                box.gameObject.SetActive(false);
-                return;
-            }
-
             if (!_bench.TryPlace(box))
                 session?.Fail();
         }
@@ -109,6 +129,7 @@ namespace RubyCase.BoxSystem
             if (!_active.TryGetValue(box, out var h)) return;
             box.OnNodeReached -= h.OnNode;
             box.OnPathCompleted -= h.OnComplete;
+            box.OnFullyLoaded -= h.OnFullyLoaded;
             box.OnDestroyed -= h.OnDestroy;
             _active.Remove(box);
         }
