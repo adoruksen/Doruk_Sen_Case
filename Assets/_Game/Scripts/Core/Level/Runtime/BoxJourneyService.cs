@@ -89,7 +89,7 @@ namespace RubyCase.BoxSystem
                     cell.SpawnedObject.SetActive(false);
                 }
 
-                cell.Clear();
+                cell.SpawnedObject = null;
             }
         }
 

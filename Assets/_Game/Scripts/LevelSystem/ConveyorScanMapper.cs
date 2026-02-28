@@ -5,8 +5,6 @@ namespace RubyCase.LevelSystem
 {
     public static class ConveyorScanMapper
     {
-        // Grid space: node localPositions are in grid units (before cellSize multiply).
-        // 0.5f offset = half a cell, placing nodes at cell centers or just outside the grid edge.
         private const float HalfCell = 0.5f;
 
         public static ConveyorPathData GeneratePath(int gridW, int gridH)
@@ -25,7 +23,6 @@ namespace RubyCase.LevelSystem
 
             int roadStartIdx = idx;
 
-            // Bottom edge — right to left
             for (int col = gridW - 1; col >= 0; col--)
                 nodes.Add(new ConveyorNode
                 {
@@ -35,7 +32,6 @@ namespace RubyCase.LevelSystem
 
             nodes.Add(Corner(idx++, left, bottom));
 
-            // Left edge — bottom to top
             for (int row = 0; row < gridH; row++)
                 nodes.Add(new ConveyorNode
                 {
@@ -45,7 +41,6 @@ namespace RubyCase.LevelSystem
 
             nodes.Add(Corner(idx++, left, top));
 
-            // Top edge — left to right
             for (int col = 0; col < gridW; col++)
                 nodes.Add(new ConveyorNode
                 {
@@ -55,7 +50,6 @@ namespace RubyCase.LevelSystem
 
             nodes.Add(Corner(idx++, right, top));
 
-            // Right edge — top to bottom
             int roadEndIdx = -1;
             for (int row = gridH - 1; row >= 0; row--)
             {
@@ -130,7 +124,7 @@ namespace RubyCase.LevelSystem
         private static void TryAdd(List<CollectableGridCellData> list, LevelData level, int x, int y)
         {
             var cell = level.GetCollectableCell(x, y);
-            if (cell != null && cell.isFilled) list.Add(cell);
+            if (cell != null && cell.isFilled && cell.SpawnedObject != null) list.Add(cell);
         }
     }
 }
