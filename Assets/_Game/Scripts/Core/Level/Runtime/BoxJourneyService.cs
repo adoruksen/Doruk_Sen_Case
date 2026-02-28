@@ -12,6 +12,7 @@ namespace RubyCase.BoxSystem
         private readonly IConveyorManager _conveyor;
         private readonly IBenchManager _bench;
         private readonly ILevelManager _levelManager;
+        private readonly LevelCreationSettings _settings;
 
         private readonly Dictionary<BoxController, Handlers> _active = new();
 
@@ -23,11 +24,12 @@ namespace RubyCase.BoxSystem
             public Action OnDestroy;
         }
 
-        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager)
+        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager, LevelCreationSettings settings)
         {
             _conveyor = conveyor;
             _bench = bench;
             _levelManager = levelManager;
+            _settings = settings;
         }
 
         public bool CanStartJourney(BoxController box) =>
@@ -63,7 +65,7 @@ namespace RubyCase.BoxSystem
                 _bench.Release(box);
 
             box.MoveToConveyorState.SetWaypoints(_conveyor.Waypoints, _conveyor.RoadStartIndex);
-            box.OnConveyorState.SetWaypoints(_conveyor.Waypoints);
+            box.OnConveyorState.SetWaypoints(_conveyor.Waypoints, _settings.ConveyorSpeed);
             box.StateMachine.TransitionTo(box.MoveToConveyorState);
         }
 
@@ -90,13 +92,11 @@ namespace RubyCase.BoxSystem
 
             box.Collect(slot, go);
             session.Collectables.MarkResolved(go);
-
-            go.transform
-                .DOJump(slot.transform.position, 1.5f, 1, 0.3f)
+            go.transform.SetParent(slot.transform, true);
+            go.transform.DOLocalMove(Vector3.zero, 0.35f)
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() =>
                 {
-                    go.transform.SetParent(slot.transform, true);
                     slot.Occupy();
                     box.NotifySlotOccupied();
                 });
@@ -118,17 +118,15 @@ namespace RubyCase.BoxSystem
                 _levelManager.CurrentSession?.Fail();
         }
 
-        // Scans inward from the near edge up to half the grid depth.
         private static CollectableGridCellData FindNearestCell(ScanInfo scan, LevelData level)
         {
-            int n = level.collectableGridWidth; // square grid
+            int n = level.collectableGridWidth;
 
             if (scan.IsColumn)
             {
                 int col = scan.LineIndex;
                 if (col < 0 || col >= n) return null;
                 int maxDepth = Mathf.Max(1, n / 2);
-
                 if (scan.FromNear)
                     for (int y = 0; y < maxDepth; y++)
                     {
@@ -147,7 +145,6 @@ namespace RubyCase.BoxSystem
                 int row = scan.LineIndex;
                 if (row < 0 || row >= n) return null;
                 int maxDepth = Mathf.Max(1, n / 2);
-
                 if (scan.FromNear)
                     for (int x = 0; x < maxDepth; x++)
                     {

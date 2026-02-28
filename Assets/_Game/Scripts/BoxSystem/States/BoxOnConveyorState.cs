@@ -1,4 +1,5 @@
 using DG.Tweening;
+using RubyCase.Core;
 using RubyCase.StateMachine;
 using UnityEngine;
 
@@ -8,10 +9,12 @@ namespace RubyCase.BoxSystem
     {
         private Tween _tween;
         private Vector3[] _waypoints;
+        private float _speed;
 
-        public void SetWaypoints(Vector3[] waypoints)
+        public void SetWaypoints(Vector3[] waypoints, float speed)
         {
             _waypoints = waypoints;
+            _speed = speed;
         }
 
         public void OnEnter(BoxController owner)
@@ -25,8 +28,14 @@ namespace RubyCase.BoxSystem
                 return;
             }
 
+            float totalLength = 0f;
+            for (int i = 1; i < _waypoints.Length; i++)
+                totalLength += Vector3.Distance(_waypoints[i - 1], _waypoints[i]);
+
+            float duration = totalLength / Mathf.Max(0.01f, _speed);
+
             _tween = owner.transform
-                .DOPath(_waypoints, _waypoints.Length * 0.4f, PathType.Linear)
+                .DOPath(_waypoints, duration, PathType.Linear)
                 .SetEase(Ease.Linear)
                 .SetLookAt(0.01f)
                 .OnWaypointChange(wi => owner.NotifyNodeReached(wi))

@@ -20,8 +20,7 @@ namespace RubyCase.Core
 
         private readonly List<AsyncOperationHandle> _handles = new();
 
-        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config,
-            LevelCreationSettings settings, DiContainer container)
+        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings, DiContainer container)
         {
             _levelManager = levelManager;
             _config = config;
@@ -61,7 +60,7 @@ namespace RubyCase.Core
             ctx.ConveyorRoot.position = layout.ConveyorCenter;
             ctx.BenchesRoot.position = new Vector3(0f, 0f, layout.BenchRowZ);
 
-            await SpawnConveyorAsync(data, ctx.ConveyorRoot);
+            await SpawnConveyorAsync(ctx.ConveyorRoot);
             await SpawnCollectablesAsync(data, ctx.CollectablesRoot, layout);
             await SpawnBenchesAsync(data, ctx.BenchesRoot);
             await SpawnBoxesAsync(data, ctx.BoxesRoot, layout);
@@ -69,23 +68,18 @@ namespace RubyCase.Core
             _levelManager.NotifySpawnComplete();
         }
 
-        private async UniTask SpawnConveyorAsync(LevelData data, Transform root)
+        private async UniTask SpawnConveyorAsync(Transform root)
         {
-            // Use per-level prefab if assigned, otherwise fall back to global default.
-            var assetRef = (data.conveyorPrefab != null && data.conveyorPrefab.RuntimeKeyIsValid())
-                ? data.conveyorPrefab
-                : _config.ConveyorPrefab;
-
-            var go = await SpawnAsync(assetRef, root.position, root);
+            var go = await SpawnAsync(_config.ConveyorPrefab, root.position, root);
             if (go == null)
-                Debug.LogWarning(
-                    "LevelInstantiator: conveyor prefab missing. Assign in LevelData or AddressableGroupConfig.");
+                Debug.LogWarning("LevelInstantiator: ConveyorPrefab missing in AddressableGroupConfig.");
         }
 
         private async UniTask SpawnCollectablesAsync(LevelData data, Transform root, LevelLayout.Result layout)
         {
             int w = Mathf.Max(1, data.collectableGridWidth);
             int h = Mathf.Max(1, data.collectableGridHeight);
+            var itemScale = Vector3.one * layout.CellSize;
 
             foreach (var cell in data.collectableCells)
             {
@@ -95,6 +89,7 @@ namespace RubyCase.Core
                 var go = await SpawnAsync(_config.CollectablePrefab, pos, root);
                 if (go == null) continue;
 
+                go.transform.localScale = itemScale;
                 go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
                 cell.SpawnedObject = go;
                 _levelManager.CurrentContext.RegisterCollectable(go);
@@ -145,8 +140,8 @@ namespace RubyCase.Core
             }
         }
 
-        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef, Vector3 position,
-            Transform parent)
+        private async UniTask<GameObject> SpawnAsync(AssetReferenceGameObject assetRef,
+            Vector3 position, Transform parent)
         {
             if (assetRef == null || !assetRef.RuntimeKeyIsValid())
             {

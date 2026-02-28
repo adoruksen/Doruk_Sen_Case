@@ -12,11 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 257698cb6cf6e44a0bf4cd54fe653e37, type: 3}
   m_Name: LevelCreationSettings
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.Core.LevelCreationSettings
-  ConveyorInnerSize: 8
+  ConveyorInnerSize: 5
   ConveyorGridGap: 1
+  ConveyorSpeed: 4
   CollectableSpacingRatio: 0.01
   BoxCellSize: 1
   BoxSpacing: 0.1
-  ConveyorToBenchGap: 0.5
-  BenchToBoxGap: 1
+  ConveyorToBenchGap: 3
+  BenchToBoxGap: 2
   BenchSpacingX: 1.25

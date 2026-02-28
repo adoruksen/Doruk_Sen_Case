@@ -48,7 +48,7 @@ namespace RubyCase.BoxSystem
             Waypoints = null;
             _gridSize = 0;
         }
-        
+
         public ScanInfo? GetScanInfo(int i)
         {
             int n = _gridSize;

@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using RubyCase.LevelSystem.Editor;
 using UnityEngine;
-using UnityEngine.AddressableAssets;
 using Sirenix.OdinInspector;
 
 #if UNITY_EDITOR
@@ -14,11 +13,10 @@ namespace RubyCase.LevelSystem
     [CreateAssetMenu(fileName = "Level_001", menuName = "RubyCase/Level Data")]
     public class LevelData : ScriptableObject
     {
-        [Title("Level Settings")] public int levelID;
+        public int levelID;
         public int benchCapacity = 4;
 
         [Title("Collectable Grid")]
-        [Tooltip("Grid is always square. Cell size = ConveyorInnerSize / collectableGridWidth.")]
         public int collectableGridWidth = 16;
 
         public int collectableGridHeight = 16;
@@ -31,8 +29,7 @@ namespace RubyCase.LevelSystem
         [HideInInspector] public List<BoxGridCellData> boxCells = new();
 
         [Title("Conveyor")]
-        [Tooltip("Per-level conveyor visual. If null, AddressableGroupConfig.ConveyorPrefab is used.")]
-        public AssetReferenceGameObject conveyorPrefab;
+        public int conveyorSegments = 16;
 
         private Dictionary<Vector2Int, CollectableGridCellData> _collectableMap;
 
