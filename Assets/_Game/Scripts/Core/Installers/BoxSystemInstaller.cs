@@ -1,4 +1,3 @@
-using UnityEngine;
 using Zenject;
 
 namespace RubyCase.BoxSystem
@@ -9,6 +8,7 @@ namespace RubyCase.BoxSystem
         {
             Container.BindInterfacesTo<ConveyorManager>().AsSingle();
             Container.BindInterfacesTo<BenchManager>().AsSingle();
+            Container.Bind<IBoxJourneyService>().To<BoxJourneyService>().AsSingle();
         }
     }
 }

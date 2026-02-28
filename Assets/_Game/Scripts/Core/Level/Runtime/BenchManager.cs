@@ -51,9 +51,16 @@ namespace RubyCase.BoxSystem
             if (bench == null) return false;
 
             bench.Reserve(box);
-            //box.MoveToBenchState.MoveTo(bench.transform);
-            //box.StateMachine.TransitionTo(box.MoveToBenchState);
+            box.OnBenchArrived += OnBenchArrived;
+            box.MoveToBenchState.MoveTo(bench.transform);
+            box.StateMachine.TransitionTo(box.MoveToBenchState);
             return true;
+
+            void OnBenchArrived()
+            {
+                box.OnBenchArrived -= OnBenchArrived;
+                NotifyArrived(box);
+            }
         }
 
         public void NotifyArrived(BoxController box)

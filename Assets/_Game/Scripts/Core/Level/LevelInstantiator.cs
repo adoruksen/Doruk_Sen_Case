@@ -16,15 +16,16 @@ namespace RubyCase.Core
         private readonly ILevelManager _levelManager;
         private readonly AddressableGroupConfig _config;
         private readonly LevelCreationSettings _settings;
+        private readonly DiContainer _container;
 
         private readonly List<AsyncOperationHandle> _handles = new();
 
-        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config,
-            LevelCreationSettings settings)
+        public LevelInstantiator(ILevelManager levelManager, AddressableGroupConfig config, LevelCreationSettings settings, DiContainer container)
         {
             _levelManager = levelManager;
             _config = config;
             _settings = settings;
+            _container = container;
         }
 
         public void Initialize()
@@ -53,7 +54,6 @@ namespace RubyCase.Core
 
             var layout = LevelLayout.Calculate(data, _settings);
 
-            // Tüm sistemlerin paylaştığı grid origin burada set ediliyor.
             ctx.CollectablesBottomLeft = layout.CollectablesBottomLeft;
 
             ctx.CollectablesRoot.position = layout.CollectablesCenter;
@@ -102,6 +102,7 @@ namespace RubyCase.Core
                 if (go == null) continue;
 
                 go.GetComponent<IHaveTeam>()?.AssignTeam(cell.team);
+                _container.InjectGameObject(go);
 
                 if (go.TryGetComponent<BoxController>(out var box) && box.Capacity == 0)
                     Debug.LogWarning(

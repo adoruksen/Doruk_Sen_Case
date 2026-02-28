@@ -13,5 +13,7 @@ namespace RubyCase.Core
 
         event Action Completed;
         event Action Failed;
+
+        void Fail();
     }
 }

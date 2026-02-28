@@ -555,7 +555,8 @@ GameObject:
   - component: {fileID: 9206244995113696467}
   - component: {fileID: 165076402883648560}
   - component: {fileID: 2463924756864075949}
-  m_Layer: 0
+  - component: {fileID: 7252811588380025538}
+  m_Layer: 3
   m_Name: Cube
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -650,3 +651,24 @@ MonoBehaviour:
   bindings:
   - propertyName: _BaseColor
     type: 0
+--- !u!65 &7252811588380025538
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8101613309190064296}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Size: {x: 1, y: 1, z: 1}
+  m_Center: {x: 0, y: 0, z: 0}
