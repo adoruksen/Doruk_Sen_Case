@@ -1,3 +1,5 @@
+using RubyCase.Core;
+using UnityEngine;
 using Zenject;
 
 namespace RubyCase.BoxSystem

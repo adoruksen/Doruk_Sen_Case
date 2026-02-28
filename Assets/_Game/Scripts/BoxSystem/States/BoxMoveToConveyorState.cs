@@ -1,5 +1,4 @@
 using DG.Tweening;
-using RubyCase.LevelSystem;
 using RubyCase.StateMachine;
 using UnityEngine;
 
@@ -8,30 +7,28 @@ namespace RubyCase.BoxSystem
     public class BoxMoveToConveyorState : IState<BoxController>
     {
         private Tween _tween;
-        private ConveyorPathData _path;
-        private Vector3 _origin;
+        private Vector3[] _waypoints;
+        private int _startIndex;
 
-        public void SetPath(ConveyorPathData path, Vector3 origin)
+        public void SetWaypoints(Vector3[] waypoints, int startIndex)
         {
-            _path = path;
-            _origin = origin;
+            _waypoints = waypoints;
+            _startIndex = startIndex;
         }
 
         public void OnEnter(BoxController owner)
         {
             owner.SetClickable(false);
 
-            if (_path == null || _path.NodeCount == 0)
+            if (_waypoints == null || _startIndex < 0 || _startIndex >= _waypoints.Length)
             {
-                Debug.LogWarning("BoxMoveToConveyorState: no path assigned.");
+                Debug.LogWarning("BoxMoveToConveyorState: waypoints not set.");
                 owner.StateMachine.TransitionTo(owner.IdleState);
                 return;
             }
 
-            var target = _path.GetWorldPosition(_path.roadStartIndex, _origin);
-
             _tween = owner.transform
-                .DOMove(target, 0.3f)
+                .DOMove(_waypoints[_startIndex], 0.3f)
                 .SetEase(Ease.InOutQuad)
                 .OnComplete(() => owner.StateMachine.TransitionTo(owner.OnConveyorState));
         }
@@ -44,8 +41,7 @@ namespace RubyCase.BoxSystem
         {
             _tween?.Kill();
             _tween = null;
-            _path = null;
-            _origin = default;
+            _waypoints = null;
         }
     }
 }

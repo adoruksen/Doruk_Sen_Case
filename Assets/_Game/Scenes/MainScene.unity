@@ -591,6 +591,10 @@ PrefabInstance:
       propertyPath: testManager
       value: 
       objectReference: {fileID: 560459659}
+    - target: {fileID: 6843374257695741566, guid: 6f74e6f89312e43ca9e6d94ca14f1bc6, type: 3}
+      propertyPath: settings
+      value: 
+      objectReference: {fileID: 11400000, guid: 1f33fe004d674410bbc646ef44461650, type: 2}
     - target: {fileID: 7688786837658459810, guid: 6f74e6f89312e43ca9e6d94ca14f1bc6, type: 3}
       propertyPath: m_Name
       value: SceneContext

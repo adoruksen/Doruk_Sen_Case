@@ -34,7 +34,6 @@ namespace RubyCase.LevelSystem.Editor
 
             CheckCollectableGrid(level, r);
             CheckBoxGrid(level, r);
-            CheckConveyorPath(level, r);
             CheckColorBalance(level, r);
             CheckBench(level, r);
 
@@ -45,6 +44,10 @@ namespace RubyCase.LevelSystem.Editor
         {
             if (level.collectableCells == null || level.collectableCells.Count == 0)
                 r.AddError("Collectable grid not initialized.");
+
+            if (level.collectableGridWidth != level.collectableGridHeight)
+                r.AddWarning(
+                    $"Grid is not square ({level.collectableGridWidth}x{level.collectableGridHeight}). Conveyor assumes square grid.");
         }
 
         private static void CheckBoxGrid(LevelData level, Result r)
@@ -64,18 +67,6 @@ namespace RubyCase.LevelSystem.Editor
                 }
 
             if (!any) r.AddError("Box grid has no boxes placed.");
-        }
-
-        private static void CheckConveyorPath(LevelData level, Result r)
-        {
-            if (level.conveyorPath == null)
-            {
-                r.AddError("ConveyorPathData not generated. Re-init the collectable grid.");
-                return;
-            }
-
-            if (level.conveyorPath.NodeCount < 4)
-                r.AddError("Conveyor path has fewer than 4 nodes.");
         }
 
         private static void CheckColorBalance(LevelData level, Result r)

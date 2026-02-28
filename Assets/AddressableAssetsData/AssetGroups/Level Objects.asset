@@ -15,6 +15,11 @@ MonoBehaviour:
   m_GroupName: Level Objects
   m_GUID: b3005023f8d274fc18d34c40ef8434cb
   m_SerializeEntries:
+  - m_GUID: 5f7ddb84743ed48cfaf5aa79ada4fdc5
+    m_Address: Assets/_Game/Prefabs/Conveyor.prefab
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7677804eeee64401c90be3eb96a73d3c
     m_Address: Assets/_Game/Prefabs/Collectable.prefab
     m_ReadOnly: 0

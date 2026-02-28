@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using RubyCase.LevelSystem.Editor;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
 using Sirenix.OdinInspector;
 
 #if UNITY_EDITOR
@@ -16,8 +17,11 @@ namespace RubyCase.LevelSystem
         [Title("Level Settings")] public int levelID;
         public int benchCapacity = 4;
 
-        [Title("Collectable Grid")] public int collectableGridWidth = 6;
-        public int collectableGridHeight = 6;
+        [Title("Collectable Grid")]
+        [Tooltip("Grid is always square. Cell size = ConveyorInnerSize / collectableGridWidth.")]
+        public int collectableGridWidth = 16;
+
+        public int collectableGridHeight = 16;
 
         [HideInInspector] public List<CollectableGridCellData> collectableCells = new();
 
@@ -26,8 +30,9 @@ namespace RubyCase.LevelSystem
 
         [HideInInspector] public List<BoxGridCellData> boxCells = new();
 
-        [Title("Conveyor")] [InlineEditor(InlineEditorObjectFieldModes.Boxed)]
-        public ConveyorPathData conveyorPath;
+        [Title("Conveyor")]
+        [Tooltip("Per-level conveyor visual. If null, AddressableGroupConfig.ConveyorPrefab is used.")]
+        public AssetReferenceGameObject conveyorPrefab;
 
         private Dictionary<Vector2Int, CollectableGridCellData> _collectableMap;
 
@@ -35,7 +40,6 @@ namespace RubyCase.LevelSystem
         {
             collectableCells.Clear();
             _collectableMap = null;
-
             for (int y = 0; y < collectableGridHeight; y++)
             for (int x = 0; x < collectableGridWidth; x++)
                 collectableCells.Add(new CollectableGridCellData(new Vector2Int(x, y)));
@@ -51,9 +55,7 @@ namespace RubyCase.LevelSystem
 
         public CollectableGridCellData GetCollectableCell(int x, int y)
         {
-            if (_collectableMap == null)
-                RebuildCollectableMap();
-
+            if (_collectableMap == null) RebuildCollectableMap();
             _collectableMap.TryGetValue(new Vector2Int(x, y), out var cell);
             return cell;
         }
@@ -73,7 +75,6 @@ namespace RubyCase.LevelSystem
         public int TotalCollectables => collectableCells.Count(c => c.isFilled);
 
         [ShowInInspector, ReadOnly] public int TotalBoxes => boxCells.Count(c => c.isFilled);
-        [ShowInInspector, ReadOnly] public int ConveyorNodes => conveyorPath?.NodeCount ?? 0;
 
         [Button("Validate Level"), PropertyOrder(100)]
         private void ValidateLevel()

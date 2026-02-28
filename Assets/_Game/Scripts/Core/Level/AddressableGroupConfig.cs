@@ -10,7 +10,7 @@ namespace RubyCase.Core
         [Title("Prefabs")]
         public AssetReferenceGameObject CollectablePrefab;
         public AssetReferenceGameObject BoxPrefab;
-        public AssetReferenceGameObject ConveyorNodePrefab;
+        public AssetReferenceGameObject ConveyorPrefab;
         public AssetReferenceGameObject BenchPrefab;
     }
 }

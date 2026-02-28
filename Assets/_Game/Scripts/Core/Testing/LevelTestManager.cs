@@ -33,9 +33,6 @@ namespace RubyCase.Core
         [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
         private int Collectables => Context != null ? Context.CollectablesCount : 0;
 
-        [ShowInInspector, ReadOnly, FoldoutGroup("Runtime")]
-        private int ConveyorNodes => Context != null ? Context.ConveyorNodesCount : 0;
-
         [Button(ButtonSizes.Medium), FoldoutGroup("Actions")]
         private void StartLevel()
         {
@@ -44,27 +41,15 @@ namespace RubyCase.Core
         }
 
         [Button(ButtonSizes.Medium), FoldoutGroup("Actions")]
-        private void Restart()
-        {
-            _gameManager?.RestartLevel();
-        }
+        private void Restart() => _gameManager?.RestartLevel();
 
         [Button(ButtonSizes.Medium), FoldoutGroup("Actions")]
-        private void Next()
-        {
-            _gameManager?.NextLevel();
-        }
+        private void Next() => _gameManager?.NextLevel();
 
         [Button(ButtonSizes.Medium), FoldoutGroup("Actions")]
-        private void ForceWin()
-        {
-            _gameManager?.NotifyLevelComplete();
-        }
+        private void ForceWin() => _gameManager?.NotifyLevelComplete();
 
         [Button(ButtonSizes.Medium), FoldoutGroup("Actions")]
-        private void ForceFail()
-        {
-            _gameManager?.NotifyLevelFail();
-        }
+        private void ForceFail() => _gameManager?.NotifyLevelFail();
     }
 }

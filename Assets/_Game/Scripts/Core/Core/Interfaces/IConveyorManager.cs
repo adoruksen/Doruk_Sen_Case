@@ -1,12 +1,20 @@
-using RubyCase.LevelSystem;
 using UnityEngine;
 
 namespace RubyCase.BoxSystem
 {
+    public struct ScanInfo
+    {
+        public bool IsColumn;
+        public int  LineIndex;
+        public bool FromNear;
+    }
+
     public interface IConveyorManager
     {
-        ConveyorPathData Path { get; }
-        Vector3 GridWorldOrigin { get; }
         bool IsReady { get; }
+        Vector3[] Waypoints { get; }
+        int RoadStartIndex { get; }
+
+        ScanInfo? GetScanInfo(int waypointIndex);
     }
 }

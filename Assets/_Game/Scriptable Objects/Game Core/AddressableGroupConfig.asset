@@ -24,8 +24,8 @@ MonoBehaviour:
     m_SubObjectType: 
     m_SubObjectGUID: 
     m_EditorAssetChanged: 1
-  ConveyorNodePrefab:
-    m_AssetGUID: c8a1f5a5296434e87a30662c256622e3
+  ConveyorPrefab:
+    m_AssetGUID: 5f7ddb84743ed48cfaf5aa79ada4fdc5
     m_SubObjectName: 
     m_SubObjectType: 
     m_SubObjectGUID: 

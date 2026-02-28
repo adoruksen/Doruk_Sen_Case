@@ -30,11 +30,9 @@ namespace RubyCase.BoxSystem
             _levelManager = levelManager;
         }
 
-        public bool CanStartJourney(BoxController box)
-        {
-            return box.StateMachine.CurrentState == box.IdleState
-                   || box.StateMachine.CurrentState == box.OnBenchState;
-        }
+        public bool CanStartJourney(BoxController box) =>
+            box.StateMachine.CurrentState == box.IdleState ||
+            box.StateMachine.CurrentState == box.OnBenchState;
 
         public void StartJourney(BoxController box)
         {
@@ -64,22 +62,24 @@ namespace RubyCase.BoxSystem
             if (box.StateMachine.CurrentState == box.OnBenchState)
                 _bench.Release(box);
 
-            box.MoveToConveyorState.SetPath(_conveyor.Path, _conveyor.GridWorldOrigin);
-            box.OnConveyorState.SetPath(_conveyor.Path, _conveyor.GridWorldOrigin);
+            box.MoveToConveyorState.SetWaypoints(_conveyor.Waypoints, _conveyor.RoadStartIndex);
+            box.OnConveyorState.SetWaypoints(_conveyor.Waypoints);
             box.StateMachine.TransitionTo(box.MoveToConveyorState);
         }
 
-        private void OnNodeReached(BoxController box, int nodeIndex)
+        private void OnNodeReached(BoxController box, int waypointIndex)
         {
             if (box.IsFull) return;
 
             var session = _levelManager.CurrentSession;
             if (session == null) return;
 
-            var node = _conveyor.Path?.GetNode(nodeIndex);
-            if (node == null || node.scanAxis == ScanAxis.None) return;
+            var scan = _conveyor.GetScanInfo(waypointIndex);
+            if (scan == null) return;
 
-            var cell = ConveyorScanMapper.GetNearestCell(node, _levelManager.CurrentData);
+            var level = _levelManager.CurrentData;
+            var cell = FindNearestCell(scan.Value, level);
+
             if (cell == null || cell.team != box.Team) return;
 
             var slot = box.GetAvailableSlot();
@@ -91,12 +91,12 @@ namespace RubyCase.BoxSystem
             box.Collect(slot, go);
             session.Collectables.MarkResolved(go);
 
-            go.transform.SetParent(slot.transform, true);
             go.transform
-                .DOLocalJump(Vector3.zero, 1f, 1, 0.3f)
+                .DOJump(slot.transform.position, 1.5f, 1, 0.3f)
                 .SetEase(Ease.OutQuad)
                 .OnComplete(() =>
                 {
+                    go.transform.SetParent(slot.transform, true);
                     slot.Occupy();
                     box.NotifySlotOccupied();
                 });
@@ -105,10 +105,7 @@ namespace RubyCase.BoxSystem
         private void OnBoxFullyLoaded(BoxController box)
         {
             Detach(box);
-
-            var session = _levelManager.CurrentSession;
-            session?.Boxes.MarkResolved(box.gameObject);
-
+            _levelManager.CurrentSession?.Boxes.MarkResolved(box.gameObject);
             box.StateMachine.TransitionTo(box.IdleState);
             box.gameObject.SetActive(false);
         }
@@ -116,13 +113,60 @@ namespace RubyCase.BoxSystem
         private void OnPathCompleted(BoxController box)
         {
             Detach(box);
-
             if (!box.gameObject.activeSelf) return;
-
-            var session = _levelManager.CurrentSession;
             if (!_bench.TryPlace(box))
-                session?.Fail();
+                _levelManager.CurrentSession?.Fail();
         }
+
+        // Scans inward from the near edge up to half the grid depth.
+        private static CollectableGridCellData FindNearestCell(ScanInfo scan, LevelData level)
+        {
+            int n = level.collectableGridWidth; // square grid
+
+            if (scan.IsColumn)
+            {
+                int col = scan.LineIndex;
+                if (col < 0 || col >= n) return null;
+                int maxDepth = Mathf.Max(1, n / 2);
+
+                if (scan.FromNear)
+                    for (int y = 0; y < maxDepth; y++)
+                    {
+                        var c = level.GetCollectableCell(col, y);
+                        if (IsCollectable(c)) return c;
+                    }
+                else
+                    for (int y = n - 1; y >= n - maxDepth; y--)
+                    {
+                        var c = level.GetCollectableCell(col, y);
+                        if (IsCollectable(c)) return c;
+                    }
+            }
+            else
+            {
+                int row = scan.LineIndex;
+                if (row < 0 || row >= n) return null;
+                int maxDepth = Mathf.Max(1, n / 2);
+
+                if (scan.FromNear)
+                    for (int x = 0; x < maxDepth; x++)
+                    {
+                        var c = level.GetCollectableCell(x, row);
+                        if (IsCollectable(c)) return c;
+                    }
+                else
+                    for (int x = n - 1; x >= n - maxDepth; x--)
+                    {
+                        var c = level.GetCollectableCell(x, row);
+                        if (IsCollectable(c)) return c;
+                    }
+            }
+
+            return null;
+        }
+
+        private static bool IsCollectable(CollectableGridCellData cell) =>
+            cell != null && cell.isFilled && cell.SpawnedObject != null;
 
         private void Detach(BoxController box)
         {
