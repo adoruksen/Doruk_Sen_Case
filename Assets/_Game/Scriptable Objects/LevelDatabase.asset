@@ -13,4 +13,5 @@ MonoBehaviour:
   m_Name: LevelDatabase
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.LevelSystem.LevelDatabase
   levels:
+  - {fileID: 11400000, guid: 4f0de61bb89b34f34af5983b10407c91, type: 2}
   - {fileID: 11400000, guid: 633988e6f5fa74c85b2abb2355f7facd, type: 2}
