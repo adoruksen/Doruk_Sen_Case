@@ -28,14 +28,15 @@ namespace RubyCase.Core
                 BenchRowZ = benchRowZ;
             }
         }
-        
+
         public static Result Calculate(LevelData data, LevelCreationSettings s)
         {
             int gridCount = Mathf.Max(1, data.collectableGridWidth);
+            int boxRows = Mathf.Max(1, data.boxGridHeight);
 
             return new Result(
                 collectablesCenter: s.CollectablesCenter,
-                boxesCenter: s.BoxesCenter,
+                boxesCenter: s.GetBoxesCenter(boxRows),
                 collectablesBottomLeft: s.GetCollectablesBottomLeft(gridCount),
                 conveyorCenter: s.CollectablesCenter,
                 cellSize: s.GetCellSize(gridCount),

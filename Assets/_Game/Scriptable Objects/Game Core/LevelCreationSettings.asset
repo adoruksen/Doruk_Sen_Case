@@ -15,7 +15,7 @@ MonoBehaviour:
   ConveyorInnerSize: 5
   ConveyorGridGap: 1
   ConveyorSpeed: 4
-  WaypointInset: -0.5
+  WaypointInset: -0.25
   WaypointY: 1
   CollectableSpacingRatio: 0.02
   BoxCellSize: 1

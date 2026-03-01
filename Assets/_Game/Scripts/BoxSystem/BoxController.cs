@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using DG.Tweening;
 using RubyCase.Core;
 using RubyCase.StateMachine;
 using RubyCase.TeamSystem;
@@ -82,6 +83,11 @@ namespace RubyCase.BoxSystem
             if (IsFull) return;
             slot.Reserve(collectable);
             Current++;
+            transform.localScale = Vector3.one;
+            transform.DOPunchScale(Vector3.one * .1f, .1f).SetEase(Ease.OutCubic).OnComplete(() =>
+            {
+                
+            });
         }
 
         public void NotifySlotOccupied()

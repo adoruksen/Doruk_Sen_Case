@@ -100,10 +100,11 @@ namespace RubyCase.BoxSystem
             session.Collectables.MarkResolved(go);
 
             go.transform.SetParent(slot.transform, true);
-            go.transform.DOLocalMove(Vector3.zero, 0.35f)
-                .SetEase(Ease.OutQuad)
+            go.transform.DOLocalJump(Vector3.zero,1,1, 0.1f)
+                .SetEase(Ease.OutCubic)
                 .OnComplete(() =>
                 {
+                    go.transform.DOPunchScale(Vector3.one * .15f, .1f).SetEase(Ease.OutCubic);
                     slot.Occupy();
                     box.NotifySlotOccupied();
                 });
@@ -113,8 +114,14 @@ namespace RubyCase.BoxSystem
         {
             Detach(box);
             _levelManager.CurrentSession?.Boxes.MarkResolved(box.gameObject);
-            box.StateMachine.TransitionTo(box.IdleState);
-            box.gameObject.SetActive(false);
+            DOVirtual.DelayedCall(.25f, () =>
+            {
+                box.StateMachine.TransitionTo(box.IdleState);
+                box.transform.DOScale(Vector3.zero, .25f).SetEase(Ease.InSine).OnComplete(() =>
+                {
+                    box.gameObject.SetActive(false);
+                });
+            });
         }
 
         private void OnPathCompleted(BoxController box)

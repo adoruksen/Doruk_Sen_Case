@@ -31,6 +31,8 @@ namespace RubyCase.Core
         public float BenchRowZ = -2f;
         
         public float BenchSpacingX = 1.5f;
+        
+        public float BenchToBoxGap = 2f;
 
         
         public float GetCellSize(int gridCount) => ConveyorInnerSize / Mathf.Max(1, gridCount);
@@ -45,6 +47,13 @@ namespace RubyCase.Core
                 CollectablesCenter.x - halfSize,
                 CollectablesCenter.y,
                 CollectablesCenter.z - halfSize);
+        }
+        
+        public Vector3 GetBoxesCenter(int boxRows)
+        {
+            float frontEdgeZ = BenchRowZ - BenchToBoxGap;
+            float centerZ    = frontEdgeZ - boxRows * BoxPitch * 0.5f;
+            return new Vector3(CollectablesCenter.x, 0f, centerZ);
         }
     }
 }
