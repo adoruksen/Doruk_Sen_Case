@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0c10345d734ee44fdb77e8e912fbfcd2, type: 3}
   m_Name: Blue
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.Team
-  boxColor: {r: 0.16509432, g: 0.40714726, b: 1, a: 1}
-  collectableColor: {r: 0.13679248, g: 0.25801763, b: 1, a: 1}
+  boxColor: {r: 0.22745098, g: 0.5254902, b: 1, a: 1}
+  collectableColor: {r: 0.22745098, g: 0.5254902, b: 1, a: 1}
   editorColor: {r: 0.2691349, g: 0.39730522, b: 0.9056604, a: 1}
   editorSymbol: "\u25CF"

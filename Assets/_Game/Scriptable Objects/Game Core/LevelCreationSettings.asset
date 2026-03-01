@@ -15,7 +15,7 @@ MonoBehaviour:
   ConveyorInnerSize: 5
   ConveyorGridGap: 1
   ConveyorSpeed: 4
-  CollectableSpacingRatio: 0.01
+  CollectableSpacingRatio: 0.02
   BoxCellSize: 1
   BoxSpacing: 0.1
   ConveyorToBenchGap: 3
