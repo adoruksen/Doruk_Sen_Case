@@ -10,15 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0c10345d734ee44fdb77e8e912fbfcd2, type: 3}
-  m_Name: Red
+  m_Name: Pink
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.TeamSystem.Team
-<<<<<<< Updated upstream
-  boxColor: {r: 1, g: 0.22246547, b: 0.16470587, a: 1}
-  collectableColor: {r: 1, g: 0.16285977, b: 0.1372549, a: 1}
-  editorColor: {r: 0.90588236, g: 0.29425043, b: 0.27058828, a: 1}
-=======
-  boxColor: {r: 0.9019608, g: 0.22352941, b: 0.27450982, a: 1}
-  collectableColor: {r: 0.9019608, g: 0.22352941, b: 0.27450982, a: 1}
-  editorColor: {r: 1, g: 0.037037037, b: 0, a: 1}
->>>>>>> Stashed changes
+  boxColor: {r: 1, g: 0, b: 0.43137255, a: 1}
+  collectableColor: {r: 1, g: 0, b: 0.43137255, a: 1}
+  editorColor: {r: 1, g: 0, b: 0.43137255, a: 1}
   editorSymbol: "\u25CF"

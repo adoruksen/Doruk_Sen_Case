@@ -14,374 +14,806 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.LevelSystem.LevelData
   levelID: 2
   benchCapacity: 4
-  collectableGridWidth: 10
-  collectableGridHeight: 10
+  collectableGridWidth: 14
+  collectableGridHeight: 14
   collectableCells:
   - position: {x: 0, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 1, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 2, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 4, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 6, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 8, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 10, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 11, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 12, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 0, y: 1}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 1, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 6, y: 1}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 1}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 1}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 1}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 11, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 0, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 1, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 6, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 2}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 11, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 12, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 2}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 0, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 1, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 6, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 3}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 11, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 3}
+    isFilled: 1
+    team: {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
   - position: {x: 0, y: 4}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
   - position: {x: 1, y: 4}
     isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 4}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 4}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 4}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 4}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 6, y: 4}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 4}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 4}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 4}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 11, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 12, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
   - position: {x: 0, y: 5}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 1, y: 5}
     isFilled: 1
     team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 5}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 5}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 5}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 5, y: 5}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 6, y: 5}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 7, y: 5}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 5}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 5}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 11, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
   - position: {x: 0, y: 6}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 1, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
   - position: {x: 2, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 3, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 5, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 6, y: 6}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 6}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 9, y: 6}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 10, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 11, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 12, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - position: {x: 13, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
   - position: {x: 0, y: 7}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 1, y: 7}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 2, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 3, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 4, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 5, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 6, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
   - position: {x: 7, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 8, y: 7}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 9, y: 7}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 10, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 12, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 13, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 0, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 1, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 2, y: 8}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 3, y: 8}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 5, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 6, y: 8}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 7, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 8}
-    isFilled: 0
-    team: {fileID: 0}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 9, y: 8}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 13, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 0, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 1, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 2, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 3, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 4, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 5, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 6, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 7, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
   - position: {x: 8, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   - position: {x: 9, y: 9}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 13, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 0, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 1, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 2, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 3, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 4, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 5, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 6, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 7, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 8, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 9, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 10, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 13, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 0, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 1, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 2, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 3, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 4, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 5, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 6, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 7, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 8, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 9, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 13, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 0, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 1, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 2, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 3, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 4, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 5, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 6, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 7, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 8, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 9, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 10, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 12, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 13, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - position: {x: 0, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 1, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 2, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 3, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 4, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 5, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 6, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 7, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 8, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 9, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 10, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 11, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 12, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - position: {x: 13, y: 13}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
   boxGridWidth: 4
-  boxGridHeight: 4
+  boxGridHeight: 13
   boxCells:
   - position: {x: 0, y: 0}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
+    isFilled: 0
+    team: {fileID: 0}
     capacityOverride: 0
   - position: {x: 1, y: 0}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 0}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
-  - position: {x: 3, y: 0}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
-  - position: {x: 0, y: 1}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
-  - position: {x: 1, y: 1}
-    isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
-    capacityOverride: 0
-  - position: {x: 2, y: 1}
     isFilled: 0
     team: {fileID: 0}
     capacityOverride: 0
+  - position: {x: 3, y: 0}
+    isFilled: 0
+    team: {fileID: 0}
+    capacityOverride: 0
+  - position: {x: 0, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 1}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 1}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
   - position: {x: 0, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 2}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
   - position: {x: 0, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
   - position: {x: 1, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
   - position: {x: 2, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
   - position: {x: 3, y: 3}
     isFilled: 1
-    team: {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
-    capacityOverride: 0
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 4}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 5}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 6}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 7}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 8}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 9}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 10}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 11}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+    capacityOverride: 4
+  - position: {x: 0, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+    capacityOverride: 4
+  - position: {x: 1, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+    capacityOverride: 4
+  - position: {x: 2, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
+    capacityOverride: 4
+  - position: {x: 3, y: 12}
+    isFilled: 1
+    team: {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
+    capacityOverride: 4
   conveyorSegments: 16

@@ -15,9 +15,15 @@ MonoBehaviour:
   ConveyorInnerSize: 5
   ConveyorGridGap: 1
   ConveyorSpeed: 4
+<<<<<<< Updated upstream
   CollectableSpacingRatio: 0.01
+=======
+  WaypointInset: -0.25
+  WaypointY: 0.5
+  CollectableSpacingRatio: 0.02
+>>>>>>> Stashed changes
   BoxCellSize: 1
   BoxSpacing: 0.1
   ConveyorToBenchGap: 3
   BenchToBoxGap: 2
-  BenchSpacingX: 1.25
+  BenchSpacingX: 1.5

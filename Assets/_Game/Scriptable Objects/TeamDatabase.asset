@@ -15,3 +15,9 @@ MonoBehaviour:
   teams:
   - {fileID: 11400000, guid: 98674a8f6d668458d88ebd5c1a8ee5b9, type: 2}
   - {fileID: 11400000, guid: 19a2a838a7b084b0da459a3c36825414, type: 2}
+  - {fileID: 11400000, guid: 8917c5fca5ba1414cb62c614fd155191, type: 2}
+  - {fileID: 11400000, guid: 33abf12d828e048ae8cf9ba1abafc0c7, type: 2}
+  - {fileID: 11400000, guid: e9a44ff0bc2404b75b00c9c1b00058ec, type: 2}
+  - {fileID: 11400000, guid: c09a82757454a4e9ab82132c3a2afbf1, type: 2}
+  - {fileID: 11400000, guid: 285097c10ea034dfdae0984464ec6963, type: 2}
+  - {fileID: 11400000, guid: 7f454e70b5ec744d9b4ef476db7d8778, type: 2}

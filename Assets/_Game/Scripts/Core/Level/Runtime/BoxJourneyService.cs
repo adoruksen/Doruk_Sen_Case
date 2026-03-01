@@ -25,7 +25,9 @@ namespace RubyCase.BoxSystem
             public Action OnDestroy;
         }
 
-        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench, ILevelManager levelManager, LevelCreationSettings settings, IBoxManager boxManager)
+        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench,
+            ILevelManager levelManager, LevelCreationSettings settings,
+            IBoxManager boxManager)
         {
             _conveyor = conveyor;
             _bench = bench;
@@ -131,7 +133,7 @@ namespace RubyCase.BoxSystem
             {
                 int col = scan.LineIndex;
                 if (col < 0 || col >= n) return null;
-                int maxDepth = Mathf.Max(1, n / 2);
+                int maxDepth = Mathf.Max(1, n / 2 + 1);
                 if (scan.FromNear)
                     for (int y = 0; y < maxDepth; y++)
                     {
@@ -149,7 +151,7 @@ namespace RubyCase.BoxSystem
             {
                 int row = scan.LineIndex;
                 if (row < 0 || row >= n) return null;
-                int maxDepth = Mathf.Max(1, n / 2);
+                int maxDepth = Mathf.Max(1, n / 2 + 1);
                 if (scan.FromNear)
                     for (int x = 0; x < maxDepth; x++)
                     {
