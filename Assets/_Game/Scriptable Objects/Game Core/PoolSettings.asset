@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 463962b1b80d4117a4473cc2e319120b, type: 3}
   m_Name: PoolSettings
   m_EditorClassIdentifier: Assembly-CSharp::RubyCase.Pool.PoolSettings
-  CollectablePrewarm: 32
-  BoxPrewarm: 12
-  ConveyorPrewarm: 1
+  CollectablePrewarm: 300
+  BoxPrewarm: 60
   BenchPrewarm: 6

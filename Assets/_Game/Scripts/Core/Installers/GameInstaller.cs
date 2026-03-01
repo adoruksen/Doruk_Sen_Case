@@ -21,7 +21,6 @@ namespace RubyCase.Core.Installers
 
         [Header("Scene References")]
         [SerializeField] private UIManager uiManager;
-        [SerializeField] private LevelTestManager testManager;
 
         public override void InstallBindings()
         {
@@ -36,8 +35,11 @@ namespace RubyCase.Core.Installers
             Container.BindInterfacesTo<LevelSessionFactory>().AsSingle();
             Container.BindInterfacesTo<CoreLoopService>().AsSingle().NonLazy();
             Container.BindInterfacesAndSelfTo<UIManager>().FromInstance(uiManager).AsSingle();
-            Container.Bind<LevelTestManager>().FromInstance(testManager).AsSingle();
             Container.BindInterfacesTo<GameManager>().AsSingle();
+            Container.BindInterfacesTo<ConveyorManager>().AsSingle();
+            Container.BindInterfacesTo<BenchManager>().AsSingle();
+            Container.BindInterfacesTo<BoxManager>().AsSingle();
+            Container.Bind<IBoxJourneyService>().To<BoxJourneyService>().AsSingle();
         }
     }
 }

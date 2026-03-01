@@ -10,8 +10,7 @@ namespace RubyCase.Core.Session
     {
         public int Total { get; private set; }
         public int Remaining { get; private set; }
-        public bool IsCleared => Total > 0 && Remaining <= 0;
-
+        public bool IsCleared => Remaining <= 0;
         public event Action Cleared;
 
         private BoxController[,] _grid;
@@ -64,7 +63,7 @@ namespace RubyCase.Core.Session
             Reset();
             Total = boxes?.Length ?? 0;
             Remaining = Total;
-            if (Total == 0) Cleared?.Invoke();
+            if (Remaining == 0) Cleared?.Invoke();
         }
 
         public void MarkResolved(GameObject box)

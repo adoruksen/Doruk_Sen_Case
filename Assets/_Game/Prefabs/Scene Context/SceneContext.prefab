@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 532223141891846414}
   - component: {fileID: 8916365242820078313}
   - component: {fileID: 1777864268864340216}
-  - component: {fileID: 6843374257695741566}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -49,7 +48,6 @@ MonoBehaviour:
   _scriptableObjectInstallers: []
   _monoInstallers:
   - {fileID: 1777864268864340216}
-  - {fileID: 6843374257695741566}
   _installerPrefabs: []
   _autoRun: 1
   OnPreInstall:
@@ -85,16 +83,3 @@ MonoBehaviour:
   levelCreationSettings: {fileID: 11400000, guid: 1f33fe004d674410bbc646ef44461650, type: 2}
   poolSettings: {fileID: 11400000, guid: ac99bb9f166034a428484cef6a331a2d, type: 2}
   uiManager: {fileID: 0}
-  testManager: {fileID: 0}
---- !u!114 &6843374257695741566
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7688786837658459810}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d41b594bb4f6a45498f71063c61ca65e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::RubyCase.BoxSystem.BoxSystemInstaller

@@ -7,8 +7,7 @@ namespace RubyCase.Core.Session
     {
         public int Total { get; private set; }
         public int Remaining { get; private set; }
-        public bool IsCleared => Total > 0 && Remaining <= 0;
-
+        public bool IsCleared => Remaining <= 0;
         public event Action Cleared;
 
         public void InitializeFromLevel(GameObject[] collectables)
