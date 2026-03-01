@@ -24,3 +24,4 @@ MonoBehaviour:
   BoxesCenter: {x: 0, y: 0, z: -14}
   BenchRowZ: -5
   BenchSpacingX: 1.5
+  BenchToBoxGap: 2

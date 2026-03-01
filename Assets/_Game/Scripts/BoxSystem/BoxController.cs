@@ -55,7 +55,10 @@ namespace RubyCase.BoxSystem
         public void OnClicked()
         {
             if (_journeyService.CanStartJourney(this))
+            {
                 _journeyService.StartJourney(this);
+                transform.DOPunchScale(Vector3.one * .25f, .1f).SetEase(Ease.OutBack);
+            }
         }
 
         public void SetClickable(bool clickable)

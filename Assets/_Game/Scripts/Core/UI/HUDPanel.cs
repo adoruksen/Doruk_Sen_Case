@@ -6,7 +6,6 @@ namespace RubyCase.UI
     public class HUDPanel : UIPanel
     {
         [SerializeField] private TextMeshProUGUI levelLabel;
-        [SerializeField] private TextMeshProUGUI collectableCountLabel;
 
         public void SetLevelDisplay(int levelIndex)
         {

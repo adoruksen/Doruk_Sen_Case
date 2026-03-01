@@ -6,6 +6,8 @@ namespace RubyCase.Core
     public class InputHandler : MonoBehaviour
     {
         [SerializeField] private LayerMask clickableLayer;
+        private float _timer = .25f;
+        private float _cooldown;
 
         private Camera _camera;
 
@@ -13,6 +15,8 @@ namespace RubyCase.Core
 
         private void Update()
         {
+            _cooldown += Time.deltaTime;
+            if(_cooldown < _timer) return;
             if (!Input.GetMouseButtonDown(0)) return;
             if (EventSystem.current != null && EventSystem.current.IsPointerOverGameObject()) return;
 
@@ -22,6 +26,7 @@ namespace RubyCase.Core
             var clickable = hit.collider.GetComponentInParent<IClickable>();
             if (clickable is { IsClickable: true }) 
             {
+                _cooldown = 0;
                 clickable.OnClicked();
             }
         }

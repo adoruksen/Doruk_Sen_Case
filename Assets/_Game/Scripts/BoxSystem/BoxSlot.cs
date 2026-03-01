@@ -7,6 +7,7 @@ namespace RubyCase.BoxSystem
         public bool IsAvailable => !IsReserved && !IsOccupied;
         public bool IsReserved { get; private set; }
         public bool IsOccupied { get; private set; }
+        private GameObject _slotImage;
 
         public GameObject CurrentCollectable { get; private set; }
 
@@ -21,6 +22,7 @@ namespace RubyCase.BoxSystem
         {
             IsReserved = false;
             IsOccupied = true;
+            _slotImage.SetActive(false);
         }
 
         public void Release()
