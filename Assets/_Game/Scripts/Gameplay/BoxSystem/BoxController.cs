@@ -8,10 +8,11 @@ using RubyCase.TeamSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 using Zenject;
+using IPoolable = RubyCase.Pool.IPoolable;
 
 namespace RubyCase.Gameplay.BoxSystem
 {
-    public class BoxController : MonoBehaviour, IHaveTeam, IClickable
+    public class BoxController : MonoBehaviour, IHaveTeam, IClickable, IPoolable
     {
         public event Action<Team> OnTeamChanged;
         public event Action<int> OnNodeReached;
@@ -88,10 +89,7 @@ namespace RubyCase.Gameplay.BoxSystem
             slot.Reserve(collectable);
             Current++;
             transform.localScale = Vector3.one;
-            transform.DOPunchScale(Vector3.one * .1f, .1f).SetEase(Ease.OutCubic).OnComplete(() =>
-            {
-                
-            });
+            transform.DOPunchScale(Vector3.one * .1f, .1f).SetEase(Ease.OutCubic).OnComplete(() => { });
         }
 
         public void NotifySlotOccupied()
@@ -104,5 +102,32 @@ namespace RubyCase.Gameplay.BoxSystem
         public void NotifyNodeReached(int index) => OnNodeReached?.Invoke(index);
         public void NotifyPathCompleted() => OnPathCompleted?.Invoke();
         public void NotifyBenchArrived() => OnBenchArrived?.Invoke();
+
+        public void OnDespawn()
+        {
+            transform.DOKill();
+            OnTeamChanged = null;
+            OnNodeReached = null;
+            OnPathCompleted = null;
+            OnBenchArrived = null;
+            OnFullyLoaded = null;
+            Team = null;
+            IsClickable = false;
+            transform.localScale = Vector3.one;
+            transform.rotation = Quaternion.Euler(Vector3.zero);
+            foreach (var slot in _slots)
+            {
+                slot.Release();
+            }
+        }
+
+        public void OnSpawn()
+        {
+            Current = 0;
+            _occupiedCount = 0;
+            foreach (var slot in _slots)
+                slot.Release();
+            StateMachine.TransitionTo(IdleState);
+        }
     }
 }

@@ -4,6 +4,7 @@ using DG.Tweening;
 using RubyCase.Core.Level;
 using RubyCase.Gameplay.BoxSystem;
 using RubyCase.LevelSystem;
+using RubyCase.Pool;
 using UnityEngine;
 
 namespace RubyCase.Core.Session
@@ -15,6 +16,7 @@ namespace RubyCase.Core.Session
         private readonly ILevelManager _levelManager;
         private readonly LevelCreationSettings _settings;
         private readonly IBoxManager _boxManager;
+        private readonly IPoolManager _pool;
 
         private readonly Dictionary<BoxController, Handlers> _active = new();
 
@@ -26,15 +28,20 @@ namespace RubyCase.Core.Session
             public Action OnDestroy;
         }
 
-        public BoxJourneyService(IConveyorManager conveyor, IBenchManager bench,
-            ILevelManager levelManager, LevelCreationSettings settings,
-            IBoxManager boxManager)
+        public BoxJourneyService(
+            IConveyorManager conveyor,
+            IBenchManager bench,
+            ILevelManager levelManager,
+            LevelCreationSettings settings,
+            IBoxManager boxManager,
+            IPoolManager pool)
         {
             _conveyor = conveyor;
             _bench = bench;
             _levelManager = levelManager;
             _settings = settings;
             _boxManager = boxManager;
+            _pool = pool;
         }
 
         public bool CanStartJourney(BoxController box) =>
@@ -70,7 +77,6 @@ namespace RubyCase.Core.Session
                 _bench.Release(box);
 
             _boxManager.OnBoxDeparted(box);
-
             box.MoveToConveyorState.SetWaypoints(_conveyor.Waypoints, _conveyor.RoadStartIndex);
             box.OnConveyorState.SetWaypoints(_conveyor.Waypoints, _settings.ConveyorSpeed);
             box.StateMachine.TransitionTo(box.MoveToConveyorState);
@@ -79,29 +85,23 @@ namespace RubyCase.Core.Session
         private void OnNodeReached(BoxController box, int waypointIndex)
         {
             if (box.IsFull) return;
-
             var session = _levelManager.CurrentSession;
             if (session == null) return;
-
             var scan = _conveyor.GetScanInfo(waypointIndex);
             if (scan == null) return;
-
             var level = _levelManager.CurrentData;
             var cell = FindNearestCell(scan.Value, level);
-
             if (cell == null || cell.team != box.Team) return;
-
             var slot = box.GetAvailableSlot();
             if (slot == null) return;
 
             var go = cell.SpawnedObject;
             cell.SpawnedObject = null;
-
             box.Collect(slot, go);
             session.Collectables.MarkResolved(go);
 
-            go.transform.SetParent(slot.transform, true);
-            go.transform.DOLocalJump(Vector3.zero,1,1, 0.1f)
+            go.transform.SetParent(slot.transform, worldPositionStays: true);
+            go.transform.DOLocalJump(Vector3.zero, 1, 1, 0.1f)
                 .SetEase(Ease.OutCubic)
                 .OnComplete(() =>
                 {
@@ -115,13 +115,23 @@ namespace RubyCase.Core.Session
         {
             Detach(box);
             _levelManager.CurrentSession?.Boxes.MarkResolved(box.gameObject);
+
             DOVirtual.DelayedCall(.25f, () =>
             {
-                box.StateMachine.TransitionTo(box.IdleState);
-                box.transform.DOScale(Vector3.zero, .25f).SetEase(Ease.InSine).OnComplete(() =>
+                foreach (var slot in box.Slots)
                 {
-                    box.gameObject.SetActive(false);
-                });
+                    var collectable = slot.CurrentCollectable;
+                    if (collectable == null) continue;
+                    collectable.transform.DOKill();
+                    collectable.transform.SetParent(null, worldPositionStays: false);
+                    slot.Release();
+                    _pool.Release(collectable);
+                }
+
+                box.transform
+                    .DOScale(Vector3.zero, .25f)
+                    .SetEase(Ease.InSine)
+                    .OnComplete(() => _pool.Release(box.gameObject));
             });
         }
 
@@ -136,20 +146,19 @@ namespace RubyCase.Core.Session
         private static CollectableGridCellData FindNearestCell(ScanInfo scan, LevelData level)
         {
             int n = level.collectableGridWidth;
-
             if (scan.IsColumn)
             {
                 int col = scan.LineIndex;
                 if (col < 0 || col >= n) return null;
-                int maxDepth = Mathf.Max(1, n / 2 + 1);
+                int max = Mathf.Max(1, n / 2 + 1);
                 if (scan.FromNear)
-                    for (int y = 0; y < maxDepth; y++)
+                    for (int y = 0; y < max; y++)
                     {
                         var c = level.GetCollectableCell(col, y);
                         if (IsCollectable(c)) return c;
                     }
                 else
-                    for (int y = n - 1; y >= n - maxDepth; y--)
+                    for (int y = n - 1; y >= n - max; y--)
                     {
                         var c = level.GetCollectableCell(col, y);
                         if (IsCollectable(c)) return c;
@@ -159,15 +168,15 @@ namespace RubyCase.Core.Session
             {
                 int row = scan.LineIndex;
                 if (row < 0 || row >= n) return null;
-                int maxDepth = Mathf.Max(1, n / 2 + 1);
+                int max = Mathf.Max(1, n / 2 + 1);
                 if (scan.FromNear)
-                    for (int x = 0; x < maxDepth; x++)
+                    for (int x = 0; x < max; x++)
                     {
                         var c = level.GetCollectableCell(x, row);
                         if (IsCollectable(c)) return c;
                     }
                 else
-                    for (int x = n - 1; x >= n - maxDepth; x--)
+                    for (int x = n - 1; x >= n - max; x--)
                     {
                         var c = level.GetCollectableCell(x, row);
                         if (IsCollectable(c)) return c;

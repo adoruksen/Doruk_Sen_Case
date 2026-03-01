@@ -1,9 +1,10 @@
 using RubyCase.Gameplay.BoxSystem;
+using RubyCase.Pool;
 using UnityEngine;
 
 namespace RubyCase.Gameplay.BenchSystem
 {
-    public class BenchController : MonoBehaviour
+    public class BenchController : MonoBehaviour,IPoolable
     {
         public bool IsAvailable => !IsReserved && !IsOccupied;
         public bool IsReserved { get; private set; }
@@ -29,6 +30,16 @@ namespace RubyCase.Gameplay.BenchSystem
             CurrentBox = null;
             IsReserved = false;
             IsOccupied = false;
+        }
+
+        public void OnSpawn()
+        {
+            Release();
+        }
+
+        public void OnDespawn()
+        {
+            Release();
         }
     }
 }

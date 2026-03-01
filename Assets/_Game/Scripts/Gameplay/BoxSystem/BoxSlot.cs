@@ -36,6 +36,7 @@ namespace RubyCase.Gameplay.BoxSystem
             CurrentCollectable = null;
             IsReserved = false;
             IsOccupied = false;
+            _slotImage.SetActive(true);
         }
     }
 }

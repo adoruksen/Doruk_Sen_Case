@@ -1,8 +1,8 @@
 using System;
 using Cysharp.Threading.Tasks;
-using RubyCase.Core.Level;
-using RubyCase.Core.UI;
 using Zenject;
+using RubyCase.Core.UI;
+using RubyCase.Core.Level;
 
 namespace RubyCase.Core.GameLoop
 {
@@ -16,6 +16,7 @@ namespace RubyCase.Core.GameLoop
         private readonly GameSettings _settings;
 
         private bool _transitioning;
+        private Action _onLevelReadyHandler;
 
         public GameManager(ILevelManager levelManager, IUIManager uiManager, GameSettings settings)
         {
@@ -26,13 +27,14 @@ namespace RubyCase.Core.GameLoop
 
         public void Initialize()
         {
-            _levelManager.OnLevelReady += HandleLevelReady;
+            _onLevelReadyHandler = () => HandleLevelReadyAsync().Forget();
+            _levelManager.OnLevelReady += _onLevelReadyHandler;
             StartLevel(_settings.StartLevelIndex);
         }
 
         public void Dispose()
         {
-            _levelManager.OnLevelReady -= HandleLevelReady;
+            _levelManager.OnLevelReady -= _onLevelReadyHandler;
         }
 
         public void StartLevel(int index)
@@ -65,6 +67,14 @@ namespace RubyCase.Core.GameLoop
             TransitionAsync(GameState.LevelFail).Forget();
         }
 
+        private async UniTaskVoid HandleLevelReadyAsync()
+        {
+            if (_transitioning)
+                await UniTask.WaitUntil(() => !_transitioning);
+
+            TransitionAsync(GameState.Playing).Forget();
+        }
+
         private async UniTaskVoid TransitionAsync(GameState next, Func<UniTask> during = null)
         {
             if (_transitioning) return;
@@ -84,7 +94,5 @@ namespace RubyCase.Core.GameLoop
 
             _transitioning = false;
         }
-
-        private void HandleLevelReady() => TransitionAsync(GameState.Playing).Forget();
     }
 }
