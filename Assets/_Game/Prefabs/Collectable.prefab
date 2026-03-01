@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1222525592865102591}
   - component: {fileID: 4452326964410657898}
   m_Layer: 0
-  m_Name: Sphere
+  m_Name: Box
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -41,7 +41,7 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3655041837757690856}
-  m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
+  m_Mesh: {fileID: 4300000, guid: f3dfe60dd28ce134cbf5813574d3d33e, type: 3}
 --- !u!23 &1222525592865102591
 MeshRenderer:
   m_ObjectHideFlags: 0

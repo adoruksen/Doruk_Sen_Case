@@ -53,18 +53,12 @@ namespace RubyCase.BoxSystem
         {
             int n = _gridSize;
 
-            if (i < n)
-                return new ScanInfo { IsColumn = true, LineIndex = n - 1 - i, FromNear = true };
-            if (i == n)
-                return null;
-            if (i <= 2 * n)
-                return new ScanInfo { IsColumn = false, LineIndex = i - n - 1, FromNear = true };
-            if (i == 2 * n + 1)
-                return null;
-            if (i <= 3 * n + 1)
-                return new ScanInfo { IsColumn = true, LineIndex = i - 2 * n - 2, FromNear = false };
-            if (i == 3 * n + 2)
-                return null;
+            if (i < n) return new ScanInfo { IsColumn = true, LineIndex = n - 1 - i, FromNear = true };
+            if (i == n) return null;
+            if (i <= 2 * n) return new ScanInfo { IsColumn = false, LineIndex = i - n - 1, FromNear = true };
+            if (i == 2 * n + 1) return null;
+            if (i <= 3 * n + 1) return new ScanInfo { IsColumn = true, LineIndex = i - 2 * n - 2, FromNear = false };
+            if (i == 3 * n + 2) return null;
             if (i <= 4 * n + 2)
                 return new ScanInfo { IsColumn = false, LineIndex = n - 1 - (i - 3 * n - 3), FromNear = false };
 
@@ -75,7 +69,9 @@ namespace RubyCase.BoxSystem
         {
             float pitch = s.GetCellPitch(n);
             float cellSize = s.GetCellSize(n);
-            float edgeDist = cellSize * 0.5f + s.ConveyorGridGap;
+            float y = s.WaypointY;
+
+            float edgeDist = cellSize * 0.5f + s.ConveyorGridGap - s.WaypointInset;
 
             float bottomZ = origin.z - edgeDist;
             float topZ = origin.z + n * pitch + edgeDist;
@@ -89,20 +85,20 @@ namespace RubyCase.BoxSystem
             int idx = 0;
 
             for (int col = n - 1; col >= 0; col--)
-                pts[idx++] = new Vector3(CellCenterX(col), 0f, bottomZ);
-            pts[idx++] = new Vector3(leftX, 0f, bottomZ);
+                pts[idx++] = new Vector3(CellCenterX(col), y, bottomZ);
+            pts[idx++] = new Vector3(leftX, y, bottomZ); 
 
             for (int row = 0; row < n; row++)
-                pts[idx++] = new Vector3(leftX, 0f, CellCenterZ(row));
-            pts[idx++] = new Vector3(leftX, 0f, topZ);
+                pts[idx++] = new Vector3(leftX, y, CellCenterZ(row));
+            pts[idx++] = new Vector3(leftX, y, topZ); 
 
             for (int col = 0; col < n; col++)
-                pts[idx++] = new Vector3(CellCenterX(col), 0f, topZ);
-            pts[idx++] = new Vector3(rightX, 0f, topZ);
+                pts[idx++] = new Vector3(CellCenterX(col), y, topZ);
+            pts[idx++] = new Vector3(rightX, y, topZ);
 
             for (int row = n - 1; row >= 0; row--)
-                pts[idx++] = new Vector3(rightX, 0f, CellCenterZ(row));
-            pts[idx] = new Vector3(rightX, 0f, bottomZ);
+                pts[idx++] = new Vector3(rightX, y, CellCenterZ(row));
+            pts[idx] = new Vector3(rightX, y, bottomZ);
 
             return pts;
         }
