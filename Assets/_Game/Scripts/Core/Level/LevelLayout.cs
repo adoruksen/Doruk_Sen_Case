@@ -28,44 +28,19 @@ namespace RubyCase.Core
                 BenchRowZ = benchRowZ;
             }
         }
-
+        
         public static Result Calculate(LevelData data, LevelCreationSettings s)
         {
-            int gridCount = Mathf.Max(1, data.collectableGridWidth); // square grid
+            int gridCount = Mathf.Max(1, data.collectableGridWidth);
 
-            float cellSize = s.GetCellSize(gridCount);
-            float cellPitch = s.GetCellPitch(gridCount);
-            float bp = Mathf.Max(0.0001f, s.BoxPitch);
-
-            int bw = Mathf.Max(1, data.boxGridWidth);
-            int bh = Mathf.Max(1, data.boxGridHeight);
-
-            // Collectable grid world size is always ConveyorInnerSize x ConveyorInnerSize
-            float innerSize = s.ConveyorInnerSize;
-
-            float collectCenterX = innerSize * 0.5f;
-            float collectCenterZ = innerSize * 0.5f;
-
-            // Bench sits below the outer face of the conveyor ring
-            float conveyorOuterEdge = s.GetConveyorOuterEdge(gridCount);
-            float benchZ = -(conveyorOuterEdge + s.ConveyorToBenchGap);
-            float boxTopZ = benchZ - s.BenchToBoxGap;
-            float boxOriginZ = boxTopZ - bh * bp;
-
-            float boxOriginX = collectCenterX - bw * bp * 0.5f;
-            float boxCenterX = boxOriginX + bw * bp * 0.5f;
-            float boxCenterZ = boxOriginZ + bh * bp * 0.5f;
-
-            float shiftX = -collectCenterX;
-            float shiftZ = -((collectCenterZ + boxCenterZ) * 0.5f);
-
-            var collectBL = new Vector3(shiftX, 0f, shiftZ);
-            var collectCenter = new Vector3(collectCenterX + shiftX, 0f, collectCenterZ + shiftZ);
-            var conveyorCenter = collectCenter; // conveyor is centered on the collectable grid
-            var boxCenter = new Vector3(boxCenterX + shiftX, 0f, boxCenterZ + shiftZ);
-
-            return new Result(collectCenter, boxCenter, collectBL, conveyorCenter,
-                cellSize, cellPitch, benchZ + shiftZ);
+            return new Result(
+                collectablesCenter: s.CollectablesCenter,
+                boxesCenter: s.BoxesCenter,
+                collectablesBottomLeft: s.GetCollectablesBottomLeft(gridCount),
+                conveyorCenter: s.CollectablesCenter,
+                cellSize: s.GetCellSize(gridCount),
+                cellPitch: s.GetCellPitch(gridCount),
+                benchRowZ: s.BenchRowZ);
         }
 
         public static Vector3 GridLocalOffsetCentered(Vector2Int cell, int width, int height, float pitch)
