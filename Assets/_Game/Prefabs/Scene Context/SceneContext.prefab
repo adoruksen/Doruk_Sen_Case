@@ -83,6 +83,8 @@ MonoBehaviour:
   levelDatabase: {fileID: 11400000, guid: 850f07bc2491f49cdac7fdea161106f0, type: 2}
   addressableConfig: {fileID: 11400000, guid: e60d4f6ca9b47414b89428023d4a08a5, type: 2}
   levelCreationSettings: {fileID: 11400000, guid: 1f33fe004d674410bbc646ef44461650, type: 2}
+  soundConfig: {fileID: 11400000, guid: c4aa5826cf76f47bd8006e8d81946556, type: 2}
+  particleConfig: {fileID: 11400000, guid: 41f1f36e393874f0eb657d277c212410, type: 2}
   uiManager: {fileID: 0}
   testManager: {fileID: 0}
 --- !u!114 &6843374257695741566

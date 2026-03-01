@@ -1,3 +1,4 @@
+using System;
 using UnityEngine;
 
 namespace RubyCase.BoxSystem
@@ -10,6 +11,11 @@ namespace RubyCase.BoxSystem
         private GameObject _slotImage;
 
         public GameObject CurrentCollectable { get; private set; }
+
+        private void Awake()
+        {
+            _slotImage = transform.GetChild(0).gameObject;
+        }
 
         public void Reserve(GameObject collectable)
         {
