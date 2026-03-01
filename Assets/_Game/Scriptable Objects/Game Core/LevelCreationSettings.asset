@@ -15,7 +15,7 @@ MonoBehaviour:
   ConveyorInnerSize: 5
   ConveyorGridGap: 1
   ConveyorSpeed: 4
-  WaypointInset: 0.5
+  WaypointInset: -0.5
   WaypointY: 1
   CollectableSpacingRatio: 0.02
   BoxCellSize: 1
@@ -23,3 +23,4 @@ MonoBehaviour:
   CollectablesCenter: {x: 0, y: 0, z: 2}
   BoxesCenter: {x: 0, y: 0, z: -14}
   BenchRowZ: -5
+  BenchSpacingX: 1.5
