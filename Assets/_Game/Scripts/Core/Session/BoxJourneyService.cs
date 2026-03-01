@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using DG.Tweening;
+using RubyCase.Core.Audio;
 using RubyCase.Core.Level;
 using RubyCase.Gameplay.BoxSystem;
 using RubyCase.LevelSystem;
@@ -17,6 +18,7 @@ namespace RubyCase.Core.Session
         private readonly LevelCreationSettings _settings;
         private readonly IBoxManager _boxManager;
         private readonly IPoolManager _pool;
+        private readonly ISoundManager _soundManager;
 
         private readonly Dictionary<BoxController, Handlers> _active = new();
 
@@ -34,7 +36,7 @@ namespace RubyCase.Core.Session
             ILevelManager levelManager,
             LevelCreationSettings settings,
             IBoxManager boxManager,
-            IPoolManager pool)
+            IPoolManager pool,ISoundManager soundManager)
         {
             _conveyor = conveyor;
             _bench = bench;
@@ -42,6 +44,7 @@ namespace RubyCase.Core.Session
             _settings = settings;
             _boxManager = boxManager;
             _pool = pool;
+            _soundManager = soundManager;
         }
 
         public bool CanStartJourney(BoxController box) =>
@@ -56,6 +59,8 @@ namespace RubyCase.Core.Session
                 Debug.LogWarning("BoxJourneyService: conveyor not ready.");
                 return;
             }
+            
+            _soundManager.Play(SoundType.BoxClick);
 
             Detach(box);
 
@@ -105,6 +110,7 @@ namespace RubyCase.Core.Session
                 .SetEase(Ease.OutCubic)
                 .OnComplete(() =>
                 {
+                    _soundManager.Play(SoundType.Collect);
                     go.transform.DOPunchScale(Vector3.one * .15f, .1f).SetEase(Ease.OutCubic);
                     slot.Occupy();
                     box.NotifySlotOccupied();
@@ -115,6 +121,8 @@ namespace RubyCase.Core.Session
         {
             Detach(box);
             _levelManager.CurrentSession?.Boxes.MarkResolved(box.gameObject);
+
+            _soundManager.Play(SoundType.BoxFull);
 
             DOVirtual.DelayedCall(.25f, () =>
             {

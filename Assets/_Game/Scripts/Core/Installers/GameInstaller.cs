@@ -1,3 +1,4 @@
+using RubyCase.Core.Audio;
 using RubyCase.Core.GameLoop;
 using RubyCase.Core.Level;
 using RubyCase.Core.Session;
@@ -18,6 +19,8 @@ namespace RubyCase.Core.Installers
         [SerializeField] private AddressableGroupConfig addressableConfig;
         [SerializeField] private LevelCreationSettings levelCreationSettings;
         [SerializeField] private PoolSettings poolSettings;
+        [SerializeField] private SoundSettings soundSettings;
+
 
         [Header("Scene References")]
         [SerializeField] private UIManager uiManager;
@@ -29,6 +32,8 @@ namespace RubyCase.Core.Installers
             Container.BindInstance(addressableConfig).AsSingle();
             Container.BindInstance(levelCreationSettings).AsSingle();
             Container.BindInstance(poolSettings).AsSingle();
+            Container.BindInstance(soundSettings).AsSingle();
+            Container.Bind<ISoundManager>().To<SoundManager>().AsSingle().NonLazy();
             Container.BindInterfacesTo<PoolManager>().AsSingle().NonLazy();
             Container.BindInterfacesTo<LevelManager>().AsSingle();
             Container.BindInterfacesTo<LevelInstantiator>().AsSingle().NonLazy();
