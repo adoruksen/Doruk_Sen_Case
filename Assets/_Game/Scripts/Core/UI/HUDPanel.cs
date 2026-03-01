@@ -1,7 +1,7 @@
 using TMPro;
 using UnityEngine;
 
-namespace RubyCase.UI
+namespace RubyCase.Core.UI
 {
     public class HUDPanel : UIPanel
     {

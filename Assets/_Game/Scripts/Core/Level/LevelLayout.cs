@@ -1,7 +1,7 @@
 using UnityEngine;
 using RubyCase.LevelSystem;
 
-namespace RubyCase.Core
+namespace RubyCase.Core.Level
 {
     public static class LevelLayout
     {

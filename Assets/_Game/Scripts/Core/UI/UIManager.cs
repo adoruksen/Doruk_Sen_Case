@@ -1,9 +1,10 @@
 using Cysharp.Threading.Tasks;
-using RubyCase.Core;
+using RubyCase.Core.GameLoop;
+using RubyCase.Core.Level;
 using UnityEngine;
 using Zenject;
 
-namespace RubyCase.UI
+namespace RubyCase.Core.UI
 {
     public class UIManager : MonoBehaviour, IUIManager
     {

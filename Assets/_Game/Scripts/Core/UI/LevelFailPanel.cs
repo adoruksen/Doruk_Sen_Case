@@ -1,9 +1,9 @@
-using RubyCase.Core;
+using RubyCase.Core.GameLoop;
 using UnityEngine;
 using UnityEngine.UI;
 using Zenject;
 
-namespace RubyCase.UI
+namespace RubyCase.Core.UI
 {
     public class LevelFailPanel : UIPanel
     {

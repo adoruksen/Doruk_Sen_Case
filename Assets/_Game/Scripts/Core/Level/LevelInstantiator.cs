@@ -1,15 +1,17 @@
 using System;
 using System.Collections.Generic;
 using Cysharp.Threading.Tasks;
+using RubyCase.Core.Session;
+using RubyCase.Gameplay.BenchSystem;
+using RubyCase.Gameplay.BoxSystem;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
 using UnityEngine.ResourceManagement.AsyncOperations;
 using RubyCase.LevelSystem;
 using RubyCase.TeamSystem;
-using RubyCase.BoxSystem;
 using Zenject;
 
-namespace RubyCase.Core
+namespace RubyCase.Core.Level
 {
     public class LevelInstantiator : ILevelInstantiator, IInitializable, IDisposable
     {

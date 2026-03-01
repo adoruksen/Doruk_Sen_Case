@@ -2,7 +2,7 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
-namespace RubyCase.UI
+namespace RubyCase.Core.UI
 {
     [RequireComponent(typeof(CanvasGroup))]
     public class UIPanel : MonoBehaviour

@@ -1,10 +1,13 @@
-using RubyCase.Core;
+using RubyCase.Core.GameLoop;
+using RubyCase.Core.Level;
+using RubyCase.Core.Session;
+using RubyCase.Core.UI;
 using RubyCase.LevelSystem;
-using RubyCase.UI;
+using RubyCase.Testing;
 using UnityEngine;
 using Zenject;
 
-namespace RubyCase.Installers
+namespace RubyCase.Core.Installers
 {
     public class GameInstaller : MonoInstaller
     {

@@ -3,7 +3,7 @@ using RubyCase.LevelSystem;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
-namespace RubyCase.Core
+namespace RubyCase.Core.Level
 {
     public sealed class LevelContext : MonoBehaviour
     {

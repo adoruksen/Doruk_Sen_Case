@@ -2,9 +2,9 @@ using System;
 using Cysharp.Threading.Tasks;
 using UnityEngine;
 using RubyCase.LevelSystem;
-using Zenject;
+using RubyCase.Core.Session;
 
-namespace RubyCase.Core
+namespace RubyCase.Core.Level
 {
     public class LevelManager : ILevelManager
     {
@@ -47,8 +47,7 @@ namespace RubyCase.Core
             OnSpawnRequested?.Invoke(data);
         }
 
-        public async UniTask ReloadCurrentAsync() =>
-            await LoadLevelAsync(CurrentIndex >= 0 ? CurrentIndex : 0);
+        public async UniTask ReloadCurrentAsync() => await LoadLevelAsync(CurrentIndex >= 0 ? CurrentIndex : 0);
 
         public async UniTask LoadNextAsync()
         {

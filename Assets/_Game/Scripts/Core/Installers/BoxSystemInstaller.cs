@@ -1,8 +1,7 @@
-using RubyCase.Core;
-using UnityEngine;
+using RubyCase.Core.Session;
 using Zenject;
 
-namespace RubyCase.BoxSystem
+namespace RubyCase.Core.Installers
 {
     public class BoxSystemInstaller : MonoInstaller
     {
