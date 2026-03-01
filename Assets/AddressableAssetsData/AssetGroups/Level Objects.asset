@@ -18,7 +18,8 @@ MonoBehaviour:
   - m_GUID: 5f7ddb84743ed48cfaf5aa79ada4fdc5
     m_Address: Assets/_Game/Prefabs/Conveyor.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Prefab
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 7677804eeee64401c90be3eb96a73d3c
     m_Address: Assets/_Game/Prefabs/Collectable.prefab
@@ -29,7 +30,8 @@ MonoBehaviour:
   - m_GUID: 76ddc7fd6e67b4e6796f919434d80789
     m_Address: Assets/_Game/Prefabs/Bench.prefab
     m_ReadOnly: 0
-    m_SerializedLabels: []
+    m_SerializedLabels:
+    - Prefab
     FlaggedDuringContentUpdateRestriction: 0
   - m_GUID: 90294c59a83274d47952a6eca52a24c8
     m_Address: Assets/_Game/Prefabs/Box.prefab
