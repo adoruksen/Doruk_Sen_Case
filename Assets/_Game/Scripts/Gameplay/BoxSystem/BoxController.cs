@@ -128,7 +128,7 @@ namespace RubyCase.Gameplay.BoxSystem
             foreach (var slot in _slots)
                 slot.Release();
             StateMachine.TransitionTo(IdleState);
-            IsClickable = false;
+            IsClickable = true;
         }
     }
 }
